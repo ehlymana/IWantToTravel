@@ -1,5 +1,7 @@
 package com.example.hotelmanagementservice.Controller;
 
+import com.example.hotelmanagementservice.Model.Hotel;
+import com.example.hotelmanagementservice.Model.Room;
 import com.example.hotelmanagementservice.Service.HotelService;
 import com.example.hotelmanagementservice.Service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ public class RoomController {
 
     @RequestMapping(value = "/addRoom", method = RequestMethod.GET)
     public String addRoom() {
-
+        Hotel h = hotelService.findById(new Long(1));
+        Room r = new Room(1, h, 4, "has wifi");
+        roomService.save(r);
         return "";
     }
 }
