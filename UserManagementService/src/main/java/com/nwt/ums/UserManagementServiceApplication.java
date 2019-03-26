@@ -1,5 +1,7 @@
 package com.nwt.ums;
 
+import com.nwt.ums.Model.User;
+import com.nwt.ums.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +21,7 @@ public class UserManagementServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UserManagementServiceApplication.class, args);
+
     }
 
 }

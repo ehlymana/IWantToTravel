@@ -4,67 +4,97 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
-// ovo za sad ne djeluje na bazu
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Entity
 @Table(name = "USERS")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//
 public class User {
 
     @Id
-    //@Column(name="USER_ID", nullable = false, updatable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userID;
 
+    @NotNull
+//    @Size(min=5, max=30)
+    private String username;
 
-    @Column(name="FIRST_NAME", nullable = false)
-    String firstName;
+    @NotNull
+//    @Size(min=5)
+    private String password;
 
-    @Column(name="LAST_NAME", nullable = false)
-    String lastName;
+    @NotNull
+//    @Size(min=2, max=30)
+    private String firstName;
 
-    @Column(name="USERNAME", nullable = false)
-    String username;
+    @NotNull
+//    @Size(min=2, max=30)
+    private String lastName;
 
-    @Column(name="PASSWORD", nullable = false)
-    String password;
+    private double longitude;
+    private double latitude;
+
+    private String role;
+
+    private String email;
+    private String confirmToken;
+    private String reactivateToken;
+    private String passwordToken;
 
 
-    public User(Long id, String firstName, String lastName, String index, String username, String password) {
-        this.userID = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-//        this.index = index;
+
+    private Boolean enabled;
+
+
+    public User(){}
+
+    public User(String username, String password, String firstName, String lastName, double longitude, double latitude, String role) {
         this.username = username;
         this.password = password;
-//        this.department = departmentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.role = role;
     }
 
-    public User() {
+    public User(User user) {
+        this.role = user.role;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.email = user.email;
+        this.username = user.username;
+        this.password = user.password;
+        this.longitude = user.longitude;
+        this.latitude = user.latitude;
+        this.passwordToken = user.passwordToken;
+        this.confirmToken = user.confirmToken;
+        this.reactivateToken = user.reactivateToken;
+        this.enabled = user.enabled;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getUserID() {
         return userID;
     }
 
-    public void setUserID(Long id) {
-        this.userID = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {
@@ -83,6 +113,74 @@ public class User {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getConfirmToken() {
+        return confirmToken;
+    }
+
+    public void setConfirmToken(String confirmToken) {
+        this.confirmToken = confirmToken;
+    }
+
+    public String getReactivateToken() {
+        return reactivateToken;
+    }
+
+    public void setReactivateToken(String reactivateToke) {
+        this.reactivateToken = reactivateToke;
+    }
+
+    public String getPasswordToken() {
+        return passwordToken;
+    }
+
+    public void setPasswordToken(String passwordToken) {
+        this.passwordToken = passwordToken;
+    }
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 }
-
