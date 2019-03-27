@@ -1,15 +1,13 @@
 package com.services.reservations.Model;
 
 import javax.persistence.*;
-import javax.persistence.Id;
 
 @Entity
 @Table(name = "RESERVATIONS")
 public class Reservation {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long reservationID;
-
+	private long reservationID;
 	@Column(name="USER_LONGITUDE", nullable = false)
 	double userLongitude;
 	@Column(name="USER_LATITUDE", nullable = false)
@@ -18,12 +16,13 @@ public class Reservation {
 	double hotelLongitude;
 	@Column(name="HOTEL_LATITUDE", nullable = false)
 	double hotelLatitude;
-	/*@ManyToOne
+	/*@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "HOTEL_ID", nullable = false)
 	private Hotel hotel;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "USER_ID", nullable = false)
 	private User user;*/
-	public Reservation(Long id, double uLongitude, double uLatitude, double hLongitude, double hLatitude/*, Hotel hotel, User user*/) {
-		this.reservationID = id;
+	public Reservation(double uLongitude, double uLatitude, double hLongitude, double hLatitude/*, Hotel hotel, User user*/) {
 		this.userLongitude = uLongitude;
 		this.userLatitude = uLatitude;
 		this.hotelLongitude = hLongitude;

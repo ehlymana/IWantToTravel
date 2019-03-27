@@ -10,28 +10,31 @@ import java.util.Optional;
 @Service
 public class ReservationService {
     @Autowired
-    private ReservationRespository reservationRespository;
+    private ReservationRespository reservationRepository;
 
     public void save(Reservation reservation) {
-        reservationRespository.save(reservation);
+        reservationRepository.save(reservation);
     }
 
     public void delete(Reservation reservation ) {
-        reservationRespository.delete(reservation);
+        reservationRepository.delete(reservation);
     }
 
     public Reservation findById(Long id) {
-        return reservationRespository.findByReservationID(id);
+        return reservationRepository.findByReservationID(id);
     }
 
   //  public Optional<Reservation> findOne(Long id) { return reservationRespository.findById(id); }
 
+    public Iterable<Reservation> findAll() {
+        return reservationRepository.findAll();
+    }
 
     public Reservation getOne(Long id) {
-        return reservationRespository.getOne(id);
+        return reservationRepository.getOne(id);
     }
 
     public void deleteById(Long id) {
-        reservationRespository.deleteById(id);
+        reservationRepository.deleteById(id);
     }
 }
