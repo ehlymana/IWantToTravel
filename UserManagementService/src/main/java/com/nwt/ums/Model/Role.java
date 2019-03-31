@@ -13,10 +13,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roleID;
 
-    @NotNull
+    @NotNull(message = "Role name cannot be null!")
     private String roleName;
 
-    @NotNull
     private Long userId;
 
     public Role(String roleName, Long userId) {

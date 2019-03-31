@@ -18,8 +18,8 @@ public class RoleController {
 
     @RequestMapping(value = "/addrole", method = RequestMethod.GET)
     public String addRole()  {
-        Role role = new Role("ROLE_USER", Long.parseLong("1"));
-        roleService.save(role);
+       // Role role = new Role("ROLE_USER", Long.parseLong("1"));
+        //roleService.save(role);
         return "";
     }
 }
