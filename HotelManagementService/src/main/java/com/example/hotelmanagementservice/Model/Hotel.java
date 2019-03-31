@@ -1,6 +1,7 @@
 package com.example.hotelmanagementservice.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -16,21 +17,32 @@ public class Hotel {
 //    @JoinColumn(name = "SUPERVIZOR_ID", nullable = false)
 //    User supervizor;
 
+    @NotNull
+    @Size(min=1, message="Hotel name should be at least one character long!")
     @Column(name = "HOTEL_NAME", nullable = false)
     String hotelName;
 
+    @NotNull(message = "Hotel description should not be null!")
     @Column(name = "HOTEL_DESCRIPTION")
     String hotelDescription;
 
+    @NotNull
+    @Size(min=1, message = "Hotel location should be at least one character long!")
     @Column(name = "HOTEL_LOCATION", nullable = false)
     String hotelLocation;
 
+    @NotNull
+    @Size(min=6, message = "Hotel address should have at least six characters!")
     @Column(name = "HOTEL_ADDRESS", nullable = false)
     String hotelAddress;
 
+    @NotNull(message = "Hotel longitude not provided!")
+    @Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
     @Column(name = "HOTE_LONGITUDE")
     long hotelLongitude;
 
+    @NotNull(message = "Hotel latitude not provided!")
+    @Size(min = -90, max = 90, message = "Longitude value out of range! Should be between -90 and 90!")
     @Column(name = "HOTE_LATITUDE")
     long hotelLatitude;
 

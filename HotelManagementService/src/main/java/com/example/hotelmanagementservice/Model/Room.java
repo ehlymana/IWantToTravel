@@ -1,6 +1,8 @@
 package com.example.hotelmanagementservice.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ROOM")
@@ -15,6 +17,8 @@ public class Room {
     @JoinColumn(name = "HOTEL_ID", nullable = false)
     private Hotel hotel;
 
+    @NotNull(message = "Number of beds cannot be null!")
+    @Size(min=1, message = "Number of beds must be greater than zero!")
     @Column(name = "ROOM_BEDS", nullable = false)
     private long roomBeds;
 
