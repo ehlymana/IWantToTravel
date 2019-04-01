@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,40 +25,75 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userID;
 
-    @NotNull
-//    @Size(min=5, max=30)
+    @NotNull (message = "Username cannot be null!")
+    @Size(min=5, max=30, message = "Username must have at lest 5 characters!")
     private String username;
 
-    @NotNull
-//    @Size(min=5)
+    @NotNull (message = "Password cannot be null!")
+    @Size(min=5, message = "Password must have at least 5 characters!")
     private String password;
 
-    @NotNull
-//    @Size(min=2, max=30)
+    @NotNull (message = "First name cannot be null!")
+    @Size(min=2, max=30, message = "First name must be between 2 and 30 characters long!")
     private String firstName;
 
-    @NotNull
-//    @Size(min=2, max=30)
+    @NotNull (message = "Last name cannot be null!")
+    @Size(min=2, max=30, message = "Last name must be between 2 and 30 characters long!")
     private String lastName;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "roleid", nullable = false)
+    private Role role;
+
+    @NotNull (message = "Email cannot be null!")
+    @Email (message = "Email should be valid!")
+    private String email;
+
     private double longitude;
+
     private double latitude;
 
-    private String role;
-
-    private String email;
     private String confirmToken;
+
     private String reactivateToken;
+
     private String passwordToken;
-
-
 
     private Boolean enabled;
 
-
     public User(){}
 
-    public User(String username, String password, String firstName, String lastName, double longitude, double latitude, String role) {
+    public User(@NotNull(message = "Username cannot be null!") @Size(min = 5, max = 30, message = "Username must have at lest 5 characters!") String username, @NotNull(message = "Password cannot be null!") @Size(min = 5, message = "Password must have at least 5 characters!") String password, @NotNull(message = "First name cannot be null!") @Size(min = 2, max = 30, message = "First name must be between 2 and 30 characters long!") String firstName, @NotNull(message = "Last name cannot be null!") @Size(min = 2, max = 30, message = "Last name must be between 2 and 30 characters long!") String lastName, Role role, @NotNull(message = "Email cannot be null!") @Email(message = "Email should be valid!") String email, double longitude, double latitude, String confirmToken, String reactivateToken, String passwordToken, Boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.email = email;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.confirmToken = confirmToken;
+        this.reactivateToken = reactivateToken;
+        this.passwordToken = passwordToken;
+        this.enabled = enabled;
+    }
+
+    public User(@NotNull(message = "Username cannot be null!") @Size(min = 5, max = 30, message = "Username must have at lest 5 characters!") String username, @NotNull(message = "Password cannot be null!") @Size(min = 5, message = "Password must have at least 5 characters!") String password, @NotNull(message = "First name cannot be null!") @Size(min = 2, max = 30, message = "First name must be between 2 and 30 characters long!") String firstName, @NotNull(message = "Last name cannot be null!") @Size(min = 2, max = 30, message = "Last name must be between 2 and 30 characters long!") String lastName, @NotNull(message = "Email cannot be null!") @Email(message = "Email should be valid!") String email, double longitude, double latitude, String confirmToken, String reactivateToken, String passwordToken, Boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.email = email;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.confirmToken = confirmToken;
+        this.reactivateToken = reactivateToken;
+        this.passwordToken = passwordToken;
+        this.enabled = enabled;
+    }
+
+    public User(String username, String password, String firstName, String lastName, double longitude, double latitude, Role role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -145,11 +181,11 @@ public class User {
         this.latitude = latitude;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
