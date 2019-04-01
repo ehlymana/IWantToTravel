@@ -1,11 +1,14 @@
 package com.example.hotelmanagementservice.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ROOM")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Room {
 
     @Id
@@ -30,9 +33,6 @@ public class Room {
         this.hotel = hotel;
         this.roomBeds = roomBeds;
         this.roomDescription = roomDescription;
-    }
-
-    public Room() {
     }
 
     public void setRoomId(long roomId) {

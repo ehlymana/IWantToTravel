@@ -26,7 +26,7 @@ public class ReviewController {
 
     @RequestMapping(value = "/addReview", method = RequestMethod.GET)
     public String addReview() {
-        Review review = new Review(1, "simply the best", new Date());
+        Review review = new Review( "simply the best", new Date());
         reviewService.save(review);
         return "";
     }
