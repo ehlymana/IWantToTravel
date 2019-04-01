@@ -17,7 +17,9 @@ import java.util.List;
 public class ReservationsServiceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ReservationsServiceApplication.class, args);
+		System.out.println("**** Application successfully started! ****");
 	}
 
 }
