@@ -4,20 +4,21 @@ import com.nwt.ums.Model.Role;
 import com.nwt.ums.Model.User;
 import com.nwt.ums.Services.RoleService;
 import com.nwt.ums.Services.UserService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import javax.validation.*;
 import java.io.Console;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,25 +35,68 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserService userService, RoleService roleService) {
+    public UserController(UserService userService, RoleService roleService ) {
 
         this.userService = userService;
         this.roleService = roleService;
-//        testMap.put("username", "nkulovic");
-//        testMap.put("password", "testPassword");
-//        testMap.put("firstName", "Nejra");
-//        testMap.put("lastName", "Kulovic");
-//        testMap.put("longitude", "0.0");
-//        testMap.put("latitude", "0.0");
-//        testMap.put("email", "nkulovic1@etf.unsa.ba");
-//        testMap.put("confirmToken", "");
-//        testMap.put("passwordToken", "");
-//        testMap.put("reactivateToken", "");
-//        testMap.put("enabled", "true");
+    }
+
+    // this method adds user to db with specified role name
+    @RequestMapping (value = "/adduser", method = RequestMethod.POST)
+    public ResponseEntity<Object> addUser(@Valid User user, @RequestParam(value = "roleName", defaultValue = "ROLE_USER") String roleName, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws NotImplementedException {
+
+        if(bindingResult.hasErrors()) {
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            String result = "";
+
+            for (int i = 0; i <  fieldErrors.size() - 1; i++) {
+                result += fieldErrors.get(i).getField();
+                result += ", ";
+            }
+            result += fieldErrors.get(fieldErrors.size() - 1).getField();
+            System.out.println(result);
+            return new ResponseEntity<>("Binding error! Add user failed!", HttpStatus.BAD_REQUEST);
+            // this is the code for showing errors on frontend
+//            if(fieldErrors.size() > 1)
+//                redirectAttributes.addFlashAttribute("failMessage", "Something went wrong! " + result + " fields are not valid. User not added.");
+//            else
+//                redirectAttributes.addFlashAttribute("failMessage", "Something went wrong! " + result + " field is not valid. User not added.");
+
+        } else {
+            Role role = roleService.findByRoleName(roleName);
+            user.setRole(role);
+            //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            userService.save(user);
+            // code for showig messages on frontend
+            //redirectAttributes.addFlashAttribute("successMessage", "User added!");
+            System.out.println("User with role " + roleName + " added!");
+
+        }
+        return new ResponseEntity<>("User with role " + roleName + " added!", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> findUserById (@PathVariable Long id) {
+        User user = new User();
+        user = userService.findById(id);
+        if(user != null) {
+            return new ResponseEntity<>(user, HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/delete/user/{id}", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
+        try {
+            userService.delete(userService.findById(id));
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("User deleted!", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/adduser", method = RequestMethod.GET)
-    public String addUser(){
+    public String addUserget() throws NotImplementedException {
 
         Role role = new Role("ROLE_USERNAME", Long.parseLong("1"));
         // trebalo bi dodati hashiranje password-a
@@ -84,14 +128,18 @@ public class UserController {
 //                        user.get("reactivateToken"), user.get("passwordToken"), Boolean.parseBoolean(user.get("enabled")));
 //    }
 
-    @RequestMapping(name = "/getuserTest", method = RequestMethod.GET)
-    public User getUserTest(@RequestParam(value = "username", defaultValue = "username") String username, @RequestParam(value = "password", defaultValue = "password") String password,
-                            @RequestParam(value = "firstName", defaultValue = "firstName") String firstName, @RequestParam (value = "lastName", defaultValue = "lastName") String lastName) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        return user;
-    }
+//    @RequestMapping(name = "/getuserTest", method = RequestMethod.GET)
+//    public User getUserTest(@RequestParam(value = "username", defaultValue = "username") String username, @RequestParam(value = "password", defaultValue = "password") String password,
+//                            @RequestParam(value = "firstName", defaultValue = "firstName") String firstName, @RequestParam (value = "lastName", defaultValue = "lastName") String lastName) {
+//        User user = new User();
+//        user.setUsername(username);
+//        user.setPassword(password);
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        return user;
+//    }
+
+
+
+
 }
