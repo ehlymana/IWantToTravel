@@ -21,8 +21,8 @@ public class Reservation {
 	double userLongitude;
 
 	@NotNull(message = "User latitude must be specified!")
-	@Min(value = -90, message = "User latitude value out of range! Should be between -180 and 180!")
-	@Max(value = 90, message = "User latitude value out of range! Should be between -180 and 180!")
+	@Min(value = -90, message = "User latitude value out of range! Should be between -90 and 90!")
+	@Max(value = 90, message = "User latitude value out of range! Should be between -90 and 90!")
 	@Column(name="USER_LATITUDE", nullable = false)
 	double userLatitude;
 
@@ -33,8 +33,8 @@ public class Reservation {
 	double hotelLongitude;
 
 	@NotNull(message = "Hotel latitude must be specified!")
-	@Min(value = -90, message = "Hotel latitude value out of range! Should be between -180 and 180!")
-	@Max(value = 90, message = "Hotel latitude value out of range! Should be between -180 and 180!")
+	@Min(value = -90, message = "Hotel latitude value out of range! Should be between -90 and 90!")
+	@Max(value = 90, message = "Hotel latitude value out of range! Should be between -90 and 90!")
 	@Column(name="HOTEL_LATITUDE", nullable = false)
 	double hotelLatitude;
 
@@ -116,6 +116,14 @@ public class Reservation {
 		this.hotelLongitude = l;
 	}
 
+	public double getHotelLatiitude() {
+		return hotelLatitude;
+	}
+
+	public void setHotelLatitude(double l) {
+		this.hotelLatitude = l;
+	}
+
 	public Hotel getHotel() {
 		return hotel;
 	}
@@ -130,5 +138,13 @@ public class Reservation {
 
 	public void setUser(User u) {
 		this.user = u;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room r) {
+		this.room = r;
 	}
 }

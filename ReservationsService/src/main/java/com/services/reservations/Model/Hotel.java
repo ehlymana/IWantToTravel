@@ -20,8 +20,8 @@ public class Hotel {
     private long hotelId;
 
     @NotNull(message = "Hotel longitude must be specified!")
-    @Min(value = -180, message = "Hotel latitude value out of range! Should be between -180 and 180!")
-    @Max(value = 180, message = "Hotel latitude value out of range! Should be between -180 and 180!")
+    @Min(value = -180, message = "Hotel longitude value out of range! Should be between -180 and 180!")
+    @Max(value = 180, message = "Hotel longitude value out of range! Should be between -180 and 180!")
     @Column(name = "HOTEL_LONGITUDE")
     private long hotelLongitude;
 

@@ -21,8 +21,8 @@ public class User {
     private double longitude;
 
     @NotNull(message = "Latitude must be specified!")
-    @Min(value = -90, message = "Latitude value out of range! Should be between -180 and 180!")
-    @Max(value = 90, message = "Latitude value out of range! Should be between -180 and 180!")
+    @Min(value = -90, message = "Latitude value out of range! Should be between -90 and 90!")
+    @Max(value = 90, message = "Latitude value out of range! Should be between -90 and 90!")
     @Column(name="LATITUDE", nullable = false)
     private double latitude;
 
