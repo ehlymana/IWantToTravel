@@ -1,24 +1,28 @@
 package com.services.reservations.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "USERS")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userID;
 
-    @NotBlank(message = "Longitude must be specified!")
-    @Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
+    @NotNull(message = "Longitude must be specified!")
+    @Min(value = -180, message = "Longitude value out of range! Should be between -180 and 180!")
+    @Max(value = 180, message = "Longitude value out of range! Should be between -180 and 180!")
     @Column(name = "LONGITUDE")
     private double longitude;
 
-    @NotBlank(message = "Latitude must be specified!")
-    @Size(min = -90, max = 90, message = "Latitude value out of range! Should be between -90 and 90!")
+    @NotNull(message = "Latitude must be specified!")
+    @Min(value = -90, message = "Latitude value out of range! Should be between -180 and 180!")
+    @Max(value = 90, message = "Latitude value out of range! Should be between -180 and 180!")
     @Column(name="LATITUDE", nullable = false)
     private double latitude;
 

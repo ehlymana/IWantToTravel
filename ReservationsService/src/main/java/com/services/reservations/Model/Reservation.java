@@ -1,33 +1,40 @@
 package com.services.reservations.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "RESERVATIONS")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Reservation {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long reservationID;
 
-	@NotBlank(message = "User longitude must be specified!")
-	@Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
+	@NotNull(message = "User longitude must be specified!")
+	@Min(value = -180, message = "User longitude value out of range! Should be between -180 and 180!")
+	@Max(value = 180, message = "User longitude value out of range! Should be between -180 and 180!")
 	@Column(name="USER_LONGITUDE", nullable = false)
 	double userLongitude;
 
-	@NotBlank(message = "User latitude must be specified!")
-	@Size(min = -90, max = 90, message = "Latitude value out of range! Should be between -90 and 90!")
+	@NotNull(message = "User latitude must be specified!")
+	@Min(value = -90, message = "User latitude value out of range! Should be between -180 and 180!")
+	@Max(value = 90, message = "User latitude value out of range! Should be between -180 and 180!")
 	@Column(name="USER_LATITUDE", nullable = false)
 	double userLatitude;
 
-	@NotBlank(message = "Hotel longitude must be specified!")
-	@Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
+	@NotNull(message = "Hotel longitude must be specified!")
+	@Min(value = -180, message = "Hotel longitude value out of range! Should be between -180 and 180!")
+	@Max(value = 180, message = "Hotel longitude value out of range! Should be between -180 and 180!")
 	@Column(name="HOTEL_LONGITUDE", nullable = false)
 	double hotelLongitude;
 
-	@NotBlank(message = "Hotel latitude must be specified!")
-	@Size(min = -90, max = 90, message = "Latitude value out of range! Should be between -90 and 90!")
+	@NotNull(message = "Hotel latitude must be specified!")
+	@Min(value = -90, message = "Hotel latitude value out of range! Should be between -180 and 180!")
+	@Max(value = 90, message = "Hotel latitude value out of range! Should be between -180 and 180!")
 	@Column(name="HOTEL_LATITUDE", nullable = false)
 	double hotelLatitude;
 

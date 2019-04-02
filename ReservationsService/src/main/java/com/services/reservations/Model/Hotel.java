@@ -1,11 +1,17 @@
 package com.services.reservations.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "HOTEL")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Hotel {
 
     @Id
@@ -13,13 +19,15 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long hotelId;
 
-    @NotBlank(message = "Hotel longitude must be specified!")
-    @Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
+    @NotNull(message = "Hotel longitude must be specified!")
+    @Min(value = -180, message = "Hotel latitude value out of range! Should be between -180 and 180!")
+    @Max(value = 180, message = "Hotel latitude value out of range! Should be between -180 and 180!")
     @Column(name = "HOTEL_LONGITUDE")
     private long hotelLongitude;
 
-    @NotBlank(message = "Hotel latitude must be specified!")
-    @Size(min = -90, max = 90, message = "Latitude value out of range! Should be between -90 and 90!")
+    @NotNull(message = "Hotel latitude must be specified!")
+    @Min(value = -90, message = "Hotel latitude value out of range! Should be between -180 and 180!")
+    @Max(value = 90, message = "Hotel latitude value out of range! Should be between -180 and 180!")
     @Column(name = "HOTEL_LATITUDE")
     private long hotelLatitude;
 
