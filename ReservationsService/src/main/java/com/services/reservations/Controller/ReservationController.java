@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.services.reservations.Model.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -33,68 +34,33 @@ public class ReservationController {
         this.roomService = roomService;
     }
 
-    @RequestMapping(value = "/addreservation", method = RequestMethod.GET)
-    public String addReservation() {
-        User u1 = new User(10.0, 10.0);
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<User>> violations1 = validator.validate(u1);
-        if(violations1.size() > 0) {
-            for (ConstraintViolation<User> violation : violations1) {
-                System.out.println("**** ERROR: " + violation.getMessage() + " ****");
+    @RequestMapping(value = "/addReservation", method = RequestMethod.GET)
+    public String addReservation(@RequestParam(value="userLongitude") long userLongitude, @RequestParam(value="userLatitude") long userLatitude,
+                                 @RequestParam(value="hotelLongitude") long hotelLongitude, @RequestParam(value="hotelLatitude") long hotelLatitude,
+                                 @RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
+                                 @RequestParam(value="roomID") long roomID) {
+        try {
+            Hotel h = hotelService.findById(hotelID);
+            User u = userService.findById(userID);
+            Room r = roomService.findById(roomID);
+            Reservation reservation = new Reservation(userLongitude, userLatitude, hotelLongitude, hotelLatitude, h, u, r);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<Reservation>> violations = validator.validate(reservation);
+            if (violations.size() > 0) {
+                for (ConstraintViolation<Reservation> violation : violations) {
+                    System.out.println("**** ERROR: " + violation.getMessage() + " ****");
+                    return violation.getMessage();
+                }
+                return "";
+            } else {
+                reservationService.save(reservation);
+                System.out.println("**** Reservation successfully added! ****");
+                return reservation.toString();
             }
-            return "";
-        } else {
-            userService.save(u1);
-            System.out.println("**** User u1 successfully added! ****");
         }
-        User u2 = new User(-10.0, -10.0);
-        violations1 = validator.validate(u2);
-        if(violations1.size() > 0) {
-            for (ConstraintViolation<User> violation : violations1) {
-                System.out.println("**** ERROR: " + violation.getMessage() + " ****");
-            }
-            return "";
-        } else {
-            userService.save(u2);
-            System.out.println("**** User u2 successfully added! ****");
+        catch (Exception e) {
+            return e.getMessage();
         }
-        Room r = new Room();
-        roomService.save(r);
-        System.out.println("**** Room r successfully added! ****");
-        Hotel h = new Hotel(50, 50);
-        Set<ConstraintViolation<Hotel>> violations2 = validator.validate(h);
-        if(violations2.size() > 0) {
-            for (ConstraintViolation<Hotel> violation : violations2) {
-                System.out.println("**** ERROR: " + violation.getMessage() + " ****");
-            }
-            return "";
-        } else {
-            hotelService.save(h);
-            System.out.println("**** Hotel h successfully added! ****");
-        }
-        Reservation r1 = new Reservation(h, u1, r);
-        Set<ConstraintViolation<Reservation>> violations3 = validator.validate(r1);
-        if(violations3.size() > 0) {
-            for (ConstraintViolation<Reservation> violation : violations3) {
-                System.out.println("**** ERROR: " + violation.getMessage() + " ****");
-            }
-            return "";
-        } else {
-            reservationService.save(r1);
-            System.out.println("**** Reservation r1 successfully added! ****");
-        }
-        Reservation r2 = new Reservation(h, u2, r);
-        violations3 = validator.validate(r2);
-        if(violations3.size() > 0) {
-            for (ConstraintViolation<Reservation> violation : violations3) {
-                System.out.println("**** ERROR: " + violation.getMessage() + " ****");
-            }
-            return "";
-        } else {
-            reservationService.save(r2);
-            System.out.println("**** Reservation r2 successfully added! ****");
-        }
-        return "";
     }
 }
