@@ -40,12 +40,12 @@ public class Hotel {
     String hotelAddress;
 
     @NotNull(message = "Hotel longitude not provided!")
-    @Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
+    //@Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
     @Column(name = "HOTE_LONGITUDE")
     long hotelLongitude;
 
     @NotNull(message = "Hotel latitude not provided!")
-    @Size(min = -90, max = 90, message = "Longitude value out of range! Should be between -90 and 90!")
+    //@Size(min = -90, max = 90, message = "Longitude value out of range! Should be between -90 and 90!")
     @Column(name = "HOTE_LATITUDE")
     long hotelLatitude;
 
@@ -59,6 +59,8 @@ public class Hotel {
         this.hotelLongitude = hotelLongitude;
         this.hotelLatitude = hotelLatitude;
     }
+
+    public Hotel(){}
 
     public long getHotelId() {
         return hotelId;

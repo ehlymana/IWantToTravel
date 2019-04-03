@@ -14,8 +14,9 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public void save(Room room) {
+    public Room save(Room room) {
         roomRepository.save(room);
+        return room;
     }
 
 

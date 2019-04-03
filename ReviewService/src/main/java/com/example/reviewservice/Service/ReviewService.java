@@ -5,6 +5,8 @@ import com.example.reviewservice.Respository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ReviewService {
 
@@ -15,8 +17,9 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-    public void save(Review review) {
+    public Review save(Review review) {
         reviewRepository.save(review);
+        return review;
     }
 
 
