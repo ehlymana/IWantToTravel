@@ -3,6 +3,7 @@ package com.example.hotelmanagementservice.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,24 +17,27 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long roomId;
 
+    @NotNull(message = "Hotel ID cannot be null!")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "HOTEL_ID", nullable = false)
+    @JoinColumn(name = "HOTEL_ID", unique=true, referencedColumnName = "HOTEL_ID")
     private Hotel hotel;
 
     @NotNull(message = "Number of beds cannot be null!")
-    @Size(min=1, message = "Number of beds must be greater than zero!")
+    @Min(value = 1, message = "Number of beds must be greater than zero!")
     @Column(name = "ROOM_BEDS", nullable = false)
-    private long roomBeds;
+    private int roomBeds;
 
     @Column(name = "ROOM_DESCRIPTION")
     private String roomDescription;
 
-    public Room(long id, Hotel hotel, long roomBeds, String roomDescription) {
-        this.roomId = id;
+    public Room( Hotel hotel, int roomBeds, String roomDescription) {
+        //this.roomId = id;
         this.hotel = hotel;
         this.roomBeds = roomBeds;
         this.roomDescription = roomDescription;
     }
+
+    public Room(){}
 
     public void setRoomId(long roomId) {
         this.roomId = roomId;
@@ -43,7 +47,7 @@ public class Room {
         this.hotel = hotel;
     }
 
-    public void setRoomBeds(long roomBeds) {
+    public void setRoomBeds(int roomBeds) {
         this.roomBeds = roomBeds;
     }
 
@@ -59,7 +63,7 @@ public class Room {
         return hotel;
     }
 
-    public long getRoomBeds() {
+    public int getRoomBeds() {
         return roomBeds;
     }
 

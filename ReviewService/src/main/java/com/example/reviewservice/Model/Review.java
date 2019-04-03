@@ -16,9 +16,9 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long reviewId;
 
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "HOTEL_ID", nullable = false)
-//    private Hotel hotel;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "HOTEL_ID", nullable = false)
+    private Hotel hotel;
 
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "USER_ID", nullable = false)
