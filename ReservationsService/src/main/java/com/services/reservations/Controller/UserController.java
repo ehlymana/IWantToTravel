@@ -33,10 +33,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST, produces = "application/json")
-    public JSONObject addUser(@RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude){
+    public JSONObject addUser(@RequestParam(value="userID") long userID, @RequestParam(value="longitude") double longitude, @RequestParam(value="latitude") double latitude){
         JSONObject json = new JSONObject();
         try {
-            User u = new User(longitude, latitude);
+            User u = new User(userID, longitude, latitude);
             if (userService.findById(u.getUserID()) != null) throw new UserAlreadyExistsException(u.getUserID());
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

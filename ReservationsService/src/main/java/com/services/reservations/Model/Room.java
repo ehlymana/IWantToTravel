@@ -5,14 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ROOM")
+@Table(name = "ROOMS_RESERVATION")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Room {
 
     @Id
     @Column(name = "ROOM_ID", nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long roomId;
+
+    public Room(long roomID) {
+        this.roomId = roomID;
+    }
 
     public Room() {
 

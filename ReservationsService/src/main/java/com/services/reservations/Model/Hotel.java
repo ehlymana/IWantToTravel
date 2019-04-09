@@ -10,13 +10,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "HOTEL")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "HOTELS_RESERVATION")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Hotel {
 
     @Id
     @Column(name = "HOTEL_ID", nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long hotelId;
 
     @NotNull(message = "Hotel longitude must be specified!")
@@ -31,7 +30,8 @@ public class Hotel {
     @Column(name = "HOTEL_LATITUDE")
     private long hotelLatitude;
 
-    public Hotel(long hotelLongitude, long hotelLatitude) {
+    public Hotel(long hotelID, long hotelLongitude, long hotelLatitude) {
+        this.hotelId = hotelID;
         this.hotelLongitude = hotelLongitude;
         this.hotelLatitude = hotelLatitude;
     }

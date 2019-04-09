@@ -30,10 +30,10 @@ public class HotelController {
     }
 
     @RequestMapping(value = "/addHotel", method = RequestMethod.POST, produces = "application/json")
-    public JSONObject addHotel(@RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude) {
+    public JSONObject addHotel(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude) {
         JSONObject json = new JSONObject();
         try {
-            Hotel h = new Hotel(longitude, latitude);
+            Hotel h = new Hotel(hotelID, longitude, latitude);
             if (hotelService.findById(h.getHotelId()) != null) throw new HotelAlreadyExistsException(h.getHotelId());
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

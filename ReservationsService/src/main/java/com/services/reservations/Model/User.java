@@ -6,13 +6,13 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "USERS")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "USERS_RESERVATION")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userID;
+    @Column(name = "USER_ID", nullable = false, updatable = false)
+    private long userID;
 
     @NotNull(message = "Longitude must be specified!")
     @Min(value = -180, message = "Longitude value out of range! Should be between -180 and 180!")
@@ -28,7 +28,8 @@ public class User {
 
     public User(){}
 
-    public User(double longitude, double latitude) {
+    public User(long userID, double longitude, double latitude) {
+        this.userID = userID;
         this.longitude = longitude;
         this.latitude = latitude;
     }
