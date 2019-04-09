@@ -5,14 +5,17 @@ import com.services.reservations.Exceptions.HotelDoesntExistException;
 import com.services.reservations.Exceptions.HotelNotFoundException;
 import com.services.reservations.Model.Hotel;
 import com.services.reservations.Services.HotelService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.xml.ws.Response;
 import java.util.Set;
 
 @RestController
@@ -26,8 +29,9 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @RequestMapping(value = "/addHotel", method = RequestMethod.POST)
-    public String addHotel(@RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude) {
+    @RequestMapping(value = "/addHotel", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject addHotel(@RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude) {
+        JSONObject json = new JSONObject();
         try {
             Hotel h = new Hotel(longitude, latitude);
             if (hotelService.findById(h.getHotelId()) != null) throw new HotelAlreadyExistsException(h.getHotelId());
@@ -37,45 +41,54 @@ public class HotelController {
             if (violations.size() > 0) {
                 for (ConstraintViolation<Hotel> violation : violations) {
                     System.out.println("**** ERROR: " + violation.getMessage() + " ****");
-                    return violation.getMessage();
+                    json.put("status", HttpStatus.BAD_REQUEST);
+                    json.put("message", violation.getMessage());
                 }
-                return "";
             } else {
                 hotelService.save(h);
                 System.out.println("**** Hotel successfully added! ****");
-                return "Hotel with ID: " + h.getHotelId() +
-                        "\n Longitude: " + h.getHotelLongitude() +
-                        "\n Latitude: " + h.getHotelLatitude() +
-                        "\n Successfully added!";
+                json.put("status", HttpStatus.OK);
+                json.put("hotel", h);
             }
         }
         catch (Exception e) {
-            return e.getMessage();
+            json.put("status", HttpStatus.BAD_REQUEST);
+            json.put("message", e.getMessage());
         }
+        return json;
     }
-    @RequestMapping(value = "/findHotel", method = RequestMethod.POST)
-    public Hotel findHotel(@RequestParam(value="id") long id) {
+    @RequestMapping(value = "/findHotel", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject findHotel(@RequestParam(value="id") long id) {
+        JSONObject json = new JSONObject();
         Hotel h = hotelService.findById(id);
         if (h == null) throw new HotelDoesntExistException(id);
         else {
             System.out.println("**** Hotel successfully found! ****");
-            return h;
+            json.put("status", HttpStatus.OK);
+            json.put("hotel", h);
+            return json;
         }
     }
-    @RequestMapping(value = "/deleteHotel", method = RequestMethod.POST)
-    public String deleteHotel(@RequestParam(value="id") long id) {
+    @RequestMapping(value = "/deleteHotel", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject deleteHotel(@RequestParam(value="id") long id) {
+        JSONObject json = new JSONObject();
         Hotel h = hotelService.findById(id);
         if (h == null) throw new HotelNotFoundException(id);
         else {
             hotelService.delete(h);
             System.out.println("**** Hotel successfully deleted! ****");
-            return "Hotel with ID: " + h.getHotelId() + " successfully deleted!";
+            json.put("status", HttpStatus.OK);
+            json.put("hotel", h);
+            return json;
         }
     }
-    @RequestMapping(value = "/hotels", method = RequestMethod.GET)
-    public Iterable<Hotel> getHotels() {
+    @RequestMapping(value = "/hotels", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject getHotels() {
+        JSONObject json = new JSONObject();
         Iterable<Hotel> hotels = hotelService.findAll();
         System.out.println("**** Hotels successfully fetched! ****");
-        return hotels;
+        json.put("status", HttpStatus.OK);
+        json.put("hotels", hotels);
+        return json;
     }
 }

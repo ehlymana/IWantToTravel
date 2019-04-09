@@ -5,8 +5,10 @@ import com.services.reservations.Services.HotelService;
 import com.services.reservations.Services.ReservationService;
 import com.services.reservations.Services.RoomService;
 import com.services.reservations.Services.UserService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,11 +42,12 @@ public class ReservationController {
         this.roomService = roomService;
     }
 
-    @RequestMapping(value = "/addReservation", method = RequestMethod.POST)
-    public String addReservation(@RequestParam(value="userLongitude") long userLongitude, @RequestParam(value="userLatitude") long userLatitude,
-                                 @RequestParam(value="hotelLongitude") long hotelLongitude, @RequestParam(value="hotelLatitude") long hotelLatitude,
-                                 @RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
-                                 @RequestParam(value="roomID") long roomID) {
+    @RequestMapping(value = "/addReservation", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject addReservation(@RequestParam(value="userLongitude") long userLongitude, @RequestParam(value="userLatitude") long userLatitude,
+                                     @RequestParam(value="hotelLongitude") long hotelLongitude, @RequestParam(value="hotelLatitude") long hotelLatitude,
+                                     @RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
+                                     @RequestParam(value="roomID") long roomID) {
+        JSONObject json = new JSONObject();
         try {
             Hotel h = hotelService.findById(hotelID);
             if (h == null) throw new HotelDoesntExistException(hotelID);
@@ -60,55 +63,60 @@ public class ReservationController {
             if (violations.size() > 0) {
                 for (ConstraintViolation<Reservation> violation : violations) {
                     System.out.println("**** ERROR: " + violation.getMessage() + " ****");
-                    return violation.getMessage();
+                    json.put("status", HttpStatus.BAD_REQUEST);
+                    json.put("message", violation.getMessage());
                 }
-                return "";
             } else {
                 reservationService.save(reservation);
                 System.out.println("**** Reservation successfully added! ****");
-                return "Reservation with ID: " + reservation.getReservationID() +
-                        "\n User Longitude: " + reservation.getUserLongitude() +
-                        "\n User Latitude: " + reservation.getUserLatiitude() +
-                        "\n Hotel Longitude: " + reservation.getHotelLongitude() +
-                        "\n Hotel Latitude: " + reservation.getHotelLatiitude() +
-                        "\n Hotel ID: " + reservation.getHotel().getHotelId() +
-                        "\n User ID: " + reservation.getUser().getUserID() +
-                        "\n Room ID: " + reservation.getRoom().getRoomId() +
-                        "\n Successfully added!";
+                json.put("status", HttpStatus.OK);
+                json.put("reservation", reservation);
             }
         }
         catch (Exception e) {
-            return e.getMessage();
+            json.put("status", HttpStatus.BAD_REQUEST);
+            json.put("message", e.getMessage());
         }
+        return json;
     }
-    @RequestMapping(value = "/findReservation", method = RequestMethod.POST)
-    public Reservation findReservation(@RequestParam(value="id") long id) {
+    @RequestMapping(value = "/findReservation", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject findReservation(@RequestParam(value="id") long id) {
+        JSONObject json = new JSONObject();
         Reservation r = reservationService.findById(id);
         if (r == null) throw new ReservationDoesntExistException(id);
         else {
             System.out.println("**** Reservation successfully found! ****");
-            return r;
+            json.put("status", HttpStatus.OK);
+            json.put("reservation", r);
+            return json;
         }
     }
-    @RequestMapping(value = "/deleteReservation", method = RequestMethod.POST)
-    public String deleteReservation(@RequestParam(value="id") long id) {
+    @RequestMapping(value = "/deleteReservation", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject deleteReservation(@RequestParam(value="id") long id) {
+        JSONObject json = new JSONObject();
         Reservation r = reservationService.findById(id);
         if (r == null) throw new ReservationNotFoundException(id);
         else {
             reservationService.delete(r);
             System.out.println("**** Reservation successfully deleted! ****");
-            return "Reservation with ID: " + r.getReservationID() + " successfully deleted!";
+            json.put("status", HttpStatus.OK);
+            json.put("reservation", r);
+            return json;
         }
     }
-    @RequestMapping(value = "/reservations", method = RequestMethod.GET)
-    public Iterable<Reservation> getReservations() {
+    @RequestMapping(value = "/reservations", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject getReservations() {
+        JSONObject json = new JSONObject();
         Iterable<Reservation> reservations = reservationService.findAll();
         System.out.println("**** Reservations successfully fetched! ****");
-        return reservations;
+        json.put("status", HttpStatus.OK);
+        json.put("reservations", reservations);
+        return json;
     }
-    @RequestMapping(value = "/reservationsByID", method = RequestMethod.GET)
-    public List<Reservation> getReservationsByID(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
+    @RequestMapping(value = "/reservationsByID", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject getReservationsByID(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
                                              @RequestParam(value="roomID") long roomID) {
+        JSONObject json = new JSONObject();
         Iterable<Reservation> reservations = reservationService.findAll();
         List<Reservation> listOfReservations = new ArrayList<Reservation>();
         for (Reservation r : reservations) {
@@ -116,6 +124,8 @@ public class ReservationController {
             && r.getRoom().getRoomId() == roomID) listOfReservations.add(r);
         }
         System.out.println("**** Reservations successfully fetched! ****");
-        return listOfReservations;
+        json.put("status", HttpStatus.OK);
+        json.put("reservations", listOfReservations);
+        return json;
     }
 }
