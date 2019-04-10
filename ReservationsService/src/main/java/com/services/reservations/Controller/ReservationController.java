@@ -56,14 +56,16 @@ public class ReservationController {
             ResponseEntity<String> response = restTemplate.getForEntity(hotelByIDURL + Long.toString(hotelID), String.class);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
-            JsonNode hID = root.path("hotelID");
+            JsonNode hID = root.path("hotelId");
             JsonNode hLongitude = root.path("hotelLongitude");
             JsonNode hLatitude = root.path("hotelLatitude");
+            System.out.println(hID + " " + hLongitude + " " + hLatitude);
             if (hID.asLong() != hotelID) throw new HotelDoesntExistException(hotelID);
-            Hotel h = new Hotel(hID.asLong(), hLongitude.asLong(), hLatitude.asLong());
-            Hotel hotel = hotelService.findById(h.getHotelId());
-            if (hotel == null)hotelService.save(h);
-            else h = hotel;
+            Hotel h = hotelService.findById(hotelID);
+            if (h == null) {
+                h = new Hotel(hID.asLong(), hLongitude.asLong(), hLatitude.asLong());
+                hotelService.save(h);
+            }
             // sinhrona komunikacija 2 - treba nam user s porta 8088
             String userByIDURL = "http://localhost:8088/user/";
             response = restTemplate.getForEntity(userByIDURL + Long.toString(userID), String.class);
@@ -72,21 +74,25 @@ public class ReservationController {
             JsonNode uID = root.path("userID");
             JsonNode uLongitude = root.path("longitude");
             JsonNode uLatitude = root.path("latitude");
+            System.out.println(uID + " " + uLongitude + " " + uLatitude);
             if (uID.asLong() != userID) throw new UserDoesntExistException(userID);
-            User u = new User(uID.asLong(), uLongitude.asDouble(), uLatitude.asDouble());
-            User user = userService.findById(u.getUserID());
-            if (user == null)userService.save(u);
-            else u = user;
+            User u = userService.findById(userID);
+            if (u == null) {
+                u = new User(uID.asLong(), uLongitude.asDouble(), uLatitude.asDouble());
+                userService.save(u);
+            }
             // sinhrona komunikacija 3 - treba nam room s porta 8089
             String roomByID = "http://localhost:8089/rooms/";
             response = restTemplate.getForEntity(roomByID + Long.toString(roomID), String.class);
             root = mapper.readTree(response.getBody());
-            JsonNode rID = root.path("roomID");
+            JsonNode rID = root.path("roomId");
+            System.out.println(rID);
             if (rID.asLong() != roomID) throw new RoomDoesntExistException(roomID);
-            Room r = new Room(rID.asLong());
-            Room room = roomService.findById(r.getRoomId());
-            if (room == null)roomService.save(r);
-            else r = room;
+            Room r = roomService.findById(roomID);
+            if (r == null) {
+                r = new Room(rID.asLong());
+                roomService.save(r);
+            }
             Reservation reservation = new Reservation(u.getLongitude(), u.getLatitude(), h.getHotelLongitude(), h.getHotelLatitude(), h, u, r);
             if (reservationService.findById(reservation.getReservationID()) != null) throw new ReservationAlreadyExistsException(reservation.getReservationID());
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
