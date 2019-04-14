@@ -84,6 +84,11 @@
 			<version>2.1.5.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.netflix.ribbon</groupId>
+			<artifactId>ribbon-eureka</artifactId>
+		</dependency>
+
 
 	</dependencies>
 

@@ -13,11 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import com.services.reservations.Model.*;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.ConstraintViolation;
@@ -43,6 +40,18 @@ public class ReservationController {
         this.hotelService = hotelService;
         this.roomService = roomService;
         this.userService = userService;
+    }
+
+    // nejra
+    @RequestMapping (value="/reservation/add", method = RequestMethod.POST)
+    public String add() {
+        Hotel hotel = new Hotel(1, 0, 0);
+        hotelService.save(hotel);
+        Room room = new Room(1);
+        roomService.save(room);
+        Reservation reservation = new Reservation(0, 0, 0, 0, hotel, room);
+        reservationService.save(reservation);
+        return "";
     }
 
     @RequestMapping(value = "/addReservation", method = RequestMethod.POST, produces = "application/json")
@@ -129,6 +138,15 @@ public class ReservationController {
             return json;
         }
     }
+
+    // nejra
+    @RequestMapping(value = "/hi", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject hi() {
+        JSONObject json = new JSONObject();
+        json.put("message", "jo");
+        return json;
+    }
+
     @RequestMapping(value = "/deleteReservation", method = RequestMethod.POST, produces = "application/json")
     public JSONObject deleteReservation(@RequestParam(value="id") long id) {
         JSONObject json = new JSONObject();
@@ -191,5 +209,18 @@ public class ReservationController {
         json.put("status", HttpStatus.OK);
         json.put("reservations", listOfReservations);
         return json;
+    }
+
+    // nejra
+    @RequestMapping(value = "/reservations/user/{userID}", method = RequestMethod.GET, produces = "application/json")
+    public Iterable<Reservation> findReservationsByUserID(@PathVariable long userID) {
+
+        try {
+            Iterable<Reservation> reservations = reservationService.findAll();
+            return reservations;
+        } catch(Exception e) {
+            throw new UserDoesntExistException(userID);
+        }
+
     }
 }

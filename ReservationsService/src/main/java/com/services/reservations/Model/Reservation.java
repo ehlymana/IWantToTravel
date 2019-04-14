@@ -50,6 +50,8 @@ public class Reservation {
 	@JoinColumn(name = "ROOM_ID", nullable = false)
 	private Room room;
 
+	public Reservation() {}
+
 	public Reservation(double uLongitude, double uLatitude, double hLongitude, double hLatitude, Hotel hotel, User user, Room room) {
 		this.userLongitude = uLongitude;
 		this.userLatitude = uLatitude;
@@ -80,7 +82,7 @@ public class Reservation {
 		this.room = r.room;
 	}
 
-	public Reservation() {
+	public Reservation(int i, int i1, int i2, int i3, Hotel hotel, Room room) {
 
 	}
 
