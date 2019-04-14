@@ -58,9 +58,14 @@ public class RoomController {
 
     @PostMapping("/rooms")
     @ResponseBody
-    Room newRoom(@RequestBody Object newRoom) {
+    Room newRoom(@RequestBody JSONObject newRoom) {
         try {
-            return roomService.save(new Room(hotelService.findById((long) 4), 3, "opis"));
+            System.out.println(newRoom);
+
+            System.out.println( newRoom.get("roomDescription").toString());
+            System.out.println(Integer.valueOf( newRoom.get("roomBeds").toString()));
+            System.out.println(Long.valueOf(newRoom.get("hotel").toString()));
+            return roomService.save(new Room(hotelService.findById(Long.valueOf(newRoom.get("hotel").toString())), Integer.valueOf( newRoom.get("roomBeds").toString()), newRoom.get("roomDescription").toString()));
         } catch(Exception e) {
             throw new RoomException("Something went wrong, room was not created!");
         }
