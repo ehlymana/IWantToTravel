@@ -9,7 +9,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @EnableEurekaClient
@@ -17,7 +16,9 @@ import java.util.List;
 public class ReservationsServiceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ReservationsServiceApplication.class, args);
+		System.out.println("**** Application successfully started! ****");
 	}
 
 }

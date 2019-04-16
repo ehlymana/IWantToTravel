@@ -96,8 +96,8 @@ public class RoomController {
             throw new RoomException("Something went wrong while updating the room! "+e.getMessage());
         }
     }
-
-    @GetMapping("/rooms/{hotelID}")
+//ovaj dio pravi clash sa get-om za roomId, pa bi se trebala promijeniti ruta na roomsByHotel/{hotelID} ili nešto drugo po želji
+    /*@GetMapping("/rooms/{hotelID}")
     Iterable<Room> sameHotel(@PathVariable("hotelID") Long id) {
         try {
             Iterable<Room> filter = roomService.findAll();
@@ -111,7 +111,7 @@ public class RoomController {
             throw new RoomException("Something went wrong...");
         }
 
-    }
+    }*/
 
 
 

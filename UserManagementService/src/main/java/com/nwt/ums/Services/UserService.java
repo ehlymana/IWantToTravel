@@ -52,6 +52,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    //
+    public void updateUserTokens(String confirmToken, String passwordToken, String reactivateToken, Long id){
+        userRepository.updateUserTokens(confirmToken, passwordToken, reactivateToken, id);
+    }
+
 /*
     public void userDeleted(Long id) {
         userRepository.userDeleted(id);

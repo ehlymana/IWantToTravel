@@ -30,4 +30,8 @@ public class RoleService {
     public Role findByUserId (Long id) {
         return  roleRepository.findByUserId(id);
     }
+
+    public Iterable<Role> findAll() {
+        return roleRepository.findAll();
+    }
 }

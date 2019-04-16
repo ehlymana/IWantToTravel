@@ -29,18 +29,18 @@ public class HotelController {
     }
 
 
-//    @RequestMapping(value = "/addHotel", method = RequestMethod.GET)
-//    public String addHotel() throws Exception {
-//        System.out.println("HOTELLLL");
-//        try {
-//            Hotel hotel = new Hotel(1, "Hollywood", "neki desc", "Sarajevo", "Adresa", 45, 47);
-//            hotelService.save(hotel);
-//        } catch (Exception e) {
-//            throw new Exception("Something went wrong while adding hotel...");
-//        }
-//        System.out.println("gucci");
-//        return "All good";
-//    }
+    @RequestMapping(value = "/addHotel", method = RequestMethod.GET)
+    public String addHotel() throws Exception {
+        System.out.println("HOTELLLL");
+        try {
+            Hotel hotel = new Hotel(1, "Hollywood", "neki desc", "Sarajevo", "Adresa", 45, 47);
+            hotelService.save(hotel);
+        } catch (Exception e) {
+            throw new Exception("Something went wrong while adding hotel...");
+        }
+        System.out.println("gucci");
+        return "All good";
+    }
 
     @GetMapping(path = "/hotels")
     @ResponseBody

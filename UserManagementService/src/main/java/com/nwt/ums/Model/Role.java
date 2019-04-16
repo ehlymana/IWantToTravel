@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ROLES")
@@ -14,6 +15,7 @@ public class Role {
     private Long roleID;
 
     @NotNull(message = "Role name cannot be null!")
+    @Size(min = 4, max = 16, message = "Invalid role name length!")
     private String roleName;
 
     private Long userId;
