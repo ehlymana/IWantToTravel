@@ -34,8 +34,12 @@ public class HotelManagementServiceApplicationTests {
         URI uri = new URI(baseUrl);
 
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
-        System.out.println(result.getStatusCode());
-        Assert.assertTrue(result.getStatusCode().equals(200));
+
+
+
+        //Verify request succeed
+
+        Assert.assertFalse(result.getBody().isEmpty());
 
     }
 
