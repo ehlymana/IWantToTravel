@@ -16,9 +16,9 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long hotelId;
 
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "SUPERVIZOR_ID", nullable = false)
-//    User supervizor;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    User supervizor;
 
     @NotNull
     @Size(min=1, message="Hotel name should be at least one character long!")
@@ -40,18 +40,20 @@ public class Hotel {
     String hotelAddress;
 
     @NotNull(message = "Hotel longitude not provided!")
-    //@Size(min = -180, max = 180, message = "Longitude value out of range! Should be between -180 and 180!")
+    @Min(value = -180, message = "Latitude value out of range! Should be between -180 and 180!")
+    @Max(value = 180, message = "Latitude value out of range! Should be between -180 and 180!")
     @Column(name = "HOTE_LONGITUDE")
     long hotelLongitude;
 
     @NotNull(message = "Hotel latitude not provided!")
-    //@Size(min = -90, max = 90, message = "Longitude value out of range! Should be between -90 and 90!")
+    @Min(value = -90, message = "Latitude value out of range! Should be between -90 and 90!")
+    @Max(value = 90, message = "Latitude value out of range! Should be between -90 and 90!")
     @Column(name = "HOTE_LATITUDE")
     long hotelLatitude;
 
-    public Hotel(long id, /*Supervizor supervizor,*/ String hotelName, String hotelDescription, String hotelLocation, String hotelAddress, long hotelLongitude, long hotelLatitude) {
-        this.hotelId = id;
-        //this.supervizor = supervizor;
+    public Hotel(User supervizor, String hotelName, String hotelDescription, String hotelLocation, String hotelAddress, long hotelLongitude, long hotelLatitude) {
+        //this.hotelId = id;
+        this.supervizor = supervizor;
         this.hotelName = hotelName;
         this.hotelDescription = hotelDescription;
         this.hotelLocation = hotelLocation;
@@ -70,13 +72,13 @@ public class Hotel {
         this.hotelId = hotelId;
     }
 
-//    public Supervizor getSupervizor() {
-//        return supervizor;
-//    }
-//
-//    public void setSupervizor(Supervizor supervizor) {
-//        this.supervizor = supervizor;
-//    }
+    public User getSupervizor() {
+        return supervizor;
+    }
+
+    public void setSupervizor(User supervizor) {
+        this.supervizor = supervizor;
+    }
 
     public String getHotelName() {
         return hotelName;

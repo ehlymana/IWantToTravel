@@ -1,25 +1,31 @@
 package com.example.hotelmanagementservice.Controller;
 
 import com.example.hotelmanagementservice.Model.Hotel;
+//import com.example.hotelmanagementservice.Model.User;
+import com.example.hotelmanagementservice.Model.User;
 import com.example.hotelmanagementservice.Service.HotelService;
-import com.netflix.ribbon.proxy.annotation.Http;
+//import com.example.hotelmanagementservice.Service.UserService;
+import com.example.hotelmanagementservice.Service.UserService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.minidev.json.JSONObject;
+import org.bouncycastle.util.Iterable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class HotelController {
 
     private HotelService hotelService;
-    //private UserService supervizorService;
+    private UserService supervizorService;
 
     @Autowired
-    public HotelController(HotelService hotelService/*, SupervizorService supervizorService*/) {
+    public HotelController(HotelService hotelService, UserService supervizorService) {
         this.hotelService = hotelService;
-        //this.supervizorService = supervizorService;
+        this.supervizorService = supervizorService;
     }
 
 
@@ -40,7 +46,7 @@ public class HotelController {
     @ResponseBody
     public Iterable<Hotel> getAllHotels(){
         try {
-            Iterable<Hotel> all = hotelService.findAll();
+            Iterable<Hotel> all = (Iterable<Hotel>) hotelService.findAll();
             return all;
         } catch(Exception e) {
             throw new HotelException("Hotels not found!");
@@ -60,13 +66,46 @@ public class HotelController {
 
     @PostMapping("/hotels")
     @ResponseBody
-    Hotel newHotel(@RequestBody Hotel newHotel) {
+    Hotel newHotel(@RequestBody JSONObject newHotel) {
+        JSONObject json = new JSONObject();
         try {
-            return hotelService.save(newHotel);
+            RestTemplate restTemplate = new RestTemplate();
+            String userByIDURL = "http://localhost:8088/user/";
+            System.out.println(newHotel.get("user").toString());
+            ResponseEntity<String> response = restTemplate.getForEntity(userByIDURL + newHotel.get("user").toString(), String.class);
+            System.out.println(response.toString());
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+            System.out.println(root.toString());
+            JsonNode uID = root.path("userID");
+            JsonNode uLongitude = root.path("longitude");
+            JsonNode uLatitude = root.path("latitude");
+            //if (uID.asLong() != userID) throw new UserDoesntExistException(userID);
+            User u = new User(uID.asLong(), uLongitude.asDouble(), uLatitude.asDouble());
+            User user = supervizorService.findById(u.getUserID());
+            if (user == null)supervizorService.save(u);
+            else u = user;
+
+            return hotelService.save(jsonToHotel(newHotel, u));
         } catch(Exception e) {
-            throw new HotelException("Something went wrong, hotel was not created!");
+            json.put("status", HttpStatus.BAD_REQUEST);
+            json.put("message", e.getMessage());
         }
+        // json;
+        return new Hotel();
     }
+
+    private Hotel jsonToHotel(JSONObject json, User u) {
+        String hName = json.get("hotelName").toString();
+        String hDesc = json.get("hotelDescription").toString();
+        String hLocation = json.get("hotelLocation").toString();
+        String hAddress = json.get("hotelAddress").toString();
+        Long hLong = Long.valueOf(json.get("hotelLongitude").toString());
+        Long hLat = Long.valueOf(json.get("hotelLatitude").toString());
+        Hotel h = new Hotel(u, hName, hDesc, hLocation, hAddress, hLong, hLat);
+        return h;
+    }
+
 
     @DeleteMapping(path = "/hotels/{hotelID}")
     @ResponseBody
@@ -76,7 +115,7 @@ public class HotelController {
         } catch (Exception e) {
             throw new HotelException("Hotel not found!");
         }
-        return "Successfully deleted";
+        return "Successfully deleted hotel!";
     }
 
     @PutMapping("/hotels/{hotelID}")
