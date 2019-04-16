@@ -222,7 +222,7 @@ public class UserController {
             System.out.println("URL" + url);
             Hotel[] hotels1 = loadBalanced.getForObject(url, Hotel[].class);
             System.out.println("RESPONSE " + hotels1);
-            return new ResponseEntity<>(hotels1, HttpStatus.FOUND);
+            return new ResponseEntity<>(hotels1, HttpStatus.OK);
 
         } catch (Exception exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);

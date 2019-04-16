@@ -1,0 +1,70 @@
+{
+    "timestamp": "2019-04-16T22:27:42.923+0000",
+    "status": 400,
+    "error": "Bad Request",
+    "errors": [
+        {
+            "codes": [
+                "Size.user.username",
+                "Size.username",
+                "Size.java.lang.String",
+                "Size"
+            ],
+            "arguments": [
+                {
+                    "codes": [
+                        "user.username",
+                        "username"
+                    ],
+                    "arguments": null,
+                    "defaultMessage": "username",
+                    "code": "username"
+                },
+                30,
+                5
+            ],
+            "defaultMessage": "Username must have at lest 5 characters!",
+            "objectName": "user",
+            "field": "username",
+            "rejectedValue": "null",
+            "bindingFailure": false,
+            "code": "Size"
+        },
+        {
+            "codes": [
+                "Email.user.email",
+                "Email.email",
+                "Email.java.lang.String",
+                "Email"
+            ],
+            "arguments": [
+                {
+                    "codes": [
+                        "user.email",
+                        "email"
+                    ],
+                    "arguments": null,
+                    "defaultMessage": "email",
+                    "code": "email"
+                },
+                [],
+                {
+                    "defaultMessage": ".*",
+                    "arguments": null,
+                    "codes": [
+                        ".*"
+                    ]
+                }
+            ],
+            "defaultMessage": "Email should be valid!",
+            "objectName": "user",
+            "field": "email",
+            "rejectedValue": "null",
+            "bindingFailure": false,
+            "code": "Email"
+        }
+    ],
+    "message": "Validation failed for object='user'. Error count: 2",
+    "trace": "",
+    "path": "/adduser"
+}
