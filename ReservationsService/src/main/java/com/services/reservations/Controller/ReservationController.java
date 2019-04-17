@@ -2,6 +2,7 @@ package com.services.reservations.Controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.discovery.EurekaClient;
 import com.services.reservations.Exceptions.*;
 import com.services.reservations.Services.HotelService;
 import com.services.reservations.Services.ReservationService;
@@ -9,6 +10,9 @@ import com.services.reservations.Services.RoomService;
 import com.services.reservations.Services.UserService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +25,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -33,13 +38,25 @@ public class ReservationController {
     private HotelService hotelService;
     private RoomService roomService;
     private UserService userService;
+    @Autowired
+    private EurekaClient eurekaClient;
+
+    private DiscoveryClient discoveryClient;
 
     @Autowired
-    public ReservationController(ReservationService reservationService, HotelService hotelService, RoomService roomService, UserService userService) {
+    private RestTemplate restTemplate;
+
+    @Autowired
+    @LoadBalanced
+    private RestTemplate loadBalanced;
+
+    @Autowired
+    public ReservationController(ReservationService reservationService, HotelService hotelService, RoomService roomService, UserService userService,  DiscoveryClient discoveryClient) {
         this.reservationService = reservationService;
         this.hotelService = hotelService;
         this.roomService = roomService;
         this.userService = userService;
+        this.discoveryClient = discoveryClient;
     }
 
     // nejra
@@ -56,13 +73,13 @@ public class ReservationController {
 
     @RequestMapping(value = "/addReservation", method = RequestMethod.POST, produces = "application/json")
     public JSONObject addReservation(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
-                                     @RequestParam(value="roomID") long roomID) {
+                                     @RequestParam(value="roomID") long roomID) throws IOException {
         JSONObject json = new JSONObject();
         try {
             // sinhrona komunikacija 1 - treba nam hotel s porta 8089
-            RestTemplate restTemplate = new RestTemplate();
-            String hotelByIDURL = "http://localhost:8089/hotels/";
-            ResponseEntity<String> response = restTemplate.getForEntity(hotelByIDURL + Long.toString(hotelID), String.class);
+            ServiceInstance serviceInstanceHotelsAndRooms = discoveryClient.getInstances("hotel-management-service").get(0);
+            String url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/hotels/" + hotelID;
+            ResponseEntity<String> response = loadBalanced.getForEntity(url, String.class);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
             JsonNode hID = root.path("hotelId");
@@ -76,8 +93,9 @@ public class ReservationController {
                 hotelService.save(h);
             }
             // sinhrona komunikacija 2 - treba nam user s porta 8088
-            String userByIDURL = "http://localhost:8088/user/";
-            response = restTemplate.getForEntity(userByIDURL + Long.toString(userID), String.class);
+            ServiceInstance serviceInstanceUsers = discoveryClient.getInstances("user-management-service").get(0);
+            url = "http://" + serviceInstanceUsers.getServiceId() + "/user/" + userID;
+            response = loadBalanced.getForEntity(url, String.class);
             mapper = new ObjectMapper();
             root = mapper.readTree(response.getBody());
             JsonNode uID = root.path("userID");
@@ -91,8 +109,8 @@ public class ReservationController {
                 userService.save(u);
             }
             // sinhrona komunikacija 3 - treba nam room s porta 8089
-            String roomByID = "http://localhost:8089/rooms/";
-            response = restTemplate.getForEntity(roomByID + Long.toString(roomID), String.class);
+            url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/rooms/" + roomID;
+            response = loadBalanced.getForEntity(url, String.class);
             root = mapper.readTree(response.getBody());
             JsonNode rID = root.path("roomId");
             System.out.println(rID);
