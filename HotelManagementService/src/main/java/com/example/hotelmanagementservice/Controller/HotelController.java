@@ -33,7 +33,7 @@ public class HotelController {
     public String addHotel() throws Exception {
         System.out.println("HOTELLLL");
         try {
-            Hotel hotel = new Hotel(1, "Hollywood", "neki desc", "Sarajevo", "Adresa", 45, 47);
+            Hotel hotel = new Hotel(new User(1, 0, 0), "Hollywood", "neki desc", "Sarajevo", "Adresa", 45, 47);
             hotelService.save(hotel);
         } catch (Exception e) {
             throw new Exception("Something went wrong while adding hotel...");

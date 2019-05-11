@@ -88,6 +88,7 @@
 			<groupId>com.netflix.ribbon</groupId>
 			<artifactId>ribbon-eureka</artifactId>
 		</dependency>
+		<dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-entitymanager</artifactId> <version>5.2.3.Final</version> </dependency>
 
 
 	</dependencies>
