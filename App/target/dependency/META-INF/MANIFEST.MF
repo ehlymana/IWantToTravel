@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Implementation-Title: HBS
+Implementation-Version: 0.0.1-SNAPSHOT
+Archiver-Version: Plexus Archiver
+Built-By: pc
+Implementation-Vendor-Id: com.NWT
+Spring-Boot-Version: 2.1.3.RELEASE
+Main-Class: org.springframework.boot.loader.JarLauncher
+Start-Class: com.nwt.hbs.HbsApplication
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Created-By: Apache Maven 3.6.1
+Build-Jdk: 1.8.0_201
+

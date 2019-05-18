@@ -1,0 +1,2 @@
+com\nwt\zuulproxy\ZuulProxyApplication.class
+com\nwt\zuulproxy\filters\pre\SimpleFilter.class

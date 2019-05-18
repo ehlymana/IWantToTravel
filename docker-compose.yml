@@ -1,0 +1,93 @@
+version: '3'
+services:
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: eureka-server
+      dockerfile: Dockerfile
+    image: eureka-server
+    expose:
+      - 8761
+    ports:
+      - 8761:8761
+    networks:
+      - emp-network
+  user-management:
+    container_name: user-management
+    build:
+      context: userManagement
+      dockerfile: Dockerfile
+      args:
+        dburl: 'jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7292260'
+        dbuser: 'sql7292260'
+        dbpass: 'ldQnXLEy5M'
+    image: user-management
+    expose:
+      - 8088
+    ports:
+      - 8088:8088
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+  reservations:
+    container_name: reservations
+    build:
+      context: reservations
+      dockerfile: Dockerfile
+      args:
+        dburl: 'jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7292260'
+        dbuser: 'sql7292260'
+        dbpass: 'ldQnXLEy5M'
+    image: reservations
+    expose:
+      - 8087
+    ports:
+      - 8087:8087
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+  hotel-management:
+    container_name: hotel-management
+    build:
+      context: hotel-management
+      dockerfile: Dockerfile
+      args:
+        dburl: 'jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7292260'
+        dbuser: 'sql7292260'
+        dbpass: 'ldQnXLEy5M'
+    image: hotel-management
+    expose:
+      - 8089
+    ports:
+      - 8089:8089
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: api-gateway
+      dockerfile: Dockerfile
+    image: api-gateway
+    expose:
+      - 8084
+    ports:
+      - 8084:8084
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+networks:
+  emp-network:
+    driver: bridge

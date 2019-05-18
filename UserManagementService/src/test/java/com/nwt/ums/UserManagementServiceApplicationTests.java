@@ -9,8 +9,10 @@ import com.nwt.ums.Services.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -30,10 +33,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.RequestScope;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.SessionScope;
+
+
 @RunWith(SpringRunner.class)
+@ImportAutoConfiguration(RefreshAutoConfiguration.class)
 @SpringBootTest
 @ActiveProfiles("test")
 @TestPropertySource(locations = "classpath:./application-test.properties")
+@WebAppConfiguration
 //@PropertySource("application-test.properties")
 @AutoConfigureMockMvc
 public class UserManagementServiceApplicationTests {
@@ -47,6 +59,7 @@ public class UserManagementServiceApplicationTests {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+
 
     @Test
     public void contextLoads() {
@@ -67,12 +80,12 @@ public class UserManagementServiceApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
+   /* @Test
     public void testRMSCommunicationSayHi() throws Exception {
         String url = "http://localhost:8088/reservations/hi";
         this.mockMvc.perform(get("/reservations/hi")).andDo(print()).andExpect(content().string(containsString("jo")));
         //assertThat(this.loadBalanced.getForObject(url, ResponseEntity.class)).toString().contains("jo");
-    }
+    }*/
     @Test
     public void testFindUserByid() throws Exception {
         Role role = new Role("ROLE_USER", Long.parseLong("0"));
@@ -89,7 +102,7 @@ public class UserManagementServiceApplicationTests {
 
     }
 
-    @Test
+   /* @Test
     public void testHMSCommunication() throws Exception {
         String url = "/search/hotels";
         assertThat(this.mockMvc.perform(get(url)).andReturn().getResponse().getContentAsString()).contains("ETF");
@@ -103,6 +116,7 @@ public class UserManagementServiceApplicationTests {
 //                .andExpect(content().string(containsString("neki desc2")));
 //        //        this.mockMvc.perform(get(url)).andDo(print()).andExpect(content().string(containsString(user.getFirstName())))
 //                .andExpect(content().string(containsString(user.getLastName())));
-    }
+    }*/
 
 }
+

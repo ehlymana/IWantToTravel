@@ -27,7 +27,11 @@ public class HotelController {
         this.hotelService = hotelService;
         this.supervizorService = supervizorService;
     }
-
+@RequestMapping(value = "/hello", method = RequestMethod.GET)
+public String hello() {
+        System.out.println("Service is running!");
+        return "Hello from Hotel Management Service";
+}
 
     @RequestMapping(value = "/addHotel", method = RequestMethod.GET)
     public String addHotel() throws Exception {

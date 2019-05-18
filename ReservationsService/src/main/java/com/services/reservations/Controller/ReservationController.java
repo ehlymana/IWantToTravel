@@ -158,11 +158,9 @@ public class ReservationController {
     }
 
     // nejra
-    @RequestMapping(value = "/hi", method = RequestMethod.GET, produces = "application/json")
-    public JSONObject hi() {
-        JSONObject json = new JSONObject();
-        json.put("message", "jo");
-        return json;
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hi() {
+        return "Hello from Reservations Service";
     }
 
     @RequestMapping(value = "/deleteReservation", method = RequestMethod.POST, produces = "application/json")

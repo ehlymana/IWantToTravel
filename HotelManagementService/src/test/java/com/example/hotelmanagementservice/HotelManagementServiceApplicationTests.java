@@ -22,7 +22,7 @@ public class HotelManagementServiceApplicationTests {
     public void contextLoads() {
     }
 
-    @Test
+    /*@Test
 
     public void findUserFromUMS() throws URISyntaxException
     {
@@ -41,6 +41,6 @@ public class HotelManagementServiceApplicationTests {
 
         Assert.assertFalse(result.getBody().isEmpty());
 
-    }
+    }*/
 
 }

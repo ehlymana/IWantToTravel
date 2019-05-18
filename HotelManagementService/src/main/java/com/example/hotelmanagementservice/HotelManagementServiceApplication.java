@@ -12,12 +12,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.List;
 
 @EnableEurekaClient
 @SpringBootApplication
 @PropertySource("classpath:application.properties")
+@EnableJpaRepositories
 public class HotelManagementServiceApplication {
 
     public static void main(String[] args) {

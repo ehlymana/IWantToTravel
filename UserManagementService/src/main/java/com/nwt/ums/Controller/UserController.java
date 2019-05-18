@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-@RefreshScope
+// @RefreshScope
 @RestController
 public class UserController {
 
@@ -245,5 +245,11 @@ public class UserController {
 
         return new ResponseEntity<>(result, HttpStatus.FOUND);
     }
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hello() {
+                System.out.println("Service is running!");
+                return "Hello from User Management Service";
+    }
+
 
 }

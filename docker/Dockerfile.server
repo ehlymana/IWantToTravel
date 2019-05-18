@@ -1,3 +1,0 @@
-FROM alpine-java:base
-COPY files/hbs.jar /hbs.jar
-CMD ["java", "-jar", "/hbs.jar"]
