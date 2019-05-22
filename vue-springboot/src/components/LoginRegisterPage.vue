@@ -19,10 +19,10 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <a href="#" class="active" id="login-form-link">Login</a>
+                                    <a href="#" id="login-form-link">Login</a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a href="#" id="register-form-link">Register</a>
+                                    <a href="#" class="active" id="register-form-link">Register</a>
                                 </div>
                             </div>
                             <hr>
@@ -30,7 +30,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form id="login-form" th:action = "@{/login}" method = "post" role="form" style="display: block;">
+                                    <form id="login-form"  method = "post" role="form" style="display: none;">
                                         <div class="form-group">
                                             <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                         </div>
@@ -72,30 +72,39 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <form id="register-form" th:action="@{/registration}" th:object="${user}" method="post" role="form" style="display: none;">
+                                    <form id="register-form" role="form" style="display: block;">
+                                        <div class="user">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" id="firstName"  tabindex="1" class="form-control" placeholder="First Name" th:field="*{firstName}">
+                                            <!-- <input type="text" v-model="user.firstName" placeholder="First Name"> -->
+                                            <input type="text" v-model="user.firstName" name="firstName" id="firstName"  tabindex="1" class="form-control" placeholder="First Name">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="lastName" id="lastName" tabindex="1" class="form-control" placeholder="Last Name" th:field="*{lastName}">
+                                            <!-- <input type="text" v-model="user.lastName" placeholder="Last Name"> -->
+                                            <input type="text" v-model="user.lastName" name="lastName" id="lastName" tabindex="1" class="form-control" placeholder="Last Name">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" th:field="*{username}">
+                                            <!-- <input type="text" v-model="user.username" placeholder="Username"> -->
+                                            <input type="text" v-model="user.username" name="username" id="username" tabindex="1" class="form-control" placeholder="Username">
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" th:field="*{email}">
+                                            <!-- <input type="email" v-model="user.email" placeholder="Email"> -->
+                                            <input type="email" v-model="user.email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" >
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" th:field="*{password}">
+                                            <!-- <input type="password" v-model="user.password" name="password" placeholder="Password"> -->
+                                            <input type="password" v-model="user.password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                         </div>
                                         <div class="form-group">
+                                            <!-- <input type="text" v-model="user.firstName" name="confirm-password" placeholder="Confirm Password"> -->
                                             <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
                                         </div>
 
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                                    <button @click="registerUser()" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" >
+                                                        Register Now
+                                                        </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +114,7 @@
                                                 </div>
                                             </div>
                                         </div>-->
-
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -126,30 +135,85 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 -->
 <script>
-  
-// <!--       
-// $(function() {
+import {AXIOS} from '../http_common'
+import JQuery from 'vue-jquery'
+var $ = JQuery
 
-//         $('#login-form-link').click(function(e) {
-//             $("#login-form").delay(100).fadeIn(100);
-//             $("#register-form").fadeOut(100);
-//             $('#register-form-link').removeClass('active');
-//             $(this).addClass('active');
-//             e.preventDefault();
-//         });
-//         $('#register-form-link').click(function(e) {
-//             $("#register-form").delay(100).fadeIn(100);
-//             $("#login-form").fadeOut(100);
-//             $('#login-form-link').removeClass('active');
-//             $(this).addClass('active');
-//             e.preventDefault();
-//         });
-
-//     });
-// -->
 export default {
-    
+    name: 'user',
+    data() {
+        return {
+            response: [],
+            errors: [],
+            user: {
+                lastName: '',
+                firstName: ''                
+            },
+        }
+    },
+    methods: {
+        getPosts() {
+            var params = new URLSearchParams()
+            params.append('firstName', this.user.firstName)
+            params.append('lastName', this.user.lastName)
+            params.append('username', this.user.username)
+            params.append('email', this.user.email)
+            params.append('password', this.user.password)
+            
+            this.$http({
+                method: 'POST', 
+                url: 'localhost:8084/usersUI/adduser', 
+                data: params})
+            .then(response => {
+                this.postResults = data;
+                this.ajaxRequest = false;
+            }).catch((err) => {
+                console.log(err)
+            })
+    },
+        registerUser() {
+            console.log("something")
+            var params = new URLSearchParams()
+            params.append('firstName', this.user.firstName)
+            params.append('lastName', this.user.lastName)
+            params.append('username', this.user.username)
+            params.append('email', this.user.email)
+            params.append('password', this.user.password)
+
+            AXIOS.post(`http://localhost:8084/usersUI/registration`, params)
+                .then(response => {
+                // JSON responses are automatically parsed.
+                this.response = response.data
+                this.user.id = response.data
+                console.log(response.data)
+                this.showResponse = true
+            })
+            .catch(e => {
+                this.errors.push(e)
+            })
+        }
+    }
 }
+
+    // mounted: function() {
+    //     $(function() {
+    //         $('#login-form-link').click(function(e) {
+    //             $("#login-form").delay(100).fadeIn(100);
+    //             $("#register-form").fadeOut(100);
+    //             $('#register-form-link').removeClass('active');
+    //             $(this).addClass('active');
+    //             e.preventDefault();
+    //         });
+    //         $('#register-form-link').click(function(e) {
+    //             $("#register-form").delay(100).fadeIn(100);
+    //             $("#login-form").fadeOut(100);
+    //             $('#login-form-link').removeClass('active');
+    //             $(this).addClass('active');
+    //             e.preventDefault();
+    //         });
+    //     })
+    // }
+
 </script>
 
 <style scoped>

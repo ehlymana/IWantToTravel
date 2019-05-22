@@ -52,6 +52,23 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public User findByPasswordToken(String token) {
+        return userRepository.findByPasswordToken(token);
+    }
+
+    public User findByConfirmToken(String token) {
+        return userRepository.findByConfirmToken(token);
+    }
+
+    public String getNewToken() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+
     //
     public void updateUserTokens(String confirmToken, String passwordToken, String reactivateToken, Long id){
         userRepository.updateUserTokens(confirmToken, passwordToken, reactivateToken, id);

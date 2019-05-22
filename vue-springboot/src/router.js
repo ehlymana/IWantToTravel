@@ -27,6 +27,11 @@ export default new Router({
          path: "/aboutus",
          name: "aboutus",
          component: AboutUsPage
+     },
+     {
+         path: '/adduser',
+         name: 'AddUser',
+         component: HomePage
      }
 //     {
 //       path: "/add",

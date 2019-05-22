@@ -11,6 +11,8 @@
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-jquery": "^1.0.6",
+    "vue-loader": "^15.7.0",
     "vue-router": "^3.0.6"
   },
   "devDependencies": {
