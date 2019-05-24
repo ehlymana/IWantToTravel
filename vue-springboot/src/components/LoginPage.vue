@@ -19,10 +19,10 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <a href="#" id="login-form-link">Login</a>
+                                    <a href="#" class="active" id="login-form-link">Login</a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a href="#" class="active" id="register-form-link">Register</a>
+                                    <a href="#"  id="register-form-link">Register</a>
                                 </div>
                             </div>
                             <hr>
@@ -30,12 +30,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form id="login-form"  method = "post" role="form" style="display: none;">
+                                    <form id="login-form" role="form" style="display: block;">
                                         <div class="form-group">
-                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                            <input type="text" name="username" id="username" ref="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                            <input type="password" name="password" id="password" ref="password" tabindex="2" class="form-control" placeholder="Password">
                                         </div>
                                         <div class="form-group text-center">
                                             <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -58,7 +58,9 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" style="background-color: #1CB94E">
+                                                    <button @click.stop.prevent="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" >
+                                                        Login
+                                                        </button>                                                
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +74,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <form id="register-form" role="form" style="display: block;">
+                                    <form id="register-form" role="form" style="display: none;">
                                         <div class="user">
                                         <div class="form-group">
                                             <!-- <input type="text" v-model="user.firstName" placeholder="First Name"> -->
@@ -102,7 +104,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <button @click.stop.prevent="registerUser()" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" >
+                                                    <button @click="registerUser()" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" >
                                                         Register Now
                                                         </button>
                                                 </div>
@@ -137,7 +139,11 @@
 <script>
 import {AXIOS} from '../http_common'
 import JQuery from 'vue-jquery'
+import { URLSearchParams } from 'url';
+import Axios from 'axios';
 var $ = JQuery
+
+
 
 export default {
     name: 'user',
@@ -151,7 +157,27 @@ export default {
             },
         }
     },
-    methods: {
+    methods: {     
+        login() {
+            var username = this.$refs.username.value;
+            var password = this.$refs.password.value;
+            console.log(username);
+            console.log(password);
+            // var params = new URLSearchParams();
+            
+            // params.append('username', username);
+            // params.append('password', password);
+            AXIOS.post("http://localhost:8084/usersUI/login", {
+                username: username,
+                password: password
+            }).then(response => {
+                    // params = [];
+                    console.log(response.data)
+                    //this.$router.push({name: 'login'});
+                }).catch (e => {
+                    this.errors.push(e);
+                })
+        },   
         registerUser() {
             console.log("something")
             var params = new URLSearchParams()
@@ -166,35 +192,28 @@ export default {
                 // JSON responses are automatically parsed.
                 params = [];
                 console.log(response.data)
-                ///this.$router.push({name: 'login'});
+                this.$router.push({name: 'login'});
             })
             .catch(e => {
                 this.errors.push(e)
             })
-
-            this.$router.push("/login");
         }
-    }
+    },
+    mounted() {
+        // executes on page load
+        var token = this.$route.query.token;
+        if(token.data != null || token.data != '') {        
+            AXIOS.get('http://localhost:8084/usersUI/account/confirmation?token=' + token)
+                        .then(response => {               
+                        console.log(response.data)
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
+        }
+     }
+    
 }
-
-    // mounted: function() {
-    //     $(function() {
-    //         $('#login-form-link').click(function(e) {
-    //             $("#login-form").delay(100).fadeIn(100);
-    //             $("#register-form").fadeOut(100);
-    //             $('#register-form-link').removeClass('active');
-    //             $(this).addClass('active');
-    //             e.preventDefault();
-    //         });
-    //         $('#register-form-link').click(function(e) {
-    //             $("#register-form").delay(100).fadeIn(100);
-    //             $("#login-form").fadeOut(100);
-    //             $('#login-form-link').removeClass('active');
-    //             $(this).addClass('active');
-    //             e.preventDefault();
-    //         });
-    //     })
-    // }
 
 </script>
 

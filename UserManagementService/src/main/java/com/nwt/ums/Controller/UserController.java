@@ -26,6 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.springframework.security.core.Authentication;
 
 import javax.validation.*;
 import java.io.IOException;
@@ -41,6 +43,7 @@ import java.util.Set;
 
 // @RefreshScope
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     private UserService userService;
@@ -71,6 +74,34 @@ public class UserController {
         this.userService = userService;
         this.roleService = roleService;
         this.discoveryClient = discoveryClient;
+    }
+
+    // login authentification
+    @RequestMapping(value = "/default", method = RequestMethod.GET)
+    public ResponseEntity<Object> redirectToPanel() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        //System.out.println(name);
+        if (authentication.getAuthorities().toString().contains("ROLE_ADMIN")) {
+            return new ResponseEntity<>("Admin login successful", HttpStatus.OK);
+            //return "redirect:/admin";
+        }
+        else if (authentication.getAuthorities().toString().contains("ROLE_USER")) {
+            // authentication.getPrincipal().toString();
+
+            User user = userService.findByUsername(name);
+
+            if(user == null) {
+                // can't log in
+                return new ResponseEntity<>("Can't login!", HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>("User login successful", HttpStatus.OK);
+        }
+        else if (authentication.getAuthorities().toString().contains("ROLE_SUPERVISOR")) {
+            //   System.out.println("super");
+            return new ResponseEntity<>("Supervisor login successful", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Can't login!", HttpStatus.BAD_REQUEST);
     }
 
     // this method adds user to db with specified role name

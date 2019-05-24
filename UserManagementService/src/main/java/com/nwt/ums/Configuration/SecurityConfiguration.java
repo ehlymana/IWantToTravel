@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
@@ -29,12 +30,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+
     @Override
+    @CrossOrigin(origins = "http://localhost:8080")
     protected void configure(HttpSecurity http) throws Exception {
          http.authorizeRequests()
-                //.antMatchers("/", "/login", "/aboutus", "/contactus","/account/confirmation", "/registration", "/password/forgotten", "/password/reset").permitAll()
+                .antMatchers("/", "/login", "/aboutus", "/contactus","/account/confirmation", "/registration", "/password/forgotten", "/password/reset").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                 .csrf().disable()
+                 .cors().disable()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()

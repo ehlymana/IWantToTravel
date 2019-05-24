@@ -3,6 +3,7 @@ import Router from "vue-router";
 import HomePage from "./components/HomePage.vue";
 import LoginRegisterPage from "./components/LoginRegisterPage.vue";
 import AboutUsPage from "./components/AboutUsPage.vue";
+import LoginPage from "./components/LoginPage.vue";
 // import AddCustomer from "./components/AddCustomer.vue";
 // import SearchCustomers from "./components/SearchCustomers.vue";
 // import Customer from "./components/Customer.vue";
@@ -19,9 +20,14 @@ export default new Router({
         component: HomePage
      },
      {
+        path: "/register",
+        name: "register",
+        component: LoginRegisterPage
+    },
+     {
          path: "/login",
          name: "login",
-         component: LoginRegisterPage
+         component: LoginPage
      },
      {
          path: "/aboutus",
@@ -32,6 +38,12 @@ export default new Router({
          path: '/adduser',
          name: 'AddUser',
          component: HomePage
+     },
+     {
+         path: '/account/confirmation',
+         name: 'AccountConfirmation',
+         component: LoginPage,
+         props: (route) => ({ query: route.query.q })
      }
 //     {
 //       path: "/add",

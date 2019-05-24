@@ -6,16 +6,15 @@ import com.nwt.ums.Services.EmailService;
 import com.nwt.ums.Services.RoleService;
 import com.nwt.ums.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +22,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class RegistrationController {
     private UserService userService;
     private EmailService emailService;
@@ -47,7 +47,7 @@ public class RegistrationController {
 
     // registration
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String postAddNewUser(Model model, @Valid @ModelAttribute("user") User user,
+    public ResponseEntity<Object> postAddNewUser(Model model, @Valid @ModelAttribute("user") User user,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirect,
                                  HttpServletRequest request) {
@@ -58,16 +58,17 @@ public class RegistrationController {
         if (checkifExists != null){
             redirect.addFlashAttribute("failMessage","Username already taken.");
             bindingResult.reject("username");
-            return "redirect:/login";
+//            return "redirect:/login";
+            return new ResponseEntity<>("Registration failed (username exist)!", HttpStatus.BAD_REQUEST);
         }
 
-        checkifExists = userService.findByEmail(user.getEmail());
-        if (checkifExists != null){
-            redirect.addFlashAttribute("failMessage","User already exists.");
-            bindingResult.reject("email");
-            return "redirect:/login";
-
-        }
+        //checkifExists = userService.findByEmail(user.getEmail());
+//        if (checkifExists != null){
+//            redirect.addFlashAttribute("failMessage","User already exists.");
+//            bindingResult.reject("email");
+//            return new ResponseEntity<>("Registration failed! (email exists)", HttpStatus.BAD_REQUEST);
+//
+//        }
 
         if (bindingResult.hasErrors()){
 
@@ -84,7 +85,7 @@ public class RegistrationController {
             else
                 redirect.addFlashAttribute("failMessage", "User registration failed. " + result + " is not valid.");
 
-            return "redirect:/login";
+            return new ResponseEntity<>("Registration failed! (Binding errors)", HttpStatus.BAD_REQUEST);
 
         } else{
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -92,6 +93,7 @@ public class RegistrationController {
             user.setPasswordToken(userService.getNewToken());
             user.setConfirmToken(userService.getNewToken());
             user.setReactivateToken(userService.getNewToken());
+            user.setRole(roleService.findByRoleName("ROLE_USER"));
             userService.save(user);
 
             String appUrl = request.getScheme() + "://" + request.getServerName();
@@ -106,13 +108,13 @@ public class RegistrationController {
 
             //redirect.addFlashAttribute("successMessage", "Check your email to confirm the registration." + user.getEmail());
 
-            return "redirect:/login";
+            return new ResponseEntity<>("Registration successful", HttpStatus.OK);
         }
     }
 
     // email confirmation
     @RequestMapping(value = "/account/confirmation", method = RequestMethod.GET)
-    public String confirmCreatedAccount(@RequestParam("token") String token, RedirectAttributes redirect){
+    public ResponseEntity<Object> confirmCreatedAccount(@RequestParam("token") String token, RedirectAttributes redirect){
 
         User user = userService.findByConfirmToken(token);
 
@@ -121,12 +123,13 @@ public class RegistrationController {
             user.setRole(roleService.findByRoleName("ROLE_USER"));
             user.setConfirmToken(userService.getNewToken());
             userService.save(user);
-            redirect.addFlashAttribute("successMessage", "Account created.");
+            //redirect.addFlashAttribute("successMessage", "Account created.");
+            return new ResponseEntity<>("Registration completed!", HttpStatus.OK);
         }
         else {
             redirect.addFlashAttribute("failMessage", "An error occurred! Account not created.");
+            return new ResponseEntity<>("Error during account confirmation!", HttpStatus.BAD_REQUEST);
         }
-        return "redirect:/login";
     }
 
 
