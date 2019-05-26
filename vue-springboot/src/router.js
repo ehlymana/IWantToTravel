@@ -4,6 +4,7 @@ import HomePage from "./components/HomePage.vue";
 import LoginRegisterPage from "./components/LoginRegisterPage.vue";
 import AboutUsPage from "./components/AboutUsPage.vue";
 import LoginPage from "./components/LoginPage.vue";
+import AddReservation from "./components/AddReservation.vue";
 // import AddCustomer from "./components/AddCustomer.vue";
 // import SearchCustomers from "./components/SearchCustomers.vue";
 // import Customer from "./components/Customer.vue";
@@ -44,6 +45,11 @@ export default new Router({
          name: 'AccountConfirmation',
          component: LoginPage,
          props: (route) => ({ query: route.query.q })
+     },
+	 {
+         path: '/addReservation',
+         name: 'AddReservation',
+         component: AddReservation
      }
 //     {
 //       path: "/add",
