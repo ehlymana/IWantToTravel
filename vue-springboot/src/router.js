@@ -5,6 +5,9 @@ import LoginRegisterPage from "./components/LoginRegisterPage.vue";
 import AboutUsPage from "./components/AboutUsPage.vue";
 import LoginPage from "./components/LoginPage.vue";
 import AddReservation from "./components/AddReservation.vue";
+import EditReservation from "./components/EditReservation.vue";
+import ReservationHistory from "./components/ReservationHistory.vue";
+import RateHotel from "./components/RateHotel.vue";
 // import AddCustomer from "./components/AddCustomer.vue";
 // import SearchCustomers from "./components/SearchCustomers.vue";
 // import Customer from "./components/Customer.vue";
@@ -46,11 +49,26 @@ export default new Router({
          component: LoginPage,
          props: (route) => ({ query: route.query.q })
      },
-	 {
+	{
          path: '/addReservation',
          name: 'AddReservation',
          component: AddReservation
-     }
+     },
+	{
+         path: '/editReservation',
+         name: 'EditReservation',
+         component: EditReservation
+     },
+	{
+         path: '/reservationHistory',
+         name: 'ReservationHistory',
+         component: ReservationHistory
+     },
+	{
+         path: '/rateHotel',
+         name: 'RateHotel',
+         component: RateHotel
+     },
 //     {
 //       path: "/add",
 //       name: "add",
