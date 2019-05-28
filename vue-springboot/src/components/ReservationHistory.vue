@@ -23,20 +23,17 @@
 		<tr>
 		<td>
 		<select id="selectR" size=20>
-			<option>Reservation 1 </option>
-			<option>Reservation 2</option>
+			<option>{{reservation.Id}}</option>
 		</select>
 		</td>
 		<td>
 		<select id="selectH" size=20>
-			<option>Hotel 1 </option>
-			<option>Hotel 2</option>
+			<option>{{hotel.Name}}</option>
 		</select>
 		</td>
 		<td>
 		<select id="selectR2" size=20>
-			<option>Room 1 </option>
-			<option>Room 2</option>
+			<option>{{room.Id}}</option>
 		</select>
 		</td>
 		</tr>
@@ -47,8 +44,54 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'ReservationHistory' //this is the name of the component
+  name: 'ReservationHistory', //this is the name of the component
+      data() {
+      return {
+		reservation: {
+			Id: "1"
+		},
+        hotel: 
+        {
+			name: "Hotel 1"
+        },
+		room:
+		{
+			Id: "1"
+		},
+		reservations: [],
+        hotels: [],
+		rooms: []
+        
+      }
+    },
+	mounted() {
+      axios.get("localhost:8087/reservations")
+       .then(res => {
+         console.log(res.data);
+         this.reservations = res.data;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+  axios.get("localhost:8089/hotels")
+       .then(res => {
+         console.log(res.data);
+         this.hotels = res.data;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+  axios.get("localhost:8089/rooms")
+       .then(res => {
+         console.log(res.data);
+         this.rooms = res.data;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+	}
 }
 </script>
 <style scoped lang="css">

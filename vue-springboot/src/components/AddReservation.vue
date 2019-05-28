@@ -19,8 +19,7 @@
 	<div class="left">
 		<p> Choose an available hotel: </p>
 		<select class="selectHotel" size=20>
-		<option>Hotel 1 </option>
-		<option>Hotel 2</option>
+		<option>{{hotel.name}}</option>
 		</select>
 	</div>
 	<div class="right">
@@ -38,7 +37,7 @@
 		</tr>
 		<tr class="tableAdd">
 			<td class="tableAdd"><p>Choose room:</p></td>
-			<td class="tableAdd"><select class="selectRoom"><option>Room 1</option></select></td>
+			<td class="tableAdd"><select class="selectRoom"><option>{{room.Id}}</option></select></td>
 		</tr>
 		</table>
 	</div>
@@ -49,8 +48,42 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'AddReservation' //this is the name of the component
+  name: 'AddReservation', //this is the name of the component
+  data() {
+      return {
+        hotel: 
+        {
+			name: "Hotel 1"
+        },
+		room:
+		{
+			Id: "1"
+		},
+        hotels: [],
+		rooms: []
+        
+      }
+    },
+  mounted() {
+  axios.get("localhost:8089/hotels")
+       .then(res => {
+         console.log(res.data);
+         this.hotels = res.data;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+  axios.get("localhost:8089/rooms")
+       .then(res => {
+         console.log(res.data);
+         this.rooms = res.data;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+	}  
 }
 </script>
 <style scoped lang="css">
