@@ -17,7 +17,7 @@
 <body>
 <div>
 
-<h1 class="my-h1">Travel Activity Tracker</h1>
+<h1 class="my-h1">I Want To Travel</h1>
 
 <ul class="ca-menu">
     <li>

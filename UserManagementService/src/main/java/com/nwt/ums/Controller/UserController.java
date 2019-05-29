@@ -3,6 +3,7 @@ package com.nwt.ums.Controller;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
+import com.nwt.ums.Configuration.SecurityConfiguration;
 import com.nwt.ums.Exceptions.UserException;
 import com.nwt.ums.Model.Hotel;
 import com.nwt.ums.Model.Reservation;
@@ -26,8 +27,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +83,21 @@ public class UserController {
         this.discoveryClient = discoveryClient;
     }
 
+    //@CrossOrigin(origins = "http://localhost:8080")
+    @RequestMapping("/login")
+    public ResponseEntity<Object> showLoginView(@RequestParam(value = "username", defaultValue = "please") String username,
+                                                @RequestParam(value = "password", defaultValue = "123456789") String password) {
+        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(username, password);
+
+
+
+        //Authentication auth = new AuthenticationManager()
+//                authManager.authenticate(authReq);
+//        SecurityContext sc = SecurityContextHolder.getContext();
+//        securityContext.setAuthentication(auth);
+        System.out.println("ovdje");
+        return new ResponseEntity<>(username + " " + password, HttpStatus.OK);
+    }
     // login authentification
     @RequestMapping(value = "/default", method = RequestMethod.GET)
     public ResponseEntity<Object> redirectToPanel() {

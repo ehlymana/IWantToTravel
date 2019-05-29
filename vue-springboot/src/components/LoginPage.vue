@@ -6,7 +6,6 @@
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-   <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
             <!------ Include the above in your HEAD tag ---------->
         </head>
 
@@ -58,7 +57,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <button @click.stop.prevent="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" >
+                                                    <button @click.prevent="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" >
                                                         Login
                                                         </button>                                                
                                                 </div>
@@ -141,8 +140,14 @@ import {AXIOS} from '../http_common'
 import JQuery from 'vue-jquery'
 import { URLSearchParams } from 'url';
 import Axios from 'axios';
+import { constants } from 'os';
 var $ = JQuery
+// var cors = require('cors');
+// var express = require('express');
 
+// var app = express();
+// app.use(cors());
+// app.options('*', cors());
 
 
 export default {
@@ -152,31 +157,53 @@ export default {
             response: [],
             errors: [],
             user: {
-                lastName: '',
-                firstName: ''                
+                username: '',
+                password: ''               
             },
         }
     },
     methods: {     
         login() {
+            
             var username = this.$refs.username.value;
             var password = this.$refs.password.value;
-            console.log(username);
+           // console.log(username);
             console.log(password);
             // var params = new URLSearchParams();
             
             // params.append('username', username);
             // params.append('password', password);
-            AXIOS.post("http://localhost:8084/usersUI/login", {
-                username: username,
-                password: password
+            
+            let config = {
+                headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
+                }
+            }
+
+            let data = {
+                "username": username,
+                "password": password
+            }
+            AXIOS({
+                method: 'get',
+                url: 'http://localhost:8088/default',
+                auth: {
+                    username: username,
+                    password: password
+                },
             }).then(response => {
-                    // params = [];
-                    console.log(response.data)
-                    //this.$router.push({name: 'login'});
-                }).catch (e => {
-                    this.errors.push(e);
-                })
+                console.log(response.data);
+            }).catch(e => {
+                this.errors.push(e);
+            });
+            // AXIOS.post("http://localhost:8088/login", data).then(response => {
+            //         // params = [];
+            //         console.log(response.data)
+            //         //this.$router.push({name: 'login'});
+            //     }).catch (e => {
+            //         this.errors.push(e);
+            //     })
         },   
         registerUser() {
             console.log("something")
@@ -201,16 +228,7 @@ export default {
     },
     mounted() {
         // executes on page load
-        var token = this.$route.query.token;
-        if(token.data != null || token.data != '') {        
-            AXIOS.get('http://localhost:8084/usersUI/account/confirmation?token=' + token)
-                        .then(response => {               
-                        console.log(response.data)
-                    })
-                    .catch(e => {
-                        this.errors.push(e)
-                    })
-        }
+        
      }
     
 }
@@ -221,7 +239,8 @@ export default {
  body {
         padding-top: 145px;
         background: #4CAF50;
-        background-image: url("http://www.pptgrounds.com/wp-content/uploads/2013/08/Travel-Backpacks-Backgrounds.jpg");
+        /* background-image: url("http://www.pptgrounds.com/wp-content/uploads/2013/08/Travel-Backpacks-Backgrounds.jpg");
+        */
         background-repeat: no-repeat;
         background-position: bottom;
         background-attachment: fixed;
