@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.nwt.zuulproxy.ZuulProxyApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 31.718 s - in com.nwt.zuulproxy.ZuulProxyApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.581 s - in com.nwt.zuulproxy.ZuulProxyApplicationTests

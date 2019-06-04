@@ -60,6 +60,9 @@ display: block;
 * {
 padding: 0; margin: 0;
 }
+select {
+	font-size: 20px;
+}
 html, body {
   height: 100%;
   display: flex;
@@ -71,7 +74,7 @@ background-color: #AAE3F1;
 background-image: url('https://us.123rf.com/450wm/imaginarybo/imaginarybo1608/imaginarybo160800003/62107258-seamless-daisy-flower-pattern-on-white-background-frizzy-ornate-stem-leaves-.jpg?ver=6');
 vertical-align: top;
 display: block;
-padding-bottom: 10%;
+padding-bottom: 5%;
 }
 #header {
 background-color: #F3D3CD;

@@ -1,5 +1,6 @@
 package com.example.hotelmanagementservice.Controller;
 
+import com.example.hotelmanagementservice.Model.Hotel;
 import com.example.hotelmanagementservice.Model.Room;
 import com.example.hotelmanagementservice.Service.HotelService;
 import com.example.hotelmanagementservice.Service.RoomService;
@@ -19,7 +20,22 @@ public class RoomController {
         this.hotelService = hotelService;
         this.roomService = roomService;
     }
-
+    @RequestMapping(value = "/populateRoom", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("Room database population has started...");
+        try {
+            Hotel h1 = hotelService.findById(new Long(10));
+            Hotel h2 = hotelService.findById(new Long(11));
+            Room r1 = new Room(h1, 1, "Description 1");
+            Room r2 = new Room(h2, 2, "Description 1");
+            roomService.save(r1);
+            roomService.save(r2);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Rooms successfully added!";
+    }
 
 //    @RequestMapping(value = "/addRoom/{hotelId}", method = RequestMethod.GET)
 //    public String addRoom(@PathVariable("hotelId") Long id) {

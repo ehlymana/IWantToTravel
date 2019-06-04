@@ -17,10 +17,21 @@
 </div>
 <div class="content">
 	<div class="left">
-		<p> Choose an available hotel: </p>
-		<select class="selectHotel" size=20>
-		<option>{{hotel.name}}</option>
-		</select>
+		<table class="tableAdd2">
+		<tr class="tableAdd2">
+		<td colspan="2" class="tableAdd2"><p> Choose an available hotel: </p></td>
+		</tr>
+		<tr class="tableAdd2">
+		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=15><option>{{hotel.name}}</option></select></td>
+		</tr>
+		<tr class="tableAdd2">
+			<td class="tableAdd2"><p>Choose room:</p></td>
+			<td class="tableAdd2"><select class="selectRoom"><option>{{room.Id}}</option></select></td>
+		</tr>
+		<tr class="tableAdd2">
+		<td colspan="2" class="tableAdd2"><button class="add2" type="button">Add Reservation</button></td>
+		</tr>
+		</table>
 	</div>
 	<div class="right">
 		<table id="tableAdd">
@@ -35,13 +46,9 @@
 		<tr class="tableAdd">
 			<td colspan="2" class="tableAdd"><button id="filter" type="button">Filter hotels</button></td>
 		</tr>
-		<tr class="tableAdd">
-			<td class="tableAdd"><p>Choose room:</p></td>
-			<td class="tableAdd"><select class="selectRoom"><option>{{room.Id}}</option></select></td>
-		</tr>
 		</table>
 	</div>
-	<button class="add" type="button">Add Reservation</button>
+	
 </div>
 </body>
 </html>

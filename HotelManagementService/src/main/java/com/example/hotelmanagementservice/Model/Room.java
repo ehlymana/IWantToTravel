@@ -30,7 +30,7 @@ public class Room {
     @Column(name = "ROOM_DESCRIPTION")
     private String roomDescription;
 
-    public Room( Hotel hotel, int roomBeds, String roomDescription) {
+    public Room(Hotel hotel, int roomBeds, String roomDescription) {
         //this.roomId = id;
         this.hotel = hotel;
         this.roomBeds = roomBeds;

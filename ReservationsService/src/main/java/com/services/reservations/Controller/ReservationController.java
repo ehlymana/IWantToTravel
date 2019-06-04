@@ -70,6 +70,21 @@ public class ReservationController {
         reservationService.save(reservation);
         return "";
     }
+	
+	@RequestMapping(value = "/populateReservation", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("Room database population has started...");
+        try {
+            Reservation r1 = new Reservation(0, 0, 0, 0, 1, 1, 1);
+			Reservation r2 = new Reservation(10, 10, 10, 10, 2, 2, 2);
+			reservationService.save(r1);
+			reservationService.save(r2);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Rooms successfully added!";
+    }
 
     @RequestMapping(value = "/addReservation", method = RequestMethod.POST, produces = "application/json")
     public JSONObject addReservation(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,

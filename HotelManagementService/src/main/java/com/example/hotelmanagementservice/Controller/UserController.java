@@ -1,5 +1,6 @@
 package com.example.hotelmanagementservice.Controller;
 
+import com.example.hotelmanagementservice.Model.Hotel;
 import com.example.hotelmanagementservice.Model.User;
 import com.example.hotelmanagementservice.Service.UserService;
 import com.netflix.ribbon.proxy.annotation.Http;
@@ -21,7 +22,20 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
+    @RequestMapping(value = "/populateUser", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("User database population has started...");
+        try {
+            User u1 = new User(0, 0);
+            User u2 = new User(10, 10);
+            userService.save(u1);
+            userService.save(u2);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Users successfully added!";
+    }
     @GetMapping(path = "/supervisors")
     @ResponseBody
     public Iterable<User> getAllHotels(){

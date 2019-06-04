@@ -11,4 +11,6 @@ public interface HotelRepository extends CrudRepository<Hotel, Long> {
     Hotel findByHotelName(String name);
 
     Hotel getOne(Long id);
+
+    Iterable<Hotel> findAll();
 }

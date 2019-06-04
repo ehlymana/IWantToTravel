@@ -9,11 +9,11 @@ import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "USER_HOTELM")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
-    @Column(name = "USER_ID", nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long userID;
 
     @NotNull(message = "Longitude must be specified!")
@@ -30,8 +30,7 @@ public class User {
 
     public User(){}
 
-    public User(long userID, double longitude, double latitude) {
-        this.userID = userID;
+    public User(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }

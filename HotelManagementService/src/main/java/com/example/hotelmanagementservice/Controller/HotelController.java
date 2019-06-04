@@ -9,7 +9,6 @@ import com.example.hotelmanagementservice.Service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
-import org.bouncycastle.util.Iterable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +26,51 @@ public class HotelController {
         this.hotelService = hotelService;
         this.supervizorService = supervizorService;
     }
-@RequestMapping(value = "/hello", method = RequestMethod.GET)
-public String hello() {
-        System.out.println("Service is running!");
-        return "Hello from Hotel Management Service";
-}
+	@RequestMapping(value = "/addHotel", method = RequestMethod.POST)
+    public String addHotelNew(@RequestParam(value="hotelName") String hotelName, @RequestParam(value="hotelDescription") String hotelDescription, @RequestParam(value="hotelLocation") String hotelLocation, @RequestParam(value="hotelAddress") String hotelAddress, @RequestParam(value="hotelLongitude") long hotelLongitude, @RequestParam(value="hotelLatitude") long hotelLatitude) throws Exception {
+		System.out.println("Hotel is being added...");
+        try {
+            Hotel h = new Hotel(null, hotelName, hotelDescription, hotelLocation, hotelAddress, hotelLongitude, hotelLatitude);
+			hotelService.save(h);
+		}
+		catch (Exception e) {
+            throw new Exception("Something went wrong while adding hotel...");
+        }
+		return "Hotel successfully added!";
+	}
+	
+	@RequestMapping(value = "/populateHotel", method = RequestMethod.POST)
+	public String populate() throws Exception {
+		System.out.println("Hotel database population has started...");
+        try {
+            User u1 = supervizorService.findById(new Long(8));
+            User u2 = supervizorService.findById(new Long(9));
+            Hotel h1 = new Hotel(u1, "Europa", "Opis hotela", "Sarajevo", "Carsija", 0, 0);
+			Hotel h2 = new Hotel(u2, "Holiday Inn", "Opis hotela", "Sarajevo", "Marijin Dvor", 10, 10);
+			Hotel h3 = new Hotel(u1, "Hollywood", "Opis hotela", "Sarajevo", "Ilidza", 20, 20);
+			Hotel h4 = new Hotel(u2, "Marriott", "Opis hotela", "Sarajevo", "Skenderija", 30, 30);
+			hotelService.save(h1);
+			hotelService.save(h2);
+			hotelService.save(h3);
+			hotelService.save(h4);
+		}
+		catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+		return "Hotels successfully added!";
+	}
+	
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+	public String hello() {
+			System.out.println("Service is running!");
+			return "Hello from Hotel Management Service";
+	}
 
     @RequestMapping(value = "/addHotel", method = RequestMethod.GET)
     public String addHotel() throws Exception {
         System.out.println("HOTELLLL");
         try {
-            Hotel hotel = new Hotel(new User(1, 0, 0), "Hollywood", "neki desc", "Sarajevo", "Adresa", 45, 47);
+            Hotel hotel = new Hotel(new User(0, 0), "Hollywood", "neki desc", "Sarajevo", "Adresa", 45, 47);
             hotelService.save(hotel);
         } catch (Exception e) {
             throw new Exception("Something went wrong while adding hotel...");
@@ -48,12 +81,14 @@ public String hello() {
 
     @GetMapping(path = "/hotels")
     @ResponseBody
-    public Iterable<Hotel> getAllHotels(){
+    public JSONObject getAllHotels(){
         try {
-            Iterable<Hotel> all = (Iterable<Hotel>) hotelService.findAll();
-            return all;
+            JSONObject json = new JSONObject();
+            Iterable<Hotel> all = hotelService.findAll();
+            json.put("hotels", all);
+            return json;
         } catch(Exception e) {
-            throw new HotelException("Hotels not found!");
+            throw new HotelException(e.getMessage());
         }
     }
 
@@ -85,7 +120,7 @@ public String hello() {
             JsonNode uLongitude = root.path("longitude");
             JsonNode uLatitude = root.path("latitude");
             //if (uID.asLong() != userID) throw new UserDoesntExistException(userID);
-            User u = new User(uID.asLong(), uLongitude.asDouble(), uLatitude.asDouble());
+            User u = new User(uLongitude.asDouble(), uLatitude.asDouble());
             User user = supervizorService.findById(u.getUserID());
             if (user == null)supervizorService.save(u);
             else u = user;
