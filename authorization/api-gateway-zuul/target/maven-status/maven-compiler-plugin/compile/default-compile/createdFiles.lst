@@ -1,0 +1,3 @@
+com\baeldung\ApiGatewayApplication.class
+com\baeldung\security\Oauth2ClientContextFilterWithPath.class
+com\baeldung\security\SecurityConfiguration.class

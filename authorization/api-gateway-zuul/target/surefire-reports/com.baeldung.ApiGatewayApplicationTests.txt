@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.baeldung.ApiGatewayApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 37.895 sec - in com.baeldung.ApiGatewayApplicationTests
