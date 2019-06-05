@@ -58,10 +58,12 @@ export default {
       }
     },
   mounted() {
-    axios.get("localhost:8087/reservations")
+    // user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
+    var userId = 1;
+    axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
        .then(res => {
-         this.reservations = res.data;
-		 console.log(this.reservations);
+        this.reservations = res.data.reservations;
+		console.log(this.reservations);
        })
        .catch(err => {
          console.log(err);
@@ -77,12 +79,12 @@ export default {
 	methods: {
 		onChange(event) {
 			axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
-		   .then(res => {
-			 this.rooms = res.data;
-		   })
-		   .catch(err => {
-			 console.log(err);
-		   });
+			.then(res => {
+			this.rooms = res.data;
+			})
+			.catch(err => {
+			console.log(err);
+		});
 		}
 	}	
 }

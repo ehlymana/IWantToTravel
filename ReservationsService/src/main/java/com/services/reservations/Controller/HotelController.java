@@ -91,4 +91,18 @@ public class HotelController {
         json.put("hotels", hotels);
         return json;
     }
+    @RequestMapping(value = "/populateHotel", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("Hotel database population has started...");
+        try {
+            Hotel h1 = new Hotel(10, 0, 0);
+            Hotel h2 = new Hotel(11, 10, 10);
+            hotelService.save(h1);
+            hotelService.save(h2);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Hotels successfully added!";
+    }
 }

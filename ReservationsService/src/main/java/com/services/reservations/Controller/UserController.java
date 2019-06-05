@@ -94,4 +94,16 @@ public class UserController {
         json.put("users", users);
         return json;
     }
+    @RequestMapping(value = "/populateUser", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("User database population has started...");
+        try {
+            User u = new User(1, 10, 10);
+            userService.save(u);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Users successfully added!";
+    }
 }

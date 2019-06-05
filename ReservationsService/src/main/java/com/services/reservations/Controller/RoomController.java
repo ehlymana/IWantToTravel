@@ -85,4 +85,16 @@ public class RoomController {
         json.put("rooms", rooms);
         return json;
     }
+    @RequestMapping(value = "/populateRoom", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("Room database population has started...");
+        try {
+            Room r = new Room(14);
+            roomService.save(r);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Rooms successfully added!";
+    }
 }

@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class HotelController {
@@ -132,6 +134,19 @@ public class HotelController {
         }
         // json;
         return new Hotel();
+    }
+	@RequestMapping(value = "/filterHotels", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject filterHotels(@RequestParam(value="hotelLongitude") long longitude, @RequestParam(value="hotelLatitude") long latitude) {
+        JSONObject json = new JSONObject();
+        Iterable<Hotel> hotels = hotelService.findAll();
+        List<Hotel> listOfHotels = new ArrayList<Hotel>();
+        for (Hotel h : hotels) {
+            if (h.getHotelLongitude() == longitude && h.getHotelLatitude() == latitude) listOfHotels.add(h);
+        }
+        System.out.println("**** Hotels successfully fetched! ****");
+        json.put("status", HttpStatus.OK);
+        json.put("hotels", listOfHotels);
+        return json;
     }
 
     private Hotel jsonToHotel(JSONObject json, User u) {

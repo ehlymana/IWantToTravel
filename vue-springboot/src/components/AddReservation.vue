@@ -37,14 +37,14 @@
 		<table id="tableAdd">
 		<tr class="tableAdd">
 			<td class="tableAdd"><p> Hotel longitude: </p></td>
-			<td class="tableAdd"><input type="text"/></td>
+			<td class="tableAdd"><input type="text" v-model="longitude"/></td>
 		</tr>
 		<tr class="tableAdd">
 			<td class="tableAdd"><p> Hotel latitude: </p></td>
-			<td class="tableAdd"><input type="text"/></td>
+			<td class="tableAdd"><input type="text" v-model="latitude"/></td>
 		</tr>
 		<tr class="tableAdd">
-			<td colspan="2" class="tableAdd"><button id="filter" type="button">Filter hotels</button></td>
+			<td colspan="2" class="tableAdd"><button id="filter" type="button" v-on:click="filter">Filter hotels</button></td>
 		</tr>
 		</table>
 	</div>
@@ -65,7 +65,7 @@ export default {
       }
     },
   mounted() {
-  axios.get("http://localhost:8089/hotels")
+	axios.get("http://localhost:8089/hotels")
        .then(res => {
          this.hotels = res.data.hotels;
        })
@@ -82,7 +82,16 @@ export default {
        .catch(err => {
          console.log(err);
        });
-	}	
+	},
+	filter() {
+		axios.get("http://localhost:8089/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude)
+       .then(res => {
+         this.hotels = res.data.hotels;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+	}
   }
 }
 </script>

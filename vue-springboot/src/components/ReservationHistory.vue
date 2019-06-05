@@ -22,18 +22,18 @@
 		</tr>
 		<tr>
 		<td>
-		<select id="selectR" size=20>
-			<option>{{reservation.Id}}</option>
+		<select id="selectR" size=15>
+		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">{{reservation.reservationID}}</option>
 		</select>
 		</td>
 		<td>
-		<select id="selectH" size=20>
-			<option>{{hotel.Name}}</option>
+		<select id="selectH" size=15>
+			<option v-for="reservation in reservations" v-bind:key="reservation.hotel.hotelId">{{reservation.hotel.hotelId}}</option>
 		</select>
 		</td>
 		<td>
-		<select id="selectR2" size=20>
-			<option>{{room.Id}}</option>
+		<select id="selectR2" size=15>
+			<option v-for="reservation in reservations" v-bind:key="reservation.room.roomId">{{reservation.room.roomId}}</option>
 		</select>
 		</td>
 		</tr>
@@ -49,44 +49,18 @@ export default {
   name: 'ReservationHistory', //this is the name of the component
       data() {
       return {
-		reservation: {
-			Id: "1"
-		},
-        hotel: 
-        {
-			name: "Hotel 1"
-        },
-		room:
-		{
-			Id: "1"
-		},
 		reservations: [],
         hotels: [],
 		rooms: []
-        
       }
     },
 	mounted() {
-      axios.get("localhost:8087/reservations")
+    // user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
+    var userId = 1;
+    axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
        .then(res => {
-         console.log(res.data);
-         this.reservations = res.data;
-       })
-       .catch(err => {
-         console.log(err);
-       });
-  axios.get("localhost:8089/hotels")
-       .then(res => {
-         console.log(res.data);
-         this.hotels = res.data;
-       })
-       .catch(err => {
-         console.log(err);
-       });
-  axios.get("localhost:8089/rooms")
-       .then(res => {
-         console.log(res.data);
-         this.rooms = res.data;
+        this.reservations = res.data.reservations;
+		console.log(this.reservations);
        })
        .catch(err => {
          console.log(err);

@@ -70,22 +70,6 @@ public class ReservationController {
         reservationService.save(reservation);
         return "";
     }
-	
-	@RequestMapping(value = "/populateReservation", method = RequestMethod.POST)
-    public String populate() throws Exception {
-        System.out.println("Room database population has started...");
-        try {
-            Reservation r1 = new Reservation(0, 0, 0, 0, 1, 1, 1);
-			Reservation r2 = new Reservation(10, 10, 10, 10, 2, 2, 2);
-			reservationService.save(r1);
-			reservationService.save(r2);
-        }
-        catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-        return "Rooms successfully added!";
-    }
-
     @RequestMapping(value = "/addReservation", method = RequestMethod.POST, produces = "application/json")
     public JSONObject addReservation(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
                                      @RequestParam(value="roomID") long roomID) throws IOException {
@@ -108,7 +92,7 @@ public class ReservationController {
                 hotelService.save(h);
             }
             // sinhrona komunikacija 2 - treba nam user s porta 8088
-            ServiceInstance serviceInstanceUsers = discoveryClient.getInstances("user-management-service").get(0);
+            /*ServiceInstance serviceInstanceUsers = discoveryClient.getInstances("user-management-service").get(0);
             url = "http://" + serviceInstanceUsers.getServiceId() + "/user/" + userID;
             response = loadBalanced.getForEntity(url, String.class);
             mapper = new ObjectMapper();
@@ -118,11 +102,12 @@ public class ReservationController {
             JsonNode uLatitude = root.path("latitude");
             System.out.println(uID + " " + uLongitude + " " + uLatitude);
             if (uID.asLong() != userID) throw new UserDoesntExistException(userID);
+			*/
             User u = userService.findById(userID);
             if (u == null) {
                 u = new User(uID.asLong(), uLongitude.asDouble(), uLatitude.asDouble());
                 userService.save(u);
-            }
+            }			
             // sinhrona komunikacija 3 - treba nam room s porta 8089
             url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/rooms/" + roomID;
             response = loadBalanced.getForEntity(url, String.class);
@@ -171,7 +156,26 @@ public class ReservationController {
             return json;
         }
     }
-
+	@RequestMapping(value = "/populateReservation", method = RequestMethod.POST)
+    public String populate() throws Exception {
+        System.out.println("Reservation database population has started...");
+        try {
+			Hotel h = new Hotel(10, 0, 0);
+            hotelService.save(h);
+			Room r = new Room(14);
+			roomService.save(r);
+			User u = new User(1, 10, 10);
+			userService.save(u);
+            Reservation r1 = new Reservation(0, 0, 10, 10, h, u, r);
+			Reservation r2 = new Reservation(0, 0, 10, 10, h, u, r);
+			reservationService.save(r1);
+			reservationService.save(r2);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "Reservations successfully added!";
+    }
     // nejra
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hi() {
