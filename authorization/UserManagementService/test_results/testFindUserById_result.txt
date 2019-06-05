@@ -1,0 +1,40 @@
+
+Pokretanjem metode testFindUserById() dobije se sljedeci ispis za test koji je prosao
+
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /user/10
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.nwt.ums.Controller.UserController
+           Method = public org.springframework.http.ResponseEntity<?> com.nwt.ums.Controller.UserController.findUserById(java.lang.Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 302
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+     Content type = application/json;charset=UTF-8
+             Body = {"userID":10,"username":"testUser","password":"testPassword","firstName":"Test","lastName":"User","role":{"roleID":9,"roleName":"ROLE_USER","userId":0},"email":"testemail@gmail.com","longitude":0.0,"latitude":0.0,"confirmToken":"","reactivateToken":"","passwordToken":"","enabled":true}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
