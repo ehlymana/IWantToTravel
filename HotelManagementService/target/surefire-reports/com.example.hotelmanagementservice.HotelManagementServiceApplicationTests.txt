@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.hotelmanagementservice.HotelManagementServiceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.686 s - in com.example.hotelmanagementservice.HotelManagementServiceApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.795 s - in com.example.hotelmanagementservice.HotelManagementServiceApplicationTests

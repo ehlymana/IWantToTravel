@@ -26,10 +26,14 @@
 		</tr>
 		<tr class="tableAdd2">
 			<td class="tableAdd2"><p>Choose room:</p></td>
-			<td class="tableAdd2"><select class="selectRoom"><option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option></select></td>
+			<td class="tableAdd2">
+			<select class="selectRoom" @change="onChange2($event)">
+			<option :selected="true">Choose Room</option>
+			<option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option>
+			</select></td>
 		</tr>
 		<tr class="tableAdd2">
-		<td colspan="2" class="tableAdd2"><button class="add2" type="button">Add Reservation</button></td>
+		<td colspan="2" class="tableAdd2"><button class="add2" type="button" v-on:click="add">Add Reservation</button></td>
 		</tr>
 		</table>
 	</div>
@@ -61,7 +65,11 @@ export default {
   data() {
       return {
         hotels: [],
-		rooms: []
+		rooms: [],
+		selectedHotel: "",
+		selectedRoom : "",
+		longitude: null,
+		latitude: null
       }
     },
   mounted() {
@@ -75,6 +83,7 @@ export default {
 	},
   methods: {
 	onChange(event) {
+		this.selectedHotel = event.target.value;
 		axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
        .then(res => {
          this.rooms = res.data;
@@ -83,10 +92,24 @@ export default {
          console.log(err);
        });
 	},
+	onChange2(event) {
+		this.selectedRoom = event.target.value;
+	},
 	filter() {
 		axios.get("http://localhost:8089/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude)
        .then(res => {
          this.hotels = res.data.hotels;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+	},
+	add() {
+		// user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
+		var userID = 1;
+		axios.post("http://localhost:8087/addReservation?hotelName=" + this.selectedHotel + "&userID=" + userID + "&roomID=" + this.selectedRoom)
+		.then( () => {
+         alert("Reservation successfully added!");
        })
        .catch(err => {
          console.log(err);

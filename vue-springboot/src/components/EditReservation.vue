@@ -18,7 +18,7 @@
 <div id="content">
 	<div id="left">
 		<p> Pick an existing reservation: </p>
-		<select id="selectReservation" size=15>
+		<select id="selectReservation" size=15 @change="onChange3($event)">
 		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">{{reservation.reservationID}}</option>
 		</select>
 	</div>
@@ -30,15 +30,19 @@
 		<table>
 		<tr class="table1">
 			<td class="table1"><p>Choose room:</p></td>
-			<td class="table1"><select id="selectRoom"><option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option></select></td>
+			<td class="table1">
+			<select id="selectRoom" @change="onChange2($event)">
+				<option :selected="true">Choose Room</option>
+				<option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option>
+			</select></td>
 		</tr>
 		</table>
 	</div>
 	<table id="table2">
 		<tr>
 			<td><button id="historyButton" type="button" onclick="location.href='/reservationHistory';">Reservation History</button></td>
-			<td><button id="editButton" type="button">Edit Reservation</button></td>
-			<td><button id="deleteButton" type="button">Delete Reservation</button></td>
+			<td><button id="editButton" type="button" v-on:click="editR">Edit Reservation</button></td>
+			<td><button id="deleteButton" type="button" v-on:click="deleteR">Delete Reservation</button></td>
 		</tr>
 	</table>
 </div>
@@ -54,30 +58,36 @@ export default {
       return {
 		reservations: [],
         hotels: [],
-		rooms: []
+		rooms: [],
+		selectedReservation: "",
+		selectedHotel: "",
+		selectedRoom : ""
       }
     },
   mounted() {
-    // user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
-    var userId = 1;
-    axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
-       .then(res => {
-        this.reservations = res.data.reservations;
-		console.log(this.reservations);
-       })
-       .catch(err => {
-         console.log(err);
-       });
-  axios.get("http://localhost:8089/hotels")
-       .then(res => {
-         this.hotels = res.data.hotels;
-       })
-       .catch(err => {
-         console.log(err);
-       });
+	this.getEverything();
 	},
 	methods: {
+		getEverything() {
+			// user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
+			var userId = 1;
+			axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
+				.then(res => {
+					this.reservations = res.data.reservations;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+			axios.get("http://localhost:8089/hotels")
+				.then(res => {
+					this.hotels = res.data.hotels;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
 		onChange(event) {
+		this.selectedHotel = event.target.value;
 			axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
 			.then(res => {
 			this.rooms = res.data;
@@ -85,6 +95,33 @@ export default {
 			.catch(err => {
 			console.log(err);
 		});
+		},
+		onChange2(event) {
+			this.selectedRoom = event.target.value;
+		},
+		onChange3(event) {
+			this.selectedReservation = event.target.value;
+		},
+		editR() {
+		console.log("http://localhost:8087/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation);
+			axios.post("http://localhost:8087/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation)
+			.then( () => {
+				alert("Reservation successfully edited!");
+				this.getEverything();
+			})
+			.catch(err => {
+				console.log(err);
+			});
+		},
+		deleteR() {
+			axios.post("http://localhost:8087/deleteReservation?id=" + this.selectedReservation)
+			.then( () => {
+				alert("Reservation successfully deleted!");
+				this.getEverything();
+			})
+			.catch(err => {
+				console.log(err);
+			});
 		}
 	}	
 }

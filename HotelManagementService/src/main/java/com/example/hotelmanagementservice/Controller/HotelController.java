@@ -148,6 +148,17 @@ public class HotelController {
         json.put("hotels", listOfHotels);
         return json;
     }
+	
+	@RequestMapping(value = "/hotelByName", method = RequestMethod.GET, produces = "application/json")
+    public Hotel filterHotels(@RequestParam(value="hotelName") String hotelName) {
+        JSONObject json = new JSONObject();
+        Iterable<Hotel> hotels = hotelService.findAll();
+        for (Hotel h : hotels) {
+            if (h.getHotelName().equals(hotelName)) return h;
+        }
+        System.out.println("**** Hotels successfully fetched! ****");
+        return null;
+    }
 
     private Hotel jsonToHotel(JSONObject json, User u) {
         String hName = json.get("hotelName").toString();

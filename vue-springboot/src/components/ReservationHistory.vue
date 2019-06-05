@@ -60,7 +60,7 @@ export default {
     axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
        .then(res => {
         this.reservations = res.data.reservations;
-		console.log(this.reservations);
+		console.log(this.reservations[0].hotel.hotelId);
        })
        .catch(err => {
          console.log(err);

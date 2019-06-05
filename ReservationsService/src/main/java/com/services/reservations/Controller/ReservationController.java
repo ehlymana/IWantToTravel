@@ -71,24 +71,24 @@ public class ReservationController {
         return "";
     }
     @RequestMapping(value = "/addReservation", method = RequestMethod.POST, produces = "application/json")
-    public JSONObject addReservation(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="userID") long userID,
+    public JSONObject addReservation(@RequestParam(value="hotelName") String hotelName, @RequestParam(value="userID") long userID,
                                      @RequestParam(value="roomID") long roomID) throws IOException {
         JSONObject json = new JSONObject();
         try {
             // sinhrona komunikacija 1 - treba nam hotel s porta 8089
             ServiceInstance serviceInstanceHotelsAndRooms = discoveryClient.getInstances("hotel-management-service").get(0);
-            String url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/hotels/" + hotelID;
+            String url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/hotelByName?hotelName=" + hotelName;
             ResponseEntity<String> response = loadBalanced.getForEntity(url, String.class);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
-            JsonNode hID = root.path("hotelId");
+            JsonNode hName = root.path("hotelName");
+			JsonNode hId = root.path("hotelId");
             JsonNode hLongitude = root.path("hotelLongitude");
             JsonNode hLatitude = root.path("hotelLatitude");
-            System.out.println(hID + " " + hLongitude + " " + hLatitude);
-            if (hID.asLong() != hotelID) throw new HotelDoesntExistException(hotelID);
+			long hotelID = hId.asLong();
             Hotel h = hotelService.findById(hotelID);
             if (h == null) {
-                h = new Hotel(hID.asLong(), hLongitude.asLong(), hLatitude.asLong());
+                h = new Hotel(hId.asLong(), hLongitude.asLong(), hLatitude.asLong());
                 hotelService.save(h);
             }
             // sinhrona komunikacija 2 - treba nam user s porta 8088
@@ -105,7 +105,7 @@ public class ReservationController {
 			*/
             User u = userService.findById(userID);
             if (u == null) {
-                u = new User(uID.asLong(), uLongitude.asDouble(), uLatitude.asDouble());
+                u = new User(userID, 0, 0);
                 userService.save(u);
             }			
             // sinhrona komunikacija 3 - treba nam room s porta 8089
@@ -134,6 +134,66 @@ public class ReservationController {
             } else {
                 reservationService.save(reservation);
                 System.out.println("**** Reservation successfully added! ****");
+                json.put("status", HttpStatus.OK);
+                json.put("reservation", reservation);
+            }
+        }
+        catch (Exception e) {
+            json.put("status", HttpStatus.BAD_REQUEST);
+            json.put("message", e.getMessage());
+        }
+        return json;
+    }
+    @RequestMapping(value = "/editReservation", method = RequestMethod.POST, produces = "application/json")
+    public JSONObject editReservation(@RequestParam(value="hotelName") String hotelName,
+                                     @RequestParam(value="roomID") long roomID, @RequestParam(value="reservationID") long reservationID) throws IOException {
+        JSONObject json = new JSONObject();
+        try {
+            // sinhrona komunikacija 1 - treba nam hotel s porta 8089
+            ServiceInstance serviceInstanceHotelsAndRooms = discoveryClient.getInstances("hotel-management-service").get(0);
+            String url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/hotelByName?hotelName=" + hotelName;
+            ResponseEntity<String> response = loadBalanced.getForEntity(url, String.class);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+            JsonNode hName = root.path("hotelName");
+            JsonNode hId = root.path("hotelId");
+            JsonNode hLongitude = root.path("hotelLongitude");
+            JsonNode hLatitude = root.path("hotelLatitude");
+            long hotelID = hId.asLong();
+            Hotel h = hotelService.findById(hotelID);
+            if (h == null) {
+                h = new Hotel(hId.asLong(), hLongitude.asLong(), hLatitude.asLong());
+                hotelService.save(h);
+            }
+            // sinhrona komunikacija 2 - treba nam room s porta 8089
+            url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/rooms/" + roomID;
+            response = loadBalanced.getForEntity(url, String.class);
+            root = mapper.readTree(response.getBody());
+            JsonNode rID = root.path("roomId");
+            System.out.println(rID);
+            if (rID.asLong() != roomID) throw new RoomDoesntExistException(roomID);
+            Room r = roomService.findById(roomID);
+            if (r == null) {
+                r = new Room(rID.asLong());
+                roomService.save(r);
+            }
+            Reservation reservation = reservationService.findById(reservationID);
+            if (reservation == null) throw new ReservationDoesntExistException(reservation.getReservationID());
+            reservation.setHotel(h);
+            reservation.setRoom(r);
+            System.out.println(h.getHotelId() + " " + r.getRoomId() + " " + reservationID);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<Reservation>> violations = validator.validate(reservation);
+            if (violations.size() > 0) {
+                for (ConstraintViolation<Reservation> violation : violations) {
+                    System.out.println("**** ERROR: " + violation.getMessage() + " ****");
+                    json.put("status", HttpStatus.BAD_REQUEST);
+                    json.put("message", violation.getMessage());
+                }
+            } else {
+                reservationService.save(reservation);
+                System.out.println("**** Reservation successfully edited! ****");
                 json.put("status", HttpStatus.OK);
                 json.put("reservation", reservation);
             }
@@ -184,6 +244,7 @@ public class ReservationController {
 
     @RequestMapping(value = "/deleteReservation", method = RequestMethod.POST, produces = "application/json")
     public JSONObject deleteReservation(@RequestParam(value="id") long id) {
+        System.out.println(id);
         JSONObject json = new JSONObject();
         Reservation r = reservationService.findById(id);
         if (r == null) throw new ReservationNotFoundException(id);
