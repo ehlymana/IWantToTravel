@@ -17,6 +17,11 @@ public class Hotel {
     @Id
     @Column(name = "HOTEL_ID", nullable = false, updatable = false)
     private long hotelId;
+	
+	@NotNull
+    @Size(min=1, message="Hotel name should be at least one character long!")
+    @Column(name = "HOTEL_NAME", nullable = false)
+    String hotelName;
 
     @NotNull(message = "Hotel longitude must be specified!")
     @Min(value = -180, message = "Hotel longitude value out of range! Should be between -180 and 180!")
@@ -30,8 +35,9 @@ public class Hotel {
     @Column(name = "HOTEL_LATITUDE")
     private long hotelLatitude;
 
-    public Hotel(long hotelID, long hotelLongitude, long hotelLatitude) {
+    public Hotel(long hotelID, String hotelName, long hotelLongitude, long hotelLatitude) {
         this.hotelId = hotelID;
+		this.hotelName = hotelName;
         this.hotelLongitude = hotelLongitude;
         this.hotelLatitude = hotelLatitude;
     }
@@ -45,6 +51,14 @@ public class Hotel {
 
     public void setHotelId(long hotelId) {
         this.hotelId = hotelId;
+    }
+	
+	public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
     }
 
     public long getHotelLongitude() {

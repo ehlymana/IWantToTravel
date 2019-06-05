@@ -62,7 +62,7 @@ public class ReservationController {
     // nejra
     @RequestMapping (value="/reservation/add", method = RequestMethod.POST)
     public String add() {
-        Hotel hotel = new Hotel(1, 0, 0);
+        Hotel hotel = new Hotel(1, "Name", 0, 0);
         hotelService.save(hotel);
         Room room = new Room(1);
         roomService.save(room);
@@ -88,7 +88,7 @@ public class ReservationController {
 			long hotelID = hId.asLong();
             Hotel h = hotelService.findById(hotelID);
             if (h == null) {
-                h = new Hotel(hId.asLong(), hLongitude.asLong(), hLatitude.asLong());
+                h = new Hotel(hId.asLong(), hName.toString(), hLongitude.asLong(), hLatitude.asLong());
                 hotelService.save(h);
             }
             // sinhrona komunikacija 2 - treba nam user s porta 8088
@@ -162,7 +162,7 @@ public class ReservationController {
             long hotelID = hId.asLong();
             Hotel h = hotelService.findById(hotelID);
             if (h == null) {
-                h = new Hotel(hId.asLong(), hLongitude.asLong(), hLatitude.asLong());
+                h = new Hotel(hId.asLong(), hName.toString(), hLongitude.asLong(), hLatitude.asLong());
                 hotelService.save(h);
             }
             // sinhrona komunikacija 2 - treba nam room s porta 8089
@@ -220,7 +220,7 @@ public class ReservationController {
     public String populate() throws Exception {
         System.out.println("Reservation database population has started...");
         try {
-			Hotel h = new Hotel(10, 0, 0);
+			Hotel h = new Hotel(10, "Hotel 1", 0, 0);
             hotelService.save(h);
 			Room r = new Room(14);
 			roomService.save(r);

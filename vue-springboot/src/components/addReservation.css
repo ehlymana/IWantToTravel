@@ -5,9 +5,10 @@ select {
 	font-size: 20px;
 }
 .selectRoom {
-width: 200%;
+width: 300%;
 margin-left: 2%;
-padding-right: 100%;
+padding-left: 5%;
+padding-right: 5%;
 }
 input {
 padding: 2%;
@@ -44,6 +45,11 @@ width: 60%;
 	margin-left: 15%;
 	padding: 5%;
 	width: 70%;
+}
+.tableAdd3{
+	margin-left: 15%;
+	padding: 5%;
+	width: 150%;
 }
 #tableAdd {
 	width:45%;

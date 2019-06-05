@@ -19,21 +19,21 @@
 	<div id="left">
 		<p> Pick an existing reservation: </p>
 		<select id="selectReservation" size=15 @change="onChange3($event)">
-		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">{{reservation.reservationID}}</option>
+		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">Reservation no.{{reservation.reservationID}}, Hotel {{reservation.hotel.hotelName}} </option>
 		</select>
 	</div>
 	<div id="right">
 		<p> Choose an available hotel: </p>
 		<select id="selectHotel" size=15 @change="onChange($event)">
-			<option v-for="hotel in hotels" v-bind:key="hotel.hotelName">{{hotel.hotelName}}</option>
+			<option v-for="hotel in hotels" v-bind:key="hotel.hotelName">Hotel {{hotel.hotelName}}, {{hotel.hotelLocation}}</option>
 		</select>
 		<table>
 		<tr class="table1">
 			<td class="table1"><p>Choose room:</p></td>
 			<td class="table1">
-			<select id="selectRoom" @change="onChange2($event)">
+			<select id="selectRoom2" @change="onChange2($event)">
 				<option :selected="true">Choose Room</option>
-				<option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option>
+				<option v-for="room in rooms" v-bind:key="room.roomId">Room no.{{room.roomId}} ({{room.roomBeds}} beds)</option>
 			</select></td>
 		</tr>
 		</table>
@@ -57,6 +57,7 @@ export default {
     data() {
       return {
 		reservations: [],
+		hotelsReservations: [],
         hotels: [],
 		rooms: [],
 		selectedReservation: "",
@@ -87,8 +88,11 @@ export default {
 				});
 		},
 		onChange(event) {
-		this.selectedHotel = event.target.value;
-			axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
+			this.selectedHotel = event.target.value.substring(6);
+			var i = 0;
+			while (this.selectedHotel[i] != ',' && i < this.selectedHotel.length) i++;
+			this.selectedHotel = this.selectedHotel.substring(0, i);
+			axios.get("http://localhost:8089/roomsByHotel/" + this.selectedHotel)
 			.then(res => {
 			this.rooms = res.data;
 			})
@@ -97,10 +101,16 @@ export default {
 		});
 		},
 		onChange2(event) {
-			this.selectedRoom = event.target.value;
+			this.selectedRoom = event.target.value.substring(8);
+			var i = 0;
+			while (this.selectedRoom[i] != ' ' && i < this.selectedRoom.length) i++;
+			this.selectedRoom = this.selectedRoom.substring(0, i);
 		},
 		onChange3(event) {
-			this.selectedReservation = event.target.value;
+			this.selectedReservation = event.target.value.substring(15);
+			var i = 0;
+			while (this.selectedReservation[i] != ',' && i < this.selectedReservation.length) i++;
+			this.selectedReservation = this.selectedReservation.substring(0, i);
 		},
 		editR() {
 		console.log("http://localhost:8087/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation);

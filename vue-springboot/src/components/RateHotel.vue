@@ -18,14 +18,11 @@
 <div id="content">
 	<div id="left">
 		<p> Choose a visited hotel: </p>
-		<select id="selectHotelRating" size=20>
-		<option>Hotel 1 </option>
-		<option>Hotel 2</option>
-		</select>
+		<select id="selectHotelRating" size=15 @change="onChange($event)"><option v-for="hotel in hotels" v-bind:key="hotel.hotelName">Hotel {{hotel.hotelName}}, {{hotel.hotelLocation}}</option></select>
 	</div>
 	<div id="right">
 		<p> Add comment: </p>
-		<textarea id="comment" rows="21" cols="70"/>
+		<textarea id="comment" rows="24" cols="70"/>
 	</div>
 	<button class="rate" type="button">Rate Hotel</button>
 </div>
@@ -34,8 +31,42 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'RateHotel' //this is the name of the component
+  name: 'RateHotel', //this is the name of the component
+  data() {
+      return {
+        hotels: [],
+		selectedHotel: ""
+      }
+    },
+  mounted() {
+	axios.get("http://localhost:8089/hotels")
+       .then(res => {
+         this.hotels = res.data.hotels;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+	},
+	methods: {
+	onChange(event) {
+		this.selectedHotel = event.target.value.substring(6);
+		var i = 0;
+		while (this.selectedHotel[i] != ',' && i < this.selectedHotel.length) i++;
+		this.selectedHotel = this.selectedHotel.substring(0, i);
+		axios.get("http://localhost:8089/roomsByHotel/" + this.selectedHotel)
+       .then(res => {
+         this.rooms = res.data;
+       })
+       .catch(err => {
+         console.log(err);
+       });
+	},
+	onChange2(event) {
+		this.selectedRoom = event.target.value;
+	}
+  }
 }
 </script>
 <style scoped lang="css">

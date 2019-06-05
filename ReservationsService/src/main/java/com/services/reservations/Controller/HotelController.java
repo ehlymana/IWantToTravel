@@ -30,10 +30,10 @@ public class HotelController {
     }
 
     @RequestMapping(value = "/addHotel", method = RequestMethod.POST, produces = "application/json")
-    public JSONObject addHotel(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude) {
+    public JSONObject addHotel(@RequestParam(value="hotelID") long hotelID, @RequestParam(value="hotelName") String hotelName, @RequestParam(value="longitude") long longitude, @RequestParam(value="latitude") long latitude) {
         JSONObject json = new JSONObject();
         try {
-            Hotel h = new Hotel(hotelID, longitude, latitude);
+            Hotel h = new Hotel(hotelID, hotelName, longitude, latitude);
             if (hotelService.findById(h.getHotelId()) != null) throw new HotelAlreadyExistsException(h.getHotelId());
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
@@ -95,8 +95,8 @@ public class HotelController {
     public String populate() throws Exception {
         System.out.println("Hotel database population has started...");
         try {
-            Hotel h1 = new Hotel(10, 0, 0);
-            Hotel h2 = new Hotel(11, 10, 10);
+            Hotel h1 = new Hotel(10, "Some hotel 1", 0, 0);
+            Hotel h2 = new Hotel(11, "Some hotel 2", 10, 10);
             hotelService.save(h1);
             hotelService.save(h2);
         }

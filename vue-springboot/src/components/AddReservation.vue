@@ -22,14 +22,14 @@
 		<td colspan="2" class="tableAdd2"><p> Choose an available hotel: </p></td>
 		</tr>
 		<tr class="tableAdd2">
-		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=10 @change="onChange($event)"><option v-for="hotel in hotels" v-bind:key="hotel.hotelName">{{hotel.hotelName}}</option></select></td>
+		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=10 @change="onChange($event)"><option v-for="hotel in hotels" v-bind:key="hotel.hotelName">Hotel {{hotel.hotelName}}, {{hotel.hotelLocation}}</option></select></td>
 		</tr>
 		<tr class="tableAdd2">
 			<td class="tableAdd2"><p>Choose room:</p></td>
-			<td class="tableAdd2">
+			<td class="tableAdd3">
 			<select class="selectRoom" @change="onChange2($event)">
 			<option :selected="true">Choose Room</option>
-			<option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option>
+			<option v-for="room in rooms" v-bind:key="room.roomId">Room no.{{room.roomId}} ({{room.roomBeds}} beds)</option>
 			</select></td>
 		</tr>
 		<tr class="tableAdd2">
@@ -83,8 +83,11 @@ export default {
 	},
   methods: {
 	onChange(event) {
-		this.selectedHotel = event.target.value;
-		axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
+		this.selectedHotel = event.target.value.substring(6);
+		var i = 0;
+		while (this.selectedHotel[i] != ',' && i < this.selectedHotel.length) i++;
+		this.selectedHotel = this.selectedHotel.substring(0, i);
+		axios.get("http://localhost:8089/roomsByHotel/" + this.selectedHotel)
        .then(res => {
          this.rooms = res.data;
        })
@@ -93,7 +96,10 @@ export default {
        });
 	},
 	onChange2(event) {
-		this.selectedRoom = event.target.value;
+		this.selectedRoom = event.target.value.substring(8);
+		var i = 0;
+		while (this.selectedRoom[i] != ' ' && i < this.selectedRoom.length) i++;
+		this.selectedRoom = this.selectedRoom.substring(0, i);
 	},
 	filter() {
 		axios.get("http://localhost:8089/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude)

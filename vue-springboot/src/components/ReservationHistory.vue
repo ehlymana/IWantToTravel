@@ -23,17 +23,17 @@
 		<tr>
 		<td>
 		<select id="selectR" size=15>
-		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">{{reservation.reservationID}}</option>
+		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">Reservation no.{{reservation.reservationID}}</option>
 		</select>
 		</td>
 		<td>
 		<select id="selectH" size=15>
-			<option v-for="reservation in reservations" v-bind:key="reservation.hotel.hotelId">{{reservation.hotel.hotelId}}</option>
+			<option v-for="reservation in reservations" v-bind:key="reservation.hotel.hotelId">Hotel {{reservation.hotel.hotelName}}</option>
 		</select>
 		</td>
 		<td>
 		<select id="selectR2" size=15>
-			<option v-for="reservation in reservations" v-bind:key="reservation.room.roomId">{{reservation.room.roomId}}</option>
+			<option v-for="reservation in reservations" v-bind:key="reservation.room.roomId">Room no.{{reservation.room.roomId}}</option>
 		</select>
 		</td>
 		</tr>
@@ -60,7 +60,6 @@ export default {
     axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
        .then(res => {
         this.reservations = res.data.reservations;
-		console.log(this.reservations[0].hotel.hotelId);
        })
        .catch(err => {
          console.log(err);

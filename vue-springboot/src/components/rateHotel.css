@@ -6,9 +6,13 @@
 	 margin-top: 2%;
  }
  .rate {
-	 margin-left: 40%;
-	margin-right: 45%;
+	 float: left;
+	margin-left: 40%;
 	margin-top: 7%;
 	padding: 0.5%;
 	width: 20%;
  }
+ #content {
+height: 100%;
+padding-bottom: 8%;
+}
