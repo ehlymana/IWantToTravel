@@ -1,0 +1,4 @@
+com\baeldung\config\WebSecurityConfig.class
+com\baeldung\UaaServiceApplication.class
+com\baeldung\config\OAuth2AuthorizationServerConfig.class
+com\baeldung\config\WebConfig.class
