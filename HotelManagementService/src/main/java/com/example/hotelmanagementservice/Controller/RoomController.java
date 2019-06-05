@@ -9,6 +9,8 @@ import net.minidev.json.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class RoomController {
@@ -69,6 +71,27 @@ public class RoomController {
             return h;
         } catch (Exception e) {
             throw new RoomException("Could not get room!");
+        }
+    }
+	
+	@GetMapping(path = "/roomsByHotel/{hotelName}")
+    @ResponseBody
+    public List<Room> getRoomsByHotel(@PathVariable("hotelName") String name){
+        try{
+            Iterable<Room> r = roomService.findAll();
+			Iterable<Hotel> h = hotelService.findAll();
+			long id = -1;
+			for (Hotel hotel : h) {
+				if (hotel.getHotelName().equals(name)) id = hotel.getHotelId();
+			}
+			if (id == -1) throw new RoomException("Could not find hotel!");
+			List<Room> listOfRooms = new ArrayList<Room>();
+			for (Room room : r) {
+				if (room.getHotel().getHotelId() == id) listOfRooms.add(room);
+			}
+            return listOfRooms;
+        } catch (Exception e) {
+            throw new RoomException("Could not find room!");
         }
     }
 

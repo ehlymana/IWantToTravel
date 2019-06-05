@@ -22,11 +22,11 @@
 		<td colspan="2" class="tableAdd2"><p> Choose an available hotel: </p></td>
 		</tr>
 		<tr class="tableAdd2">
-		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=15><option>{{hotel.name}}</option></select></td>
+		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=10 @change="onChange($event)"><option v-for="hotel in hotels" v-bind:key="hotel.hotelName">{{hotel.hotelName}}</option></select></td>
 		</tr>
 		<tr class="tableAdd2">
 			<td class="tableAdd2"><p>Choose room:</p></td>
-			<td class="tableAdd2"><select class="selectRoom"><option>{{room.Id}}</option></select></td>
+			<td class="tableAdd2"><select class="selectRoom"><option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option></select></td>
 		</tr>
 		<tr class="tableAdd2">
 		<td colspan="2" class="tableAdd2"><button class="add2" type="button">Add Reservation</button></td>
@@ -60,37 +60,30 @@ export default {
   name: 'AddReservation', //this is the name of the component
   data() {
       return {
-        hotel: 
-        {
-			name: "Hotel 1"
-        },
-		room:
-		{
-			Id: "1"
-		},
         hotels: [],
 		rooms: []
-        
       }
     },
   mounted() {
-  axios.get("localhost:8089/hotels")
+  axios.get("http://localhost:8089/hotels")
        .then(res => {
-         console.log(res.data);
-         this.hotels = res.data;
+         this.hotels = res.data.hotels;
        })
        .catch(err => {
          console.log(err);
        });
-  axios.get("localhost:8089/rooms")
+	},
+  methods: {
+	onChange(event) {
+		axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
        .then(res => {
-         console.log(res.data);
          this.rooms = res.data;
        })
        .catch(err => {
          console.log(err);
        });
-	}  
+	}	
+  }
 }
 </script>
 <style scoped lang="css">

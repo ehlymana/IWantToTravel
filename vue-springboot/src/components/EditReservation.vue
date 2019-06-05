@@ -18,19 +18,19 @@
 <div id="content">
 	<div id="left">
 		<p> Pick an existing reservation: </p>
-		<select id="selectReservation" size=20>
-		<option>{{reservation.Id}}</option>
+		<select id="selectReservation" size=15>
+		<option v-for="reservation in reservations" v-bind:key="reservation.reservationID">{{reservation.reservationID}}</option>
 		</select>
 	</div>
 	<div id="right">
 		<p> Choose an available hotel: </p>
-		<select id="selectHotel" size=20>
-			<option>{{hotel.name}} </option>
+		<select id="selectHotel" size=15 @change="onChange($event)">
+			<option v-for="hotel in hotels" v-bind:key="hotel.hotelName">{{hotel.hotelName}}</option>
 		</select>
 		<table>
 		<tr class="table1">
 			<td class="table1"><p>Choose room:</p></td>
-			<td class="table1"><select id="selectRoom"><option>{{room.Id}}</option></select></td>
+			<td class="table1"><select id="selectRoom"><option v-for="room in rooms" v-bind:key="room.roomId">{{room.roomId}}</option></select></td>
 		</tr>
 		</table>
 	</div>
@@ -52,49 +52,39 @@ export default {
   name: 'EditReservation', //this is the name of the component
     data() {
       return {
-		reservation: {
-			Id: "1"
-		},
-        hotel: 
-        {
-			name: "Hotel 1"
-        },
-		room:
-		{
-			Id: "1"
-		},
 		reservations: [],
         hotels: [],
 		rooms: []
-        
       }
     },
   mounted() {
     axios.get("localhost:8087/reservations")
        .then(res => {
-         console.log(res.data);
          this.reservations = res.data;
+		 console.log(this.reservations);
        })
        .catch(err => {
          console.log(err);
        });
-  axios.get("localhost:8089/hotels")
+  axios.get("http://localhost:8089/hotels")
        .then(res => {
-         console.log(res.data);
-         this.hotels = res.data;
+         this.hotels = res.data.hotels;
        })
        .catch(err => {
          console.log(err);
        });
-  axios.get("localhost:8089/rooms")
-       .then(res => {
-         console.log(res.data);
-         this.rooms = res.data;
-       })
-       .catch(err => {
-         console.log(err);
-       });
-	}
+	},
+	methods: {
+		onChange(event) {
+			axios.get("http://localhost:8089/roomsByHotel/" + event.target.value)
+		   .then(res => {
+			 this.rooms = res.data;
+		   })
+		   .catch(err => {
+			 console.log(err);
+		   });
+		}
+	}	
 }
 </script>
 <style scoped lang="css">
