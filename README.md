@@ -5,7 +5,7 @@
 It consists of four microservices:
 - Hotel Management Microservice (port **8089**);
 - Reservations Microservice (port **8087**);
-- Review Microservice (to be added in the future, currently unfinished);
+- Review Microservice (port **8086**);
 - User Management Microservice (port **8088**).
 
 The server app (App) runs on port **8761**.

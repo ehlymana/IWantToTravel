@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS_REVIEW")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
@@ -24,8 +24,7 @@ public class User {
         this.username = username;
     }
 
-    public User() {
-    }
+    public User() { }
 
     public Long getUserID() {
         return userID;

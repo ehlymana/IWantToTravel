@@ -33,9 +33,10 @@ public class Review {
     private Date reviewDate;
 
 
-    public Review(String reviewComment, Date reviewDate) {
+    public Review(String reviewComment, Date reviewDate, Hotel hotel) {
         this.reviewComment = reviewComment;
         this.reviewDate = reviewDate;
+		this.hotel = hotel;
     }
 
     public Review(){}
@@ -64,4 +65,12 @@ public class Review {
     public void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
     }
+	
+	public Hotel getReviewHotel() {
+		return hotel;
+	}
+	
+	public void setReviewHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 }
