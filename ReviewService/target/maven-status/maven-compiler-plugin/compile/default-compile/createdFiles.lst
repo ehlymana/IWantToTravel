@@ -1,0 +1,14 @@
+com\example\reviewservice\Controller\UserController.class
+com\example\reviewservice\Respository\UserRepository.class
+com\example\reviewservice\Service\ReviewService.class
+com\example\reviewservice\Respository\HotelRepository.class
+com\example\reviewservice\Service\UserService.class
+com\example\reviewservice\Respository\ReviewRepository.class
+com\example\reviewservice\Model\Review.class
+com\example\reviewservice\ReviewserviceApplication.class
+com\example\reviewservice\Controller\ReviewController.class
+com\example\reviewservice\Service\HotelService.class
+com\example\reviewservice\ServiceInstanceRestController.class
+com\example\reviewservice\Controller\HotelController.class
+com\example\reviewservice\Model\Hotel.class
+com\example\reviewservice\Model\User.class
