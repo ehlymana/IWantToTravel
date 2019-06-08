@@ -255,6 +255,10 @@ public class ReservationController {
         System.out.println(id);
         JSONObject json = new JSONObject();
         Reservation r = reservationService.findById(id);
+		ServiceInstance serviceInstanceHotelsAndRooms = discoveryClient.getInstances("hotel-management-service").get(0);
+		// sinhrona komunikacija - staviti sobu da je unoccupied
+        String url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/occupy?roomID=" + r.getRoom().getRoomId();
+		ResponseEntity<String> response = loadBalanced.getForEntity(url, String.class);
         if (r == null) throw new ReservationNotFoundException(id);
         else {
             reservationService.delete(r);
