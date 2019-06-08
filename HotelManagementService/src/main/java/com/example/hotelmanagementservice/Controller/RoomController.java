@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import net.minidev.json.JSONObject;
+import org.springframework.http.HttpStatus;
 
-@Controller
+@RestController
 public class RoomController {
     private HotelService hotelService;
     private RoomService roomService;
@@ -28,8 +30,8 @@ public class RoomController {
         try {
             Hotel h1 = hotelService.findById(new Long(10));
             Hotel h2 = hotelService.findById(new Long(11));
-            Room r1 = new Room(h1, 1, "Description 1");
-            Room r2 = new Room(h2, 2, "Description 1");
+            Room r1 = new Room(h1, 1, "Description 1", false);
+            Room r2 = new Room(h2, 2, "Description 1", false);
             roomService.save(r1);
             roomService.save(r2);
         }
@@ -84,10 +86,10 @@ public class RoomController {
 			for (Hotel hotel : h) {
 				if (hotel.getHotelName().equals(name)) id = hotel.getHotelId();
 			}
-			if (id == -1) throw new RoomException("Could not find hotel!");
+			if (id == -1) throw new RoomException("Could not find room!");
 			List<Room> listOfRooms = new ArrayList<Room>();
 			for (Room room : r) {
-				if (room.getHotel().getHotelId() == id) listOfRooms.add(room);
+				if (room.getHotel().getHotelId() == id && !room.getOccupied()) listOfRooms.add(room);
 			}
             return listOfRooms;
         } catch (Exception e) {
@@ -104,10 +106,23 @@ public class RoomController {
             System.out.println( newRoom.get("roomDescription").toString());
             System.out.println(Integer.valueOf( newRoom.get("roomBeds").toString()));
             System.out.println(Long.valueOf(newRoom.get("hotel").toString()));
-            return roomService.save(new Room(hotelService.findById(Long.valueOf(newRoom.get("hotel").toString())), Integer.valueOf( newRoom.get("roomBeds").toString()), newRoom.get("roomDescription").toString()));
+            return roomService.save(new Room(hotelService.findById(Long.valueOf(newRoom.get("hotel").toString())), Integer.valueOf( newRoom.get("roomBeds").toString()), newRoom.get("roomDescription").toString(), (Boolean)newRoom.get("occupied")));
         } catch(Exception e) {
             throw new RoomException("Something went wrong, room was not created!");
         }
+    }
+	
+@RequestMapping(value = "/occupy", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject filterHotels(@RequestParam(value="roomID") long id) {
+        JSONObject json = new JSONObject();
+        Room room = roomService.findById(id);
+		if (room == null) throw new RoomException("Could not find hotel!");
+        room.setOccupied(!room.getOccupied());
+		roomService.save(room);
+        System.out.println("**** Room occupation successfully changed! ****");
+        json.put("status", HttpStatus.OK);
+        json.put("room", room);
+		return json;
     }
 
     @DeleteMapping(path = "/rooms/{roomID}")

@@ -29,12 +29,16 @@ public class Room {
 
     @Column(name = "ROOM_DESCRIPTION")
     private String roomDescription;
+	
+	@Column(name = "OCCUPIED")
+	private boolean occupied;
 
-    public Room(Hotel hotel, int roomBeds, String roomDescription) {
+    public Room(Hotel hotel, int roomBeds, String roomDescription, boolean occupied) {
         //this.roomId = id;
         this.hotel = hotel;
         this.roomBeds = roomBeds;
         this.roomDescription = roomDescription;
+		this.occupied = occupied;
     }
 
     public Room(){}
@@ -54,6 +58,10 @@ public class Room {
     public void setRoomDescription(String roomDescription) {
         this.roomDescription = roomDescription;
     }
+	
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
 
     public long getRoomId() {
         return roomId;
@@ -70,4 +78,8 @@ public class Room {
     public String getRoomDescription() {
         return roomDescription;
     }
+	
+	public boolean getOccupied() {
+		return occupied;
+	}
 }

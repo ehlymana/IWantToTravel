@@ -107,19 +107,21 @@ public class ReservationController {
             if (u == null) {
                 u = new User(userID, 0, 0);
                 userService.save(u);
-            }			
+            }				
             // sinhrona komunikacija 3 - treba nam room s porta 8089
             url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/rooms/" + roomID;
             response = loadBalanced.getForEntity(url, String.class);
             root = mapper.readTree(response.getBody());
             JsonNode rID = root.path("roomId");
-            System.out.println(rID);
             if (rID.asLong() != roomID) throw new RoomDoesntExistException(roomID);
             Room r = roomService.findById(roomID);
             if (r == null) {
                 r = new Room(rID.asLong());
                 roomService.save(r);
             }
+			// sinhrona komunikacija 4 - staviti sobu da je occupied
+            url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/occupy?roomID=" + roomID;
+            response = loadBalanced.getForEntity(url, String.class);
             Reservation reservation = new Reservation(u.getLongitude(), u.getLatitude(), h.getHotelLongitude(), h.getHotelLatitude(), h, u, r);
             if (reservationService.findById(reservation.getReservationID()) != null) throw new ReservationAlreadyExistsException(reservation.getReservationID());
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -172,6 +174,9 @@ public class ReservationController {
             JsonNode rID = root.path("roomId");
             System.out.println(rID);
             if (rID.asLong() != roomID) throw new RoomDoesntExistException(roomID);
+			// sinhrona komunikacija 3 - staviti sobu da je occupied
+            url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/occupy?roomID=" + roomID;
+			response = loadBalanced.getForEntity(url, String.class);
             Room r = roomService.findById(roomID);
             if (r == null) {
                 r = new Room(rID.asLong());
@@ -179,6 +184,9 @@ public class ReservationController {
             }
             Reservation reservation = reservationService.findById(reservationID);
             if (reservation == null) throw new ReservationDoesntExistException(reservation.getReservationID());
+			// sinhrona komunikacija 3 - staviti sobu da je unoccupied
+            url = "http://" + serviceInstanceHotelsAndRooms.getServiceId() + "/occupy?roomID=" + reservation.getRoom().getRoomId();
+			response = loadBalanced.getForEntity(url, String.class);
             reservation.setHotel(h);
             reservation.setRoom(r);
             System.out.println(h.getHotelId() + " " + r.getRoomId() + " " + reservationID);

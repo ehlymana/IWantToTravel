@@ -22,7 +22,7 @@
 		<td colspan="2" class="tableAdd2"><p> Choose an available hotel: </p></td>
 		</tr>
 		<tr class="tableAdd2">
-		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=10 @change="onChange($event)"><option v-for="hotel in hotels" v-bind:key="hotel.hotelName">Hotel {{hotel.hotelName}}, {{hotel.hotelLocation}}</option></select></td>
+		<td colspan="2" class="tableAdd2"><select class="selectHotel" size=10 @change="onChange($event)"><option v-for="hotel in hotels" v-bind:key="hotel.hotelName">Hotel {{hotel.hotelName}}, {{hotel.hotelLocation}} ({{hotel.hotelLongitude}}°, {{hotel.hotelLatitude}}°)</option></select></td>
 		</tr>
 		<tr class="tableAdd2">
 			<td class="tableAdd2"><p>Choose room:</p></td>
@@ -40,11 +40,11 @@
 	<div class="right">
 		<table id="tableAdd">
 		<tr class="tableAdd">
-			<td class="tableAdd"><p> Hotel longitude: </p></td>
+			<td class="tableAdd"><p> Near longitude: </p></td>
 			<td class="tableAdd"><input type="text" v-model="longitude"/></td>
 		</tr>
 		<tr class="tableAdd">
-			<td class="tableAdd"><p> Hotel latitude: </p></td>
+			<td class="tableAdd"><p> Near latitude: </p></td>
 			<td class="tableAdd"><input type="text" v-model="latitude"/></td>
 		</tr>
 		<tr class="tableAdd">
@@ -102,7 +102,13 @@ export default {
 		this.selectedRoom = this.selectedRoom.substring(0, i);
 	},
 	filter() {
-		axios.get("http://localhost:8089/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude)
+		var http = "";
+		if (this.longitude == null || this.longitude.length == 0) this.longitude = -1000;
+		if (this.latitude == null || this.latitude.length == 0) this.latitude = -1000;
+		if (this.longitude != null || this.latitude != null) http = "http://localhost:8089/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude;
+		if (this.longitude == -1000) this.longitude = "";
+		if (this.latitude == -1000) this.latitude = "";
+		axios.get(http)
        .then(res => {
          this.hotels = res.data.hotels;
        })

@@ -140,8 +140,14 @@ public class HotelController {
         JSONObject json = new JSONObject();
         Iterable<Hotel> hotels = hotelService.findAll();
         List<Hotel> listOfHotels = new ArrayList<Hotel>();
+		boolean filterByLongitude = true, filterByLatitude = true, hotelIsOk = true;
+		if (longitude == -1000) filterByLongitude = false;
+		if (latitude == -1000) filterByLatitude = false;
         for (Hotel h : hotels) {
-            if (h.getHotelLongitude() == longitude && h.getHotelLatitude() == latitude) listOfHotels.add(h);
+			hotelIsOk = true;
+            if (filterByLongitude && (h.getHotelLongitude() <= longitude - 5 || h.getHotelLongitude() >= longitude + 5)) hotelIsOk = false;
+			else if (filterByLatitude && (h.getHotelLatitude() <= latitude - 5 || h.getHotelLatitude() >= latitude + 5)) hotelIsOk = false;
+			if (hotelIsOk) listOfHotels.add(h);
         }
         System.out.println("**** Hotels successfully fetched! ****");
         json.put("status", HttpStatus.OK);
