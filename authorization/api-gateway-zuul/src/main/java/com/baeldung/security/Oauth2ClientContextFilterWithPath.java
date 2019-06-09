@@ -17,7 +17,9 @@ class Oauth2ClientContextFilterWithPath extends OAuth2ClientContextFilter {
 
     @Override
     protected void redirectUser(UserRedirectRequiredException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("request url: " + request.getRequestURL());
         final String redirectUri = e.getRedirectUri();
+        System.out.println("redirect uri: " + redirectUri);
         final UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(redirectUri);
         final Map<String, String> requestParams = e.getRequestParams();
         for (Map.Entry<String, String> param : requestParams.entrySet()) {
@@ -29,6 +31,10 @@ class Oauth2ClientContextFilterWithPath extends OAuth2ClientContextFilter {
         }
 
         String url = getBaseUrl(request) + builder.build().encode().toUriString();
+        System.out.println("url: " + url);
+        //this.redirectStrategy.sendRedirect();
+        System.out.println("request: " + request.getRequestURL());
+        //System.out.println("response: " + response.toString());
         this.redirectStrategy.sendRedirect(request, response, url);
     }
 

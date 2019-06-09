@@ -2,43 +2,142 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e538423-8426-4b3a-8b0c-2133ee10ec03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/CORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/CORSFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Configuration/CustomUserDetails.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Configuration/CustomUserDetailsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Configuration/SecurityConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Configuration/ServiceConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Configuration/WebConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Controller/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/UserManagementServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/main/java/com/nwt/ums/UserManagementServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/main/resources/cloud.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/main/resources/cloud.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/src/test/java/com/nwt/ums/UserManagementServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/src/test/java/com/nwt/ums/UserManagementServiceApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/cloud.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/target/classes/cloud.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/CORSFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Configuration/CustomUserDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Configuration/CustomUserDetailsService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Configuration/SecurityConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Configuration/ServiceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Configuration/ServiceConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Configuration/WebConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Controller/RegistrationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Controller/RoleController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/Controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/ServiceInstanceRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/ServiceInstanceRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/UserManagementServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../UserManagementService/target/classes/com/nwt/ums/UserManagementServiceApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../UserManagementService/target/test-classes/com/nwt/ums/UserManagementServiceApplicationTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/src/main/java/com/nwt/authorizationserver/AuthorizationServerApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../authorization/src/test/java/com/nwt/authorizationserver/AuthorizationServerApplicationTests.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/resources/templates/login.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../App/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../App/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../App/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../App/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/.mvn/wrapper/MavenWrapperDownloader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Controller/RoleController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Model/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Repository/RoleRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/ServiceInstanceRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Services/RoleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/Services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/java/com/nwt/ums/UserManagementServiceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/main/resources/cloud.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/bin/src/test/java/com/nwt/ums/UserManagementServiceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/CORSFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Configuration/ServiceConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Controller/AuthorizationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Controller/RegistrationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Controller/RoleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Exceptions/RoleException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Exceptions/UserException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Exceptions/UserExceptionAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Model/Hotel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Model/Reservation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Model/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Repository/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Services/EmailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Services/RoleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/Services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/java/com/nwt/ums/UserManagementServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/resources/application-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/main/resources/cloud.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/src/test/java/com/nwt/ums/UserManagementServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/META-INF/ums.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/application-test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/cloud.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Configuration/ServiceConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Controller/AuthorizationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Exceptions/RoleException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Exceptions/UserException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Exceptions/UserExceptionAdvice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Model/Hotel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Model/Reservation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Model/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Repository/RoleRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/ServiceInstanceRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Services/EmailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Services/RoleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/Services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/classes/com/nwt/ums/UserManagementServiceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/surefire-reports/TEST-com.nwt.ums.UserManagementServiceApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/surefire-reports/com.nwt.ums.UserManagementServiceApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/ums-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/target/ums-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/test_results/addUserException.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserManagementService/test_results/testFindUserById_result.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway-zuul-1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway-zuul-1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/baeldung/ApiGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baeldung/ApiGatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/baeldung/security/Oauth2ClientContextFilterWithPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baeldung/security/Oauth2ClientContextFilterWithPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/baeldung/ApiGatewayApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/baeldung/ApiGatewayApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/baeldung/security/Oauth2ClientContextFilterWithPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/baeldung/security/Oauth2ClientContextFilterWithPath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/baeldung/security/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/baeldung/security/SecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/authorization-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/authorization-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/java/com/baeldung/UaaServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/java/com/baeldung/UaaServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/java/com/baeldung/config/OAuth2AuthorizationServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/java/com/baeldung/config/OAuth2AuthorizationServerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/java/com/baeldung/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/java/com/baeldung/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/java/com/baeldung/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/java/com/baeldung/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/resources/keystore.jks" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/resources/keystore.jks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/resources/templates/authorize.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/main/resources/templates/authorize.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/main/resources/templates/login.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/templates/login.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/src/test/java/com/baeldung/UaaServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/src/test/java/com/baeldung/UaaServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/authorization-server-1-0.0.6.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/authorization-server-1-0.0.6.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/authorization-server-1-0.0.6.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/authorization-server-1-0.0.6.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/com/baeldung/UaaServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/com/baeldung/UaaServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/com/baeldung/config/OAuth2AuthorizationServerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/com/baeldung/config/OAuth2AuthorizationServerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/com/baeldung/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/com/baeldung/config/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/com/baeldung/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/com/baeldung/config/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/keystore.jks" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/keystore.jks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/templates/authorize.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/classes/templates/authorize.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/classes/templates/login.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/surefire-reports/TEST-com.baeldung.UaaServiceApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/surefire-reports/TEST-com.baeldung.UaaServiceApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/surefire-reports/com.baeldung.UaaServiceApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/surefire-reports/com.baeldung.UaaServiceApplicationTests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../authorization-server/authorization-server-1/target/test-classes/com/baeldung/UaaServiceApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-server/authorization-server/target/test-classes/com/baeldung/UaaServiceApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/components/LoginPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/src/components/LoginPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/components/LoginRegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/src/components/LoginRegisterPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/http_common.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/src/http_common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/src/vue.config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,23 +151,66 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/ApiGatewayApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="212">
+              <caret line="26" column="5" selection-start-line="19" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#424#425#0" expanded="true" />
                 <element signature="e#496#497#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="37" column="47" selection-start-line="37" selection-start-column="47" selection-end-line="37" selection-end-column="47" />
+            <state relative-caret-position="135">
+              <caret line="93" column="93" selection-start-line="93" selection-start-column="93" selection-end-line="93" selection-end-column="93" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="160" column="26" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="26" />
+              <folding>
+                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#a#0;n#li#1;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#a#0;n#li#2;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/controller/ZuulController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#431#432#0" expanded="true" />
+                <element signature="e#467#468#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/SimpleCORSFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1560081545188" expanded="true" signature="0:668" ph="..." />
               </folding>
             </state>
           </provider>
@@ -77,31 +219,59 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+            <state relative-caret-position="1012">
+              <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/netflix/ribbon/ribbon-loadbalancer/2.2.5/ribbon-loadbalancer-2.2.5.jar!/com/netflix/loadbalancer/reactive/LoadBalancerCommand.class">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-220">
-              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+            <state relative-caret-position="198">
+              <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/Oauth2ClientContextFilterWithPath.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="682">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/MyCorsFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="51" column="232" selection-start-line="51" selection-start-column="232" selection-end-line="51" selection-end-column="232" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -109,9 +279,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/security/CORSFilter.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/security/CFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/MyCorsFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/ApiGatewayApplication.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/security/SimpleCORSFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/security/Oauth2ClientContextFilterWithPath.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/controller/ZuulController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java" />
       </list>
     </option>
   </component>
@@ -133,18 +311,20 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="40" />
-    <option name="width" value="1940" />
-    <option name="height" value="1050" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="952" />
+    <option name="y" value="50" />
+    <option name="width" value="977" />
+    <option name="height" value="1038" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -185,6 +365,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="baeldung" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-gateway-zuul" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api-gateway-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="baeldung" type="462c0819:PsiDirectoryNode" />
               <item name="security" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -194,16 +383,47 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="api-gateway-zuul" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api-gateway-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-gateway-zuul" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api-gateway-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-gateway-zuul" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559667546392" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560105127613" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nejrak\Documents\Nejra\NWT_final\IWantToTravel\authorization\api-gateway-zuul\src\main\resources\templates\views" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.baeldung" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.baeldung.security" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -241,8 +461,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="33" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2671141" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20469798" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -251,15 +472,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.296034" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3286119" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.3286119" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -274,45 +495,105 @@
     <entry file="file://$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_0_27_Final.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-config/4.2.7.RELEASE/spring-security-config-4.2.7.RELEASE.jar!/org/springframework/security/config/annotation/web/builders/HttpSecurity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="68" column="84" selection-start-line="68" selection-start-column="84" selection-end-line="68" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        <state relative-caret-position="1012">
+          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/netflix/ribbon/ribbon-loadbalancer/2.2.5/ribbon-loadbalancer-2.2.5.jar!/com/netflix/loadbalancer/reactive/LoadBalancerCommand.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/MyCorsFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="51" column="232" selection-start-line="51" selection-start-column="232" selection-end-line="51" selection-end-column="232" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/ApiGatewayApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="212">
+          <caret line="26" column="5" selection-start-line="19" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#424#425#0" expanded="true" />
             <element signature="e#496#497#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="37" column="47" selection-start-line="37" selection-start-column="47" selection-end-line="37" selection-end-column="47" />
+        <state relative-caret-position="330">
+          <caret line="160" column="26" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="26" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#li#1;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#li#2;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/SimpleCORSFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1560081545188" expanded="true" signature="0:668" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/Oauth2ClientContextFilterWithPath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/controller/ZuulController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#431#432#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-220">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        <state relative-caret-position="198">
+          <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/Oauth2ClientContextFilterWithPath.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/baeldung/security/SecurityConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="135">
+          <caret line="93" column="93" selection-start-line="93" selection-start-column="93" selection-end-line="93" selection-end-column="93" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
