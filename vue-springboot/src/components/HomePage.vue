@@ -20,12 +20,11 @@
 <h1 class="my-h1">I Want To Travel</h1>
 
 <ul class="ca-menu">
-    <li>
-        <router-link to="/login">
-            <span class="ca-icon" style="font-family: 'Gaegu', cursive; font-size: 50px">Login</span>
-            <div class="ca-content">
-            </div>
-        </router-link>
+    <li @click="loginPage()">
+        <span class="ca-icon" style="font-family: 'Gaegu', cursive; font-size: 50px">Login</span>
+        <div class="ca-content">
+        </div>
+        
         
     </li>
     <li>
@@ -62,6 +61,11 @@
 
 <script>
 export default {
+    methods: {
+        loginPage() {
+            window.location.href = "http://localhost:8765/user-management-service"
+        }
+    }
     
 }
 </script>
