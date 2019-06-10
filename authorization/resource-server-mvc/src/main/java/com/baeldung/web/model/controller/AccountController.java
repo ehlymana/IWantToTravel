@@ -156,14 +156,14 @@ public class AccountController {
         }
     }
 
-    @RequestMapping(value = "/dashboard",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/dashboard",method = RequestMethod.GET)
     public ResponseEntity<Object> redirectToUserPanel(HttpServletResponse response, Principal principal) throws
             IOException {
         if(principal != null) {
             // response.sendRedirect("some-url");
 
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(URI.create("http://localhost:8080"));
+            headers.setLocation(URI.create("http://localhost:8080/user/dashboard"));
             return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 
         } else {

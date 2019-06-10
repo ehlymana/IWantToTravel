@@ -28,7 +28,7 @@ public class HelloController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(){
-        return "vies/index";
+        return "views/index";
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -37,7 +37,11 @@ public class HelloController {
             IOException {
         if(principal != null) {
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(URI.create("http://localhost:8080"));
+            if(principal.getName().equalsIgnoreCase("admin")) {
+                headers.setLocation(URI.create("http://localhost:8080/admin/dashboard"));
+            } else {
+                headers.setLocation(URI.create("http://localhost:8080/user/dashboard"));
+            }
             return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 
         } else {
