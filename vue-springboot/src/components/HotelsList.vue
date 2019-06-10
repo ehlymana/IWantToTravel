@@ -31,6 +31,7 @@
             </div>
             <div class="col-sm-2" style="float: right;text-align: right;padding: 0; font-size: 16pt;margin-top: -40px;">
                 <button type="button" class="btn btn-link my-btn-link" data-toggle="modal" data-target="#addHotelModal" style="font-size: 18pt;"><i class="fa fa-plus" style="font-size:16pt;color:green"></i> Add Hotel</button>
+                <router-link :to="{ name: 'AddHotel', query: { debug: true }}">Add hotel</router-link>
             </div>
         </div>
         <div class="col-sm-12">
@@ -57,7 +58,9 @@
                     <td th:text="${hotel.getLongitude()}"></td>
                     <td><button type="button" class="btn btn-link my-btn-link" data-toggle="modal" th:attr="data-target='#editModal-' + ${hotel.getHotelID()}">
                         <i class="fa fa-edit" style="font-size:16pt;color:#254A25;"></i>
-                    </button> </td>
+                    </button>
+                    <router-link :to="{ name: 'EditHotel', params: { id: ${hotel.getHotelID()} }, query: { debug: true }}">Edit hotel</router-link>
+                     </td>
                     <td><a class="btn btn-link my-btn-link" th:href="@{'/deletehotel/' + ${hotel.getHotelID()}}">
                         <i class="fa fa-remove" style="font-size:16pt;color:#254A25;"></i>
                     </a></td>
@@ -157,7 +160,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="s ubmit" class="btn btn-primary" style="background-color: #4CAF50;" th:form="'edit-form-' + ${h.getHotelID()}">Save</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #4CAF50;" th:form="'edit-form-' + ${h.getHotelID()}">Save</button>
                 </div>
             </div>
         </div>

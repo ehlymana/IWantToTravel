@@ -12,6 +12,9 @@ import AdminDashboard from "./components/AdminDashboard.vue";
 import UsersListPage from "./components/UsersListPage.vue";
 import HotelsListPage from "./components/HotelsListPage.vue";
 import AddUserPage from "./components/AddUserPage.vue";
+import AddHotel from "./components/AddHotel.vue";
+import EditHotel from "./components/AddHotel.vue";
+
 // import AddCustomer from "./components/AddCustomer.vue";
 // import SearchCustomers from "./components/SearchCustomers.vue";
 // import Customer from "./components/Customer.vue";
@@ -93,6 +96,16 @@ export default new Router({
         name: 'adduser',
         component: AddUserPage
      },
+      {
+          path: '/admin/addhotel',
+          name: 'AddHotel',
+          component: AddHotel
+      },
+      {
+          path: '/admin/editHotel/:id',
+          name: 'EditHotel',
+          component: EditHotel
+      }
 
 //     {
 //       path: "/add",
