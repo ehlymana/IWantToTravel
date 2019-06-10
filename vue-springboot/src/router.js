@@ -9,8 +9,9 @@ import EditReservation from "./components/EditReservation.vue";
 import ReservationHistory from "./components/ReservationHistory.vue";
 import RateHotel from "./components/RateHotel.vue";
 import AdminDashboard from "./components/AdminDashboard.vue";
-import UsersList from "./components/UsersList.vue";
-import HotelsList from "./components/HotelsList.vue";
+import UsersListPage from "./components/UsersListPage.vue";
+import HotelsListPage from "./components/HotelsListPage.vue";
+import AddUserPage from "./components/AddUserPage.vue";
 // import AddCustomer from "./components/AddCustomer.vue";
 // import SearchCustomers from "./components/SearchCustomers.vue";
 // import Customer from "./components/Customer.vue";
@@ -78,15 +79,21 @@ export default new Router({
          component: RateHotel
      },
      {
-        path: '/userslist',
+        path: '/admin/userslist',
         name: 'userslist',
-        component: UsersList
+        component: UsersListPage
      },
      {
-         path: '/hotelslist',
+         path: '/admin/hotelslist',
          name: 'hotelslist',
-         component: HotelsList
+         component: HotelsListPage
      },
+     {
+        path: '/admin/adduser',
+        name: 'adduser',
+        component: AddUserPage
+     },
+
 //     {
 //       path: "/add",
 //       name: "add",

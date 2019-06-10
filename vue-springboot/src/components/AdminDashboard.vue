@@ -53,10 +53,10 @@
 export default {
     methods: {
         seeUsers() {
-            this.$router.push("/userslist");
+            this.$router.push("/admin/userslist");
         },
         seeHotels() {
-            this.$router.push("/hotelslist");
+            this.$router.push("/admin/hotelslist");
         }
     }
     
