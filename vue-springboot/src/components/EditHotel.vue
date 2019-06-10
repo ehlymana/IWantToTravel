@@ -64,14 +64,14 @@
 
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label text-md-right">Supervizor</label>
-                                           <select class="field">
+                                           <select class="field" v-model="hotel.supervizor">
                                                <option v-for="u in users" :value="u.id">{{u.firstName}}</option>
                                            </select>
                                     </div>
 
                                         <div class="col-md-6 offset-md-4">
                                             <button v-on:click="addHotel()" class="btn btn-primary">
-                                            Add Hotel
+                                            Save Hotel
                                             </button>
                                         </div>
                                 </form>
