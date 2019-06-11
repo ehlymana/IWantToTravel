@@ -5,6 +5,8 @@ import com.example.hotelmanagementservice.Repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class HotelService {
 
@@ -19,6 +21,8 @@ public class HotelService {
         hotelRepository.save(hotel);
         return hotel;
     }
+    public Optional<Hotel> findOne(Long id) { return Optional.ofNullable(hotelRepository.findByHotelId(id)); }
+
 
 
     public void delete(Hotel hotel) {

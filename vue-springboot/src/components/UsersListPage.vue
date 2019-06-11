@@ -16,10 +16,12 @@
             <h1>Admin Panel</h1>
         </div>
         <div class="col-sm-2 logout-div">
-            <form th:action="@{/logout}" th:method="post">
+            <form>
+                <router-link to="/logout">
                 <button type="submit" class="btn btn-link">
                     <i class="fa fa-sign-out"></i> Logout
                 </button>
+                </router-link>
             </form>
         </div>
     </div>
@@ -61,12 +63,15 @@
                         <td>{{ user.role.roleName }}</td>
                         <td>{{ user.longitude }}</td>
                         <td>{{ user.latitude}}</td>  
+                       
                         <td><button type="button" class="btn btn-link my-btn-link" @click="editUser(user.userID)">
                             <i class="fa fa-edit" style="font-size:16pt;color:#254A25;"></i>
                         </button> </td>
-                        <td><a class="btn btn-link my-btn-link">
-                            <i class="fa fa-remove" style="font-size:16pt;color:#254A25;"></i>
-                        </a></td>                      
+                        <td>
+                            <button type="button" class="btn btn-link my-btn-link" @click="deleteUser(user.userID)">
+                                <i class="fa fa-remove" style="font-size:16pt;color:#254A25;"></i>Delete
+                            </button>
+                        </td>                      
                     </tr>
                     
                 </tbody>
@@ -74,98 +79,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="addUserModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add User</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <form th:id="add-user-form" th:action="@{/adduser}" th:object="${user}" method="post" role="form" >
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter new Username" name="username" th:value="${user.getUsername()}" th:field="*{username}">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" tabindex="1" class="form-control" placeholder="Enter New Password" name="password" th:value="${user.getPassword()}" th:field="*{password}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter email" name="email" th:value="${user.getEmail()}" th:field="*{email}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter first name" name="firstName" th:value="${user.getFirstName()}" th:field="*{firstName}" >
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter last name" name="lastName" th:value="${user.getLastName()}" th:field="*{lastName}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter role" name="role" th:value="${user.getRole()}" th:field="*{role}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter longitude" name="longitude"  th:value="${user.getLongitude()}" th:field="*{longitude}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter latitude" name="latitude" th:value="${user.getLatitude()}" th:field="*{latitude}">
-                    </div>
-                    <input type="hidden" th:value="${user.getUserID()}" th:field="*{userID}">
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" style="background-color: #4CAF50;" th:form="add-user-form">Add User</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 
-<th:block th:each="u : ${usersList}">
-    <div class="modal fade" th:id="'editModal-' + ${u.getUserID()}">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <div class="modal-body">
-                    <form th:id="'edit-form-' + ${u.getUserID()}" th:action="@{'/edit/user/'+${u.getUserID()}}" th:object="${user}" method="post" role="form" >
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter new Username" name="username" th:value="${u.getUsername()}">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter email" name="email" th:value="${u.getEmail()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter first name" name="firstName" th:value="${u.getFirstName()}"  >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter last name" name="lastName" th:value="${u.getLastName()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter role" name="role" th:value="${u.getRole()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter longitude" name="longitude"  th:value="${u.getLongitude()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter latitude" name="latitude" th:value="${u.getLatitude()}" >
-                        </div>
-                        <input type="hidden" th:value="${u.getUserID()}" >
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" style="background-color: #4CAF50;" th:form="'edit-form-' + ${u.getUserID()}">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</th:block> -->
-
 </body>
 </html>
 </template>
@@ -185,8 +98,21 @@ export default {
 
         },
         editUser(userID) {
-            console.log(userID);
+            //console.log(userID);
+            this.$router.push({ name: 'edituser', params: { userId: userID } })
+
             
+        },
+        deleteUser(userID) {
+            axios.get("http://localhost:8765/user-management-service/admin/delete/user", {
+                params : {
+                'userID' : userID
+            }
+        }).then (response => {
+            window.alert("User deleted!");
+        }).catch(error => {
+            window.alert("Error deleting user!");
+        })
         }
     },
     mounted () {

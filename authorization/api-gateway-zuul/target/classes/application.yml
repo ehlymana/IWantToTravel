@@ -29,6 +29,9 @@ hystrix:
 zuul:
   routes:
     user-management-service: /user-management-service/**
+    hotel-management-service: /hotel-management-service/**
+    reservations-service: /reservations-service/**
+    review-service: /review-service/**
     authorization-server:
       sensitiveHeaders: Authorization
       path: /authorization-server/**
@@ -40,8 +43,10 @@ zuul:
   ribon:
     eureka:
       enabled: false
-    ConnectTimeout: 60000
-    ReadTimeout: 60000
+    ConnectTimeout: 120000
+    ReadTimeout: 120000
+    maxAutoRetries: 1
+    MaxAutoRetriesNextServer: 2
 security:
   basic:
     enabled: false

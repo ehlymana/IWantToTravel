@@ -17,10 +17,12 @@
             <h1>Admin panel</h1>
         </div>
         <div class="col-sm-2 logout-div">
-            <form th:action="@{/logout}" th:method="post">
+            <form >
+                <router-link to="/logout">
                 <button type="submit" class="btn btn-link">
                     <i class="fa fa-sign-out"></i> Logout
                 </button>
+                </router-link>
             </form>
         </div>
     </div>

@@ -15,7 +15,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Add User Information</div>
+                        <div class="card-header" style="text-align: center;">Edit User Information</div>
                             <div class="card-body">
                                 <form name="my-form" onsubmit="return validform()" action="success.php" method="">
                                     <div class="form-group row">
@@ -76,8 +76,8 @@
                                     </div>                                   
 
                                         <div class="col-md-6 offset-md-4">
-                                            <button v-on:click="addUser()" class="btn btn-primary">
-                                            Add User
+                                            <button v-on:click="saveUser()" class="btn btn-primary">
+                                            Update User
                                             </button>
                                         </div>
                                 </form>
@@ -98,6 +98,7 @@ export default {
     name: 'user',
     data() {
         return {
+            userId: 0,
             user: {
                 lastName: '',
                 firstName: '',
@@ -110,29 +111,66 @@ export default {
             roleName: ''
         }
     },
+    created() {
+        console.log("created!");
+        this.userId = this.$route.params.userId;
+        console.log("user id: " + this.userId)
+    },
     methods: {
-        addUser() {
+        saveUser() {
+            // let user = {
+            //     'firstName': this.user.firstName,
+            //     'lastName': this.user.lastName,
+            //     'email': this.user.email,
+            //     'username': this.user.username,
+            //     'password': this.user.password,
+            //     'longitude': this.user.longitude,
+            //     'latitude': this.user.latitude
+            // }
             console.log("something")
             var params = new URLSearchParams()
+            params.append('userID', this.userId)
             params.append('firstName', this.user.firstName)
             params.append('lastName', this.user.lastName)
             params.append('username', this.user.username)
             params.append('email', this.user.email)
             params.append('password', this.user.password)
+            params.append('longitude', this.user.longitude)
+            params.append('latitude', this.user.latitude)
             params.append('roleName', this.roleName)
-
-            axios.post('http://localhost:8765/user-management-service/admin/adduser', params).then(response => {
+            // console.log("user");
+            // console.log(this.user);
+            // console.log(user);
+            // console.log(this.roleName);
+            axios.post('http://localhost:8765/user-management-service/admin/edit/user', params).then(response => {
+                // JSON responses are automatically parsed.
                 console.log(response.data)
-                window.alert("User added!");
+                ///this.$router.push({name: 'login'});
+                window.alert("User updated!");
             })
             .catch(e => {
                 console.log(e.response)
-                window.alert("Error adding user!");
+                window.alert("Error updating user!");
             });
 
             this.$router.push("/admin/userslist");
         }
-    }
+    },
+    mounted() {
+        
+        console.log("user id: " + this.userId)
+        axios.get("http://localhost:8765/user-management-service/admin/getuser/id", {
+            params : {
+                'userID' : this.userId
+            }
+        }).then (response => {
+            console.log("response: " + response.data.user.role.roleName);
+            this.user = response.data.user;
+            this.roleName = response.data.user.role.roleName;
+        }).catch(error => {
+            console.log(error.data);
+        });
+},
 }
 </script>
 

@@ -28,8 +28,8 @@ public class RoomController {
     public String populate() throws Exception {
         System.out.println("Room database population has started...");
         try {
-            Hotel h1 = hotelService.findById(new Long(10));
-            Hotel h2 = hotelService.findById(new Long(11));
+            Hotel h1 = hotelService.findById(new Long(33));
+            Hotel h2 = hotelService.findById(new Long(34));
             Room r1 = new Room(h1, 1, "Description 1", false);
             Room r2 = new Room(h2, 2, "Description 1", false);
             roomService.save(r1);

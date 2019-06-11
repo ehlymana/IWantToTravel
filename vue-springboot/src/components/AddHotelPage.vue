@@ -15,69 +15,56 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Add User Information</div>
+                        <div class="card-header">Add Hotel Information</div>
                             <div class="card-body">
                                 <form name="my-form" onsubmit="return validform()" action="success.php" method="">
                                     <div class="form-group row">
-                                        <label for="firstName" class="col-md-4 col-form-label text-md-right">First Name</label>
+                                        <label for="hotelName" class="col-md-4 col-form-label text-md-right">Hotel Name</label>
                                         <div class="col-md-6">
-                                            <input type="text" v-model="user.firstName" name="firstName" id="firstName" class="form-control">
+                                            <input type="text" v-model="hotel.hotelName" name="hotelName" id="hotelName" class="form-control">
 
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="lastName" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                                        <label for="hotelDescription" class="col-md-4 col-form-label text-md-right">Hotel Description</label>
                                         <div class="col-md-6">
-                                            <input type="text" v-model="user.lastName" name="lastName" id="lastName" class="form-control">
+                                            <input type="text" v-model="hotel.hotelDescription" name="hotelDescription" id="hotelDescription" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                        <label for="hotelLocation" class="col-md-4 col-form-label text-md-right">City</label>
                                         <div class="col-md-6">
-                                            <input type="text" v-model="user.email" name="email" id="email" class="form-control">
+                                            <input type="text" v-model="hotel.hotelLocation" name="hotelLocation" id="hotelLocation" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+                                        <label for="hotelAddress" class="col-md-4 col-form-label text-md-right">Address</label>
                                         <div class="col-md-6">
-                                            <input type="text" v-model="user.username" name="username" id="username" class="form-control">
+                                            <input type="text" v-model="hotel.hotelAddress" name="hotelAddress" id="hotelAddress" class="form-control">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="hotelLongitude" class="col-md-4 col-form-label text-md-right">Longitude</label>
+                                        <div class="col-md-6">
+                                            <input type="number" v-model="hotel.hotelLongitude" name="hotelLongitude" id="hotelLongitude" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                        <label for="hotelLatidude" class="col-md-4 col-form-label text-md-right">Latitude</label>
                                         <div class="col-md-6">
-                                            <input type="password" v-model="user.password" name="password" id="password" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="roleName" class="col-md-4 col-form-label text-md-right">User Role</label>
-                                        <div class="col-md-6">
-                                            <input type="text" v-model="roleName" name="roleName" id="roleName" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="longitude" class="col-md-4 col-form-label text-md-right">Longitude</label>
-                                        <div class="col-md-6">
-                                            <input type="text" v-model="user.longitude" name="longitude" id="longitude" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="latitude" class="col-md-4 col-form-label text-md-right">Latitude</label>
-                                        <div class="col-md-6">
-                                            <input type="text" v-model="user.latitude" name="latitude" id="latitude" class="form-control">
+                                            <input type="number" v-model="hotel.hotelLatidude" name="hotelLatidude" id="hotelLatidude" class="form-control">
                                         </div>
                                     </div>                                   
 
                                         <div class="col-md-6 offset-md-4">
-                                            <button v-on:click="addUser()" class="btn btn-primary">
-                                            Add User
+                                            <button v-on:click="addHotel()" class="btn btn-primary">
+                                            Add Hotel
                                             </button>
                                         </div>
                                 </form>
@@ -95,42 +82,40 @@
 import axios from 'axios';
 
 export default {
-    name: 'user',
+    name: 'hotel',
     data() {
         return {
-            user: {
-                lastName: '',
-                firstName: '',
-                username: '',
-                password: '',
-                email: '',
-                longitude: '',
-                latitude: ''              
+            hotel: {
+                hotelName: '',
+                hotelDescription: '',
+                hotelLocation: '',
+                hotelAddress: '',
+                hotelLongitude: 0,
+                hotelLatitude: 0             
             },
-            roleName: ''
         }
     },
     methods: {
-        addUser() {
+        addHotel() {
             console.log("something")
             var params = new URLSearchParams()
-            params.append('firstName', this.user.firstName)
-            params.append('lastName', this.user.lastName)
-            params.append('username', this.user.username)
-            params.append('email', this.user.email)
-            params.append('password', this.user.password)
-            params.append('roleName', this.roleName)
+            params.append('hotelName', this.hotel.hotelName)
+            params.append('hotelDescription', this.hotel.hotelDescription)
+            params.append('hotelLocation', this.hotel.hotelLocation)
+            params.append('hotelAddress', this.hotel.hotelAddress)
+            params.append('hotelLongitude', this.hotel.hotelLongitude)
+            params.append('hotelLatitude', this.hotel.hotelLatitude)
 
-            axios.post('http://localhost:8765/user-management-service/admin/adduser', params).then(response => {
+            axios.post('http://localhost:8765/hotel-management-service/addHotel', params).then(response => {
                 console.log(response.data)
-                window.alert("User added!");
+                window.alert("Hotel added!");
             })
             .catch(e => {
+                window.alert("Error adding hotel!");
                 console.log(e.response)
-                window.alert("Error adding user!");
             });
 
-            this.$router.push("/admin/userslist");
+            this.$router.push("/admin/hotelslist");
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.baeldung.security;
 
 
-import com.baeldung.MyCorsFilter;
+//import com.baeldung.MyCorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
@@ -48,10 +48,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new Oauth2ClientContextFilterWithPath();
     }
 
-    public MyCorsFilter corsFilter() {
-        MyCorsFilter filter = new MyCorsFilter();
-        return filter;
-    }
+//    public MyCorsFilter corsFilter() {
+//        MyCorsFilter filter = new MyCorsFilter();
+//        return filter;
+//    }
 //
 //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {
@@ -80,6 +80,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         super.configure(web);
         // @formatter:off
         web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
+//        web.ignoring()
+//                .antMatchers("/user-management-service/account/registration");
+//               // .antMatchers("/publics/**");
     }
 
 
@@ -90,10 +93,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                // .addFilterBefore(corsFilter(), SessionManagementFilter.class)
                 .csrf().disable()
+                .anonymous().and()
             .authorizeRequests()
-            .antMatchers("/authorization-server/**", "/login", "/user-management-service/home").permitAll()
-            .antMatchers("/user-management-service/admin/**", "/user-management-service/account/**").access("hasAnyRole('ROLE_ADMIN')")
-                .antMatchers("/user-management-service/account/**").access("hasAnyRole('ROLE_USER')")
+            .antMatchers("/authorization-server/**", "/login", "/user-management-service/home", "/user-management-service/account/registration" ).permitAll()
+                .and().authorizeRequests()
+           .antMatchers("/user-management-service/admin/**").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/user-management-service/account/user/dashboard/").access("hasAnyRole('ROLE_USER')")
             .anyRequest().authenticated()
             .and()
                .addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)

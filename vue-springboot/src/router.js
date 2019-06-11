@@ -12,8 +12,9 @@ import AdminDashboard from "./components/AdminDashboard.vue";
 import UsersListPage from "./components/UsersListPage.vue";
 import HotelsListPage from "./components/HotelsListPage.vue";
 import AddUserPage from "./components/AddUserPage.vue";
-import AddHotel from "./components/AddHotel.vue";
-import EditHotel from "./components/AddHotel.vue";
+import AddHotelPage from "./components/AddHotelPage.vue";
+import EditHotelPage from "./components/EditHotelPage.vue";
+import EditUserPage from "./components/EditUserPage.vue";
 
 // import AddCustomer from "./components/AddCustomer.vue";
 // import SearchCustomers from "./components/SearchCustomers.vue";
@@ -46,6 +47,11 @@ export default new Router({
          component: LoginPage
      },
      {
+        path: "/logout",
+        name: "logout",
+        component: HomePage
+    },
+     {
          path: "/aboutus",
          name: "aboutus",
          component: AboutUsPage
@@ -62,7 +68,7 @@ export default new Router({
          props: (route) => ({ query: route.query.q })
      },
 	{
-         path: '/addReservation',
+         path: '/user/dashboard',
          name: 'AddReservation',
          component: AddReservation
      },
@@ -96,15 +102,20 @@ export default new Router({
         name: 'adduser',
         component: AddUserPage
      },
+     {
+        path: '/admin/edituser/:userId',
+        name: 'edituser',
+        component: EditUserPage
+     },
       {
           path: '/admin/addhotel',
-          name: 'AddHotel',
-          component: AddHotel
+          name: 'addhotel',
+          component: AddHotelPage
       },
       {
-          path: '/admin/editHotel/:id',
-          name: 'EditHotel',
-          component: EditHotel
+          path: '/admin/edithotel/:hotelId',
+          name: 'edithotel',
+          component: EditHotelPage
       }
 
 //     {

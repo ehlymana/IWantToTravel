@@ -14,8 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HotelController {
@@ -29,14 +32,17 @@ public class HotelController {
         this.supervizorService = supervizorService;
     }
 	@RequestMapping(value = "/addHotel", method = RequestMethod.POST)
-    public String addHotelNew(@RequestParam(value="hotelName") String hotelName, @RequestParam(value="hotelDescription") String hotelDescription, @RequestParam(value="hotelLocation") String hotelLocation, @RequestParam(value="hotelAddress") String hotelAddress, @RequestParam(value="hotelLongitude") long hotelLongitude, @RequestParam(value="hotelLatitude") long hotelLatitude) throws Exception {
+    public String addHotelNew(@RequestParam(value="hotelName") String hotelName, @RequestParam(value="hotelDescription") String hotelDescription, @RequestParam(value="hotelLocation") String hotelLocation, @RequestParam(value="hotelAddress") String hotelAddress, @RequestParam(value="hotelLongitude") String hotelLongitude, @RequestParam(value="hotelLatitude") String hotelLatitude) throws Exception {
 		System.out.println("Hotel is being added...");
         try {
-            Hotel h = new Hotel(null, hotelName, hotelDescription, hotelLocation, hotelAddress, hotelLongitude, hotelLatitude);
+            User u1 = supervizorService.findById(new Long(30));
+            long longitude = Long.parseLong(hotelLongitude);
+            long latitude = Long.parseLong(hotelLatitude);
+            Hotel h = new Hotel(u1, hotelName, hotelDescription, hotelLocation, hotelAddress, longitude, latitude);
 			hotelService.save(h);
 		}
 		catch (Exception e) {
-            throw new Exception("Something went wrong while adding hotel...");
+            throw new Exception(e.getMessage());
         }
 		return "Hotel successfully added!";
 	}
@@ -45,8 +51,8 @@ public class HotelController {
 	public String populate() throws Exception {
 		System.out.println("Hotel database population has started...");
         try {
-            User u1 = supervizorService.findById(new Long(8));
-            User u2 = supervizorService.findById(new Long(9));
+            User u1 = supervizorService.findById(new Long(30));
+            User u2 = supervizorService.findById(new Long(31));
             Hotel h1 = new Hotel(u1, "Europa", "Opis hotela", "Sarajevo", "Carsija", 0, 0);
 			Hotel h2 = new Hotel(u2, "Holiday Inn", "Opis hotela", "Sarajevo", "Marijin Dvor", 10, 10);
 			Hotel h3 = new Hotel(u1, "Hollywood", "Opis hotela", "Sarajevo", "Ilidza", 20, 20);
@@ -206,5 +212,52 @@ public class HotelController {
         } catch (Exception e) {
             throw new HotelException("Something went wrong while updating the hotel! "+e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/delete/hotel", method = RequestMethod.GET)
+    public ResponseEntity<Object> deleteHotel(@RequestParam(value = "hotelId") String hotelId) {
+        Hotel hotel = hotelService.findById(Long.parseLong(hotelId));
+        if(hotel != null) {
+            hotelService.delete(hotel);
+            System.out.println("deleted");
+            return new ResponseEntity<>("Hotel deleted!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error deleting hotel!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/edit/hotel", method = RequestMethod.POST)
+    public ResponseEntity<Object> editHotel(@RequestParam(value = "hotelId") String hotelId, @RequestParam Map params) throws NotImplementedException {
+
+        Hotel hotel = hotelService.findOne(Long.parseLong(hotelId)).get();
+        if(hotel != null) {
+            hotel.setHotelName(params.get("hotelName").toString());
+            hotel.setHotelDescription(params.get("hotelDescription").toString());
+            hotel.setHotelLocation(params.get("hotelLocation").toString());
+            hotel.setHotelAddress(params.get("hotelAddress").toString());
+            long longitude = Long.parseLong(params.get("hotelLongitude").toString());
+            long latitude = Long.parseLong(params.get("hotelLatitude").toString());
+
+            hotel.setHotelLongitude(longitude);
+            hotel.setHotelLatitude(latitude);
+
+            hotelService.save(hotel);
+            return  new ResponseEntity<>("Hotel updated!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error updating hotel!", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value = "/gethotel/id", method = RequestMethod.GET)
+    public JSONObject getUser(@RequestParam(value = "hotelId") String hotelId) {
+        JSONObject jsonObject = new JSONObject();
+        Hotel hotel = hotelService.findById(Long.parseLong(hotelId));
+
+        if (hotel != null) {
+            jsonObject.put("status", HttpStatus.OK);
+            jsonObject.put("hotel", hotel);
+        } else {
+            jsonObject.put("status", HttpStatus.BAD_REQUEST);
+        }
+        return jsonObject;
     }
 }

@@ -4,7 +4,7 @@
 <div id="header">
 	<div id="menu">
 		<nav>
-			<a href="/addReservation">Add Reservations</a>
+			<a href="/user/dashboard">Add Reservations</a>
 			<a class="active" href="/editReservation">Edit Reservations</a>
 			<a href="/rateHotel">Rate Hotels</a>
 			<a href="/logout">Log Out</a>
@@ -72,14 +72,14 @@ export default {
 		getEverything() {
 			// user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
 			var userId = 1;
-			axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
+			axios.get("http://localhost:8765/reservations-service/allReservationsFromUser?userID=" + userId)
 				.then(res => {
 					this.reservations = res.data.reservations;
 				})
 				.catch(err => {
 					console.log(err);
 				});
-			axios.get("http://localhost:8089/hotels")
+			axios.get("http://localhost:8765/hotel-management-service/hotels")
 				.then(res => {
 					this.hotels = res.data.hotels;
 				})
@@ -92,7 +92,7 @@ export default {
 			var i = 0;
 			while (this.selectedHotel[i] != ',' && i < this.selectedHotel.length) i++;
 			this.selectedHotel = this.selectedHotel.substring(0, i);
-			axios.get("http://localhost:8089/roomsByHotel/" + this.selectedHotel)
+			axios.get("http://localhost:8765/hotel-management-service/roomsByHotel/" + this.selectedHotel)
 			.then(res => {
 			this.rooms = res.data;
 			})
@@ -113,8 +113,8 @@ export default {
 			this.selectedReservation = this.selectedReservation.substring(0, i);
 		},
 		editR() {
-		console.log("http://localhost:8087/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation);
-			axios.post("http://localhost:8087/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation)
+		console.log("http://localhost:8765/reservations-service/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation);
+			axios.post("http://localhost:8765/reservations-service/editReservation?hotelName=" + this.selectedHotel + "&roomID=" + this.selectedRoom + "&reservationID=" + this.selectedReservation)
 			.then( () => {
 				alert("Reservation successfully edited!");
 				this.getEverything();
@@ -124,7 +124,7 @@ export default {
 			});
 		},
 		deleteR() {
-			axios.post("http://localhost:8087/deleteReservation?id=" + this.selectedReservation)
+			axios.post("http://localhost:8765/reservations-service/deleteReservation?id=" + this.selectedReservation)
 			.then( () => {
 				alert("Reservation successfully deleted!");
 				this.getEverything();

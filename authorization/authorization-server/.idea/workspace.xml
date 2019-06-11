@@ -8,6 +8,25 @@
       <change beforePath="$PROJECT_DIR$/../api-gateway-zuul/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../api-gateway-zuul/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../api-gateway-zuul/target/classes/META-INF/api-gateway-zuul-1.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorization-server/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/authorization-server/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorization-server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/authorization-server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorization-server/authorization-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/authorization-server/authorization-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/.idea/libraries/Maven__net_minidev_accessors_smart_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/.idea/libraries/Maven__net_minidev_json_smart_2_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/.idea/libraries/Maven__org_ow2_asm_asm_5_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/src/main/java/com/baeldung/web/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/src/main/java/com/baeldung/web/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/src/main/java/com/baeldung/web/model/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/src/main/java/com/baeldung/web/model/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/src/main/java/com/baeldung/web/model/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/src/main/java/com/baeldung/web/model/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/target/classes/com/baeldung/web/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/target/classes/com/baeldung/web/HelloController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/target/classes/com/baeldung/web/model/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/target/classes/com/baeldung/web/model/controller/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/target/classes/com/baeldung/web/model/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/target/classes/com/baeldung/web/model/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resource-server-mvc/user-management-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../resource-server-mvc/user-management-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/components/AdminDashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/src/components/AdminDashboard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/components/HotelsList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/components/UsersList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-springboot/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-springboot/src/router.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,8 +146,8 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -165,7 +184,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="33" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1818792" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18456376" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />

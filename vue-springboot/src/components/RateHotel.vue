@@ -4,7 +4,7 @@
 <div id="header">
 	<div id="menu">
 		<nav>
-			<a href="/addReservation">Add Reservations</a>
+			<a href="/user/dashboard">Add Reservations</a>
 			<a href="/editReservation">Edit Reservations</a>
 			<a class="active" href="/rateHotel">Rate Hotels</a>
 			<a href="/logout">Log Out</a>
@@ -46,7 +46,7 @@ export default {
   mounted() {
     // user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
     var userId = 1;
-	axios.get("http://localhost:8087/allReservationsFromUser?userID=" + userId)
+	axios.get("http://localhost:8765/reservations-service/allReservationsFromUser?userID=" + userId)
        .then(res => {
 			this.hotels = [];
 			for (var i = 0; i < res.data.reservations.length; i++) {

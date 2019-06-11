@@ -1,6 +1,6 @@
 package com.baeldung;
 
-import com.baeldung.security.SimpleCORSFilter;
+//import com.baeldung.security.SimpleCORSFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -17,13 +17,13 @@ public class ApiGatewayApplication {
         SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
-    @Bean
-    public FilterRegistrationBean corsFilterRegistration() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new SimpleCORSFilter());
-        registrationBean.setName("CORS Filter");
-        registrationBean.addUrlPatterns("/*");
-        registrationBean.setOrder(1);
-        return registrationBean;
-    }
+//    @Bean
+//    public FilterRegistrationBean corsFilterRegistration() {
+//        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new SimpleCORSFilter());
+//        registrationBean.setName("CORS Filter");
+//        registrationBean.addUrlPatterns("/*");
+//        registrationBean.setOrder(1);
+//        return registrationBean;
+//    }
 
 }

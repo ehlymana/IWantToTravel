@@ -98,21 +98,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit/user", method = RequestMethod.POST)
-    public ResponseEntity<Object> editUser(@RequestParam(value = "userID") String userID, @RequestParam Map params, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws NotImplementedException {
+    public ResponseEntity<Object> editUser(@RequestParam(value = "userID") String userID, @RequestParam Map params) throws NotImplementedException {
 
-        if(bindingResult.hasErrors()) {
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            String result = "";
-
-            for (int i = 0; i <  fieldErrors.size() - 1; i++) {
-                result += fieldErrors.get(i).getField();
-                result += ", ";
-            }
-            result += fieldErrors.get(fieldErrors.size() - 1).getField();
-            System.out.println(result);
-            return  new ResponseEntity<>("Binding error!", HttpStatus.BAD_REQUEST);
-            //throw new UserException("Binding error! Add user failed!");
-        } else {
            User user = userService.findOne(Long.parseLong(userID)).get();
            if(user != null) {
                user.setFirstName(params.get("firstName").toString());
@@ -122,14 +109,13 @@ public class UserController {
                user.setPassword(bCryptPasswordEncoder.encode(params.get("password").toString()));
                user.setLongitude(Double.parseDouble(params.get("longitude").toString()));
                user.setLatitude(Double.parseDouble(params.get("latitude").toString()));
+               Role role = roleService.findByRoleName(params.get("roleName").toString());
                user.setRole(roleService.findByRoleName(params.get("roleName").toString()));
                userService.save(user);
                return  new ResponseEntity<>("User updated!", HttpStatus.OK);
            } else {
-                return  new ResponseEntity<>("Error updating user!", HttpStatus.BAD_REQUEST);
+               return new ResponseEntity<>("Error updating user!", HttpStatus.BAD_REQUEST);
            }
-
-        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -181,6 +167,7 @@ public class UserController {
     public JSONObject getUser(@RequestParam(value = "userID") String userID) {
         JSONObject jsonObject = new JSONObject();
         User user = userService.findById(Long.parseLong(userID));
+        System.out.println(user.getUserID() + " " + user.getUsername());
         if (user != null) {
             jsonObject.put("status", HttpStatus.OK);
             jsonObject.put("user", user);
@@ -188,5 +175,16 @@ public class UserController {
             jsonObject.put("status", HttpStatus.BAD_REQUEST);
         }
         return jsonObject;
+    }
+    @RequestMapping(value = "/delete/user", method = RequestMethod.GET)
+    public ResponseEntity<Object> deleteUser(@RequestParam(value = "userID") String userID) {
+       User user = userService.findById(Long.parseLong(userID));
+       if(user != null) {
+           userService.delete(user);
+           System.out.println("deleted");
+           return new ResponseEntity<>("User deleted!", HttpStatus.OK);
+       } else {
+           return new ResponseEntity<>("Error deleting user!", HttpStatus.BAD_REQUEST);
+       }
     }
 }

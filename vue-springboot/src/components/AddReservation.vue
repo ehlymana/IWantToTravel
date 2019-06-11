@@ -4,7 +4,7 @@
 <div id="header">
 	<div id="menu">
 		<nav>
-			<a class="active" href="/addReservation">Add Reservations</a>
+			<a class="active" href="/user/dashboard">Add Reservations</a>
 			<a href="/editReservation">Edit Reservations</a>
 			<a href="/rateHotel">Rate Hotels</a>
 			<a href="/logout">Log Out</a>
@@ -73,7 +73,7 @@ export default {
       }
     },
   mounted() {
-	axios.get("http://localhost:8089/hotels")
+	axios.get("http://localhost:8765/hotel-management-service/hotels")
        .then(res => {
          this.hotels = res.data.hotels;
        })
@@ -87,7 +87,7 @@ export default {
 		var i = 0;
 		while (this.selectedHotel[i] != ',' && i < this.selectedHotel.length) i++;
 		this.selectedHotel = this.selectedHotel.substring(0, i);
-		axios.get("http://localhost:8089/roomsByHotel/" + this.selectedHotel)
+		axios.get("http://localhost:8765/hotel-management-service/roomsByHotel/" + this.selectedHotel)
        .then(res => {
          this.rooms = res.data;
        })
@@ -105,7 +105,7 @@ export default {
 		var http = "";
 		if (this.longitude == null || this.longitude.length == 0) this.longitude = -1000;
 		if (this.latitude == null || this.latitude.length == 0) this.latitude = -1000;
-		if (this.longitude != null || this.latitude != null) http = "http://localhost:8089/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude;
+		if (this.longitude != null || this.latitude != null) http = "http://localhost:8765/hotel-management-service/filterHotels?hotelLongitude=" + this.longitude + "&hotelLatitude=" + this.latitude;
 		if (this.longitude == -1000) this.longitude = "";
 		if (this.latitude == -1000) this.latitude = "";
 		axios.get(http)
@@ -119,7 +119,7 @@ export default {
 	add() {
 		// user id će se dobiti iz autentifikacije, zasad se koristi ovaj za provjeru
 		var userID = 1;
-		axios.post("http://localhost:8087/addReservation?hotelName=" + this.selectedHotel + "&userID=" + userID + "&roomID=" + this.selectedRoom)
+		axios.post("http://localhost:8765/reservations-service/addReservation?hotelName=" + this.selectedHotel + "&userID=" + userID + "&roomID=" + this.selectedRoom)
 		.then( () => {
          alert("Reservation successfully added!");
        })

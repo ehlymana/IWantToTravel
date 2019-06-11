@@ -17,20 +17,28 @@
                 <h1>Admin Panel</h1>
         </div>
         <div class="col-sm-2 logout-div">
-            <form th:action="@{/logout}" th:method="post">
+            <form>
+                <router-link to="/logout">
                 <button type="submit" class="btn btn-link">
                     <i class="fa fa-sign-out"></i> Logout
                 </button>
+                </router-link>
             </form>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="col-sm-10" style="padding-top: 20px;font-size: 16pt;padding-left: 0;">
-                <a th:href="@{/admin}" class="my-btn-link">Back</a>
+               <router-link to="/admin/dashboard">
+                    <a class="my-btn-link">Back</a>
+                </router-link>
             </div>
             <div class="col-sm-2" style="float: right;text-align: right;padding: 0; font-size: 16pt;margin-top: -40px;">
-                <button type="button" class="btn btn-link my-btn-link" data-toggle="modal" data-target="#addHotelModal" style="font-size: 18pt;"><i class="fa fa-plus" style="font-size:16pt;color:green"></i> Add Hotel</button>
+                <router-link to="/admin/addhotel">
+                    <button type="button" class="btn btn-link my-btn-link" style="font-size: 18pt;">
+                        <i class="fa fa-plus" style="font-size:16pt;color:green"></i> Add Hotel
+                    </button>
+                </router-link>
             </div>
         </div>
         <div class="col-sm-12">
@@ -41,231 +49,79 @@
                     <th>Description</th>
                     <th>Address</th>
                     <th>City</th>
-                    <th>Latitude</th>
                     <th>Longitude</th>
+                    <th>Latitude</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="hotel: ${hotelsList}">
-                    <td th:text="${hotel.getName()}"></td>
-                    <td th:text="${hotel.getDescription()}"></td>
-                    <td th:text="${hotel.getAddress()}"></td>
-                    <td th:text="${hotel.getLocation()}"></td>
-                    <td th:text="${hotel.getLatitude()}"></td>
-                    <td th:text="${hotel.getLongitude()}"></td>
-                    <td><button type="button" class="btn btn-link my-btn-link" data-toggle="modal" th:attr="data-target='#editModal-' + ${hotel.getHotelID()}">
+                <tr v-for="hotel in hotels" v-bind:key="hotel">
+                        <td>{{ hotel.hotelName }}</td>
+                        <td>{{ hotel.hotelDescription }}</td>
+                        <td>{{ hotel.hotelAddress}}</td>
+                        <td>{{ hotel.hotelLocation }}</td>
+                        <td>{{ hotel.hotelLongitude }}</td>
+                        <td>{{ hotel.hotelLatitude}}</td>  
+                    <td><button type="button" class="btn btn-link my-btn-link" @click="editHotel(hotel.hotelId)">
                         <i class="fa fa-edit" style="font-size:16pt;color:#254A25;"></i>
                     </button> </td>
-                    <td><a class="btn btn-link my-btn-link" th:href="@{'/deletehotel/' + ${hotel.getHotelID()}}">
-                        <i class="fa fa-remove" style="font-size:16pt;color:#254A25;"></i>
-                    </a></td>
+                    <td><button type="button" class="btn btn-link my-btn-link" @click="deleteHotel(hotel.hotelId)">
+                        <i class="fa fa-remove" style="font-size:16pt;color:#254A25;"></i>Delete
+                    </button></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="col-sm-12 ">
-            <div class="alert alert-success" th:if="${successMessage}">
-                <strong th:text="${successMessage}">Success!</strong>
-            </div>
-        </div>
-        <div class="col-sm-12 " >
-            <div class="alert alert-danger" th:if="${failMessage}">
-                <strong th:text="${failMessage}">Danger!</strong>
-            </div>
-        </div>
     </div>
 </div>
-
-<div class="modal fade" id="addHotelModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add Hotel</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <form th:id="add-hotel-form" th:action="@{/addhotel}" th:object="${hotel}" method="post" role="form" >
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter New Name" name="name"  th:field="*{name}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter New Description" name="description"  th:field="*{description}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter Address" name="address"  th:field="*{address}" >
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter City" name="city"  th:field="*{location}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter Longitude" name="longitude"   th:field="*{longitude}">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" tabindex="1" class="form-control" placeholder="Enter Latitude" name="latitude"  th:field="*{latitude}">
-                    </div>
-                </form>
-                <div id="map-leaflet" class="map col-sm-12" style="height: 500px;"></div>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" style="background-color: #4CAF50;" th:form="add-hotel-form">Add Hotel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<th:block th:each="h : ${hotelsList}">
-    <div class="modal fade" th:id="'editModal-' + ${h.getHotelID()}">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <div class="modal-body">
-                    <form th:id="'edit-form-' + ${h.getHotelID()}" th:action="@{'/edit/hotel/'+${h.getHotelID()}}"  method="post" role="form" >
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter New Name" name="name" th:value="${h.getName()}">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter New Descritpion" name="description" th:value="${h.getDescription()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter Address" name="address" th:value="${h.getAddress()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter City" name="location" th:value="${h.getLocation()}" >
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter Longitude" name="longitude"  th:value="${h.getLongitude()}" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Enter Latitude" name="latitude" th:value="${h.getLatitude()}" >
-                        </div>
-                        <input type="hidden" th:value="${h.getHotelID()}" >
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="s ubmit" class="btn btn-primary" style="background-color: #4CAF50;" th:form="'edit-form-' + ${h.getHotelID()}">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</th:block>
-
-
-
-
 </body>
 </html>
 </template>
 
 <script>
+import axios from 'axios';
+export default {
+    data() {
+        return {
+            hotels: []
+        }
+    },
+    methods: {
+        editHotel(hotelID) {
+            //console.log(userID);
+            this.$router.push({ name: 'edithotel', params: { hotelId: hotelID } })
 
-//     mapboxgl.accessToken = 'pk.eyJ1Ijoibm9yYTciLCJhIjoiY2pqc3ZhZjdvMDEycTNwbHB2YTliNHZhaiJ9.gaDdgUl4KTrCB_kvDVG-jA';
+            
+        },
+        deleteHotel(hotelID) {
+            axios.get("http://localhost:8765/hotel-management-service/delete/hotel", {
+                params : {
+                'hotelId' : hotelID
+            }
+        }).then (response => {
+            window.alert("Hotel deleted!");
+        }).catch(error => {
+            window.alert("Error deleting hotel!");
+        })
+        }
+    },
+    mounted () {
+        
+        axios.get("http://localhost:8765/hotel-management-service/hotels")
+        .then(response => {
+          //  console.log(JSON.stringify(response.data.users));
+            this.hotels = response.data.hotels;
 
-//     var atoken = 'pk.eyJ1Ijoibm9yYTciLCJhIjoiY2pqc3ZhZjdvMDEycTNwbHB2YTliNHZhaiJ9.gaDdgUl4KTrCB_kvDVG-jA';
-
-//     $('input[name="location"]').change(function() {
-
-//         //  var address = $('input[name="address"]').val();
-
-//         var city = $('input[name="location"]').val();
-
-//         var getBBoxURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + city + '.json?access_token=' + atoken;
-
-//         //Sarajevo.json?access_token=pk.eyJ1Ijoibm9yYTciLCJhIjoiY2pqc3ZhZjdvMDEycTNwbHB2YTliNHZhaiJ9.gaDdgUl4KTrCB_kvDVG-jA&country=ba'
-
-//         minX = 0;
-
-//         minY = 0;
-
-//         maxX = 0;
-
-//         maxY = 0;
-
-//         $.ajax({
-
-//             method: 'GET',
-
-//             url: getBBoxURL,
-
-//         }).done(function(data){
-
-//             //  console.log(data.features.bbox)
-
-//             minX = data.features[0].bbox[0];
-
-//             minY = data.features[0].bbox[1];
-
-//             maxX = data.features[0].bbox[2];
-
-//             maxY = data.features[0].bbox[3];
-
-//             console.log(minX + ',' + minY + ',' + maxX + ',' + maxY);
-
-//             //  $('input[name="address"]').change(function() {
-
-//             var address = $('input[name="address"]').val();
-
-//             var hotelAddressURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + ' ' + city + '.json?access_token=' + atoken + '&bbox=' + minX + ',' + minY + ',' + maxX + ',' + maxY;
-
-//             //ulica+marsala+tita+sarajevo.json?access_token=pk.eyJ1Ijoibm9yYTciLCJhIjoiY2pqc3ZhZjdvMDEycTNwbHB2YTliNHZhaiJ9.gaDdgUl4KTrCB_kvDVG-jA&bbox=' + minX + ',' + minY + ',' + maxX + ',' + maxY;
-
-//             $.ajax({
-//                 method: 'GET',
-//                 url: hotelAddressURL,
-//             }).done(function(data){
-//                 var listResults = data.features;
-//                 // console.log(data);
-//                 for(var i = 0; i < listResults.length; i++) {
-//                     console.log(listResults[i].center[0] + ' ' + listResults[i].center[1]);
-//                 }
-
-//                 var longitude = listResults[0].center[0];
-//                 //
-//                 var latitude = listResults[0].center[1];
-//                 console.log(latitude + ' ' + longitude);
-
-//                 $('input[name="longitude"]').val(longitude);
-//                 $('input[name="latitude"]').val(latitude);
-
-//                 var atoken = 'pk.eyJ1Ijoibm9yYTciLCJhIjoiY2pqc3ZhZjdvMDEycTNwbHB2YTliNHZhaiJ9.gaDdgUl4KTrCB_kvDVG-jA';
-
-//                 L.mapbox.accessToken = atoken;
-
-//                 console.log(listResults[0].center[1] + listResults[0].center[0]);
-
-//                 var mapLeaflet = L.mapbox.map('map-leaflet', 'mapbox.streets')
-
-//                     .setView([latitude, longitude], 15);
-
-//                 L.marker([latitude, longitude]).addTo(mapLeaflet);
-
-//                 mapLeaflet.scrollWheelZoom.disable();
-
-//             });
-
-//             //});
-
-//         });
-
-//     });
-
-//     // console.log(minX + ',' + minY + ',' + maxX + ',' + maxY);
-
-// 
+           
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+    
+}
+</script>
 </script>
 <style>
     .my-header {
