@@ -77,7 +77,11 @@ public class ReviewController {
 //                });
 //    }
 
-	
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hi() {
+        return "Hello from Review Service";
+	}
+		
     @RequestMapping(value = "/addNewReview", method = RequestMethod.GET)
     public String addReview() {
         Review review = new Review("simply the best", new Date(), null);

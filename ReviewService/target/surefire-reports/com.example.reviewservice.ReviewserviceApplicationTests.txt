@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.reviewservice.ReviewserviceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 51.633 s - in com.example.reviewservice.ReviewserviceApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.295 s - in com.example.reviewservice.ReviewserviceApplicationTests
